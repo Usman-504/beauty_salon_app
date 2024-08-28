@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../generated/assets.dart';
+import '../../../../../generated/assets.dart';
 
 List<Map<String, dynamic>> serviceCategories = [
   {

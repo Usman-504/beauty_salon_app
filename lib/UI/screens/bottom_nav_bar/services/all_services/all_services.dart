@@ -1,21 +1,21 @@
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_list.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/sub_services.dart';
+import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_list/services_list.dart';
+import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/sub_services/sub_services.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
-import '../../../components/custom_textfield.dart';
-import '../../../components/filter_icon.dart';
-import '../../../components/header.dart';
-import '../bottom_nav_screen/bottom_nav_bar.dart';
+import '../../../../components/custom_textfield.dart';
+import '../../../../components/filter_icon.dart';
+import '../../../../components/header.dart';
+import '../../bottom_nav_screen/bottom_nav_bar.dart';
 
-class ServiceCategories extends StatefulWidget {
-  const ServiceCategories({super.key});
+class AllServices extends StatefulWidget {
+  const AllServices({super.key});
 
   @override
-  State<ServiceCategories> createState() => _ServiceCategoriesState();
+  State<AllServices> createState() => _AllServicesState();
 }
 
-class _ServiceCategoriesState extends State<ServiceCategories> {
+class _AllServicesState extends State<AllServices> {
 
   @override
   Widget build(BuildContext context) {

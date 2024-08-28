@@ -1,12 +1,13 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/cart_screen.dart';
+import 'package:beauty_salon/UI/screens/cart_screen/cart_screen.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/constants/const_colors.dart';
-import '../../../components/image_container.dart';
-import 'cart_provider.dart';
+import '../../../../../core/constants/const_colors.dart';
+import '../../../../components/image_container.dart';
+import '../../book_appointment/book_appointment.dart';
+import '../../../cart_screen/cart_provider.dart';
 
 class ServiceDetails extends StatelessWidget {
   const ServiceDetails(
@@ -132,7 +133,9 @@ class ServiceDetails extends StatelessWidget {
                               height: heightX * 0.06,
                               width: widthX * 0.38,
                               text: 'Book Now',
-                              onPress: () {},
+                              onPress: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const BookAppointment()));
+                              },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
                                   fontSize: heightX * 0.022),

@@ -3,31 +3,31 @@ import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
-import '../book_appointment/book_appointment.dart';
-import '../home/home_screen.dart';
-import '../profile_screen/profile_screen.dart';
-import '../services/all_services/all_services.dart';
+import 'admin_bookings_screen.dart';
+import 'admin_categories_screen.dart';
+import 'admin_profile_screen.dart';
+import 'admin_services_screen.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class AdminBottomNavBar extends StatefulWidget {
+  const AdminBottomNavBar({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<AdminBottomNavBar> createState() => _AdminBottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
 
   List<Widget> screens = [
-    const HomeScreen(),
-    const AllServices(),
-    const  BookAppointment(),
-     ProfileScreen(),
+    const AdminCategoriesScreen(),
+    const AdminServicesScreen(),
+    const  AdminBookingsScreen(),
+    AdminProfileScreen(),
   ];
   List<TabItem> items = [
 
-    const TabItem(icon: Icons.home, title: 'Home'),
+    const TabItem(icon: Icons.home, title: 'Categories'),
     const TabItem(icon: Icons.filter_vintage_outlined, title: 'Services'),
-    const TabItem(icon: Icons.call_to_action, title: 'Appointment'),
+    const TabItem(icon: Icons.call_to_action, title: 'Bookings'),
     const TabItem(icon: Icons.account_circle, title:'Profile'),
   ];
   int selectedIndex = 0;
@@ -42,7 +42,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           setState(() {
             selectedIndex = index;
           });
-          
+
         },
         backgroundColor: kWhiteColor,
         items: items,

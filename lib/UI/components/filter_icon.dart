@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/const_colors.dart';
 import '../../generated/assets.dart';
-import '../screens/bottom_nav_bar/services/cart_screen.dart';
+import '../screens/cart_screen/cart_screen.dart';
 
 class ShoppingCart extends StatelessWidget {
   const ShoppingCart({

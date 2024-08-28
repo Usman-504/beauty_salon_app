@@ -2,14 +2,18 @@ import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_divider.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/image_container.dart';
+import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/auth/login_screen/login_screen.dart';
+import 'package:beauty_salon/UI/screens/auth/signup_screen/signup_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/core/constants/const_text.dart';
 import 'package:beauty_salon/generated/assets.dart';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 
@@ -21,11 +25,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-
+final signUpProvider = Provider.of<SignupProvider>(context);
     return Scaffold(
       backgroundColor: kContainerColor,
       body: SingleChildScrollView(
@@ -74,21 +80,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hintText: 'Enter Name',
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
+                      controller: signUpProvider.nameController,
+                      suffix: const Icon(Icons.person),
                     ),
                     CustomTextField(
                       hintText: 'Enter Email',
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
+                      controller: signUpProvider.emailController,
+                      suffix: const Icon(Icons.email_outlined),
                     ),
                     CustomTextField(
+                      keyBoardType: TextInputType.number,
                       hintText: 'Enter Mobile No',
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
+                      controller: signUpProvider.phoneNoController,
+                      suffix: const Icon(Icons.phone),
                     ),
                     CustomTextField(
                       hintText: 'Enter Password',
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
+                      controller: signUpProvider.passwordController,
+                      suffix: const Icon(Icons.password),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -100,12 +115,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: heightX * 0.06,
                         width: widthX * 0.8,
                         text: 'Sign Up',
-                        onPress: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const BottomNavBar()));
-                        }, borderRadius: heightX * 0.013, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025),
+                        onPress: () async{
+                          try {
+                            String? validation = signUpProvider.validation();
+                            if(validation != null){
+                              Utils().showSnackBar(context, validation );
+                            }
+
+                            else {
+                              String? error = await signUpProvider.signUp();
+                              if (error == null) {
+                                Utils().showSnackBar(context, 'Account Created Successfully');
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                           const  BottomNavBar()));
+                              }
+                              else {
+                                Utils().showSnackBar(context, error,);
+
+                              }
+                            }
+                          } catch (e) {
+                            Utils().showSnackBar(context, 'An unexpected error occurred. Please try again.',);
+                            debugPrint(e as String?) ;
+                          }
+                        },
+                        borderRadius: heightX * 0.013, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025),
                       ),
                     ),
                     Row(

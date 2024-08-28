@@ -10,12 +10,20 @@ class CustomTextField extends StatelessWidget {
   final double maxWidth;
   final double maxHeight;
   final Widget? prefix;
+  final Widget? suffix;
+  final int? maxLines;
+  final TextInputType? keyBoardType;
+  final TextEditingController? controller;
 
   const CustomTextField({
     required this.hintText,
     required this.maxWidth,
     required this.maxHeight,
+    this.maxLines,
+    this.keyBoardType,
+     this.controller,
    this.prefix,
+   this.suffix,
     super.key,
   });
 
@@ -30,10 +38,14 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: widthX * 0.04),
       child: TextField(
+        maxLines: maxLines,
+        keyboardType: keyBoardType,
+        controller: controller,
         style: smallTextStyle.copyWith(fontSize: heightX * 0.02),
         decoration: InputDecoration(
             hintText: hintText,
           prefixIcon: prefix,
+            suffixIcon: suffix,
             constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
             hintStyle: smallTextStyle.copyWith(color: Colors.grey, fontSize: heightX * 0.02),
             focusedBorder: OutlineInputBorder(

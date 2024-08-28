@@ -1,13 +1,13 @@
 import 'package:beauty_salon/UI/components/header.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/service_details.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_list.dart';
+import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_details/service_details.dart';
+import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_list/services_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/constants/const_colors.dart';
-import '../../../../core/constants/const_styles.dart';
-import '../../../components/filter_icon.dart';
-import 'fav_provider.dart';
+import '../../../../../core/constants/const_colors.dart';
+import '../../../../../core/constants/const_styles.dart';
+import '../../../../components/filter_icon.dart';
+import '../../../favourite/fav_provider.dart';
 
 class SubServices extends StatelessWidget {
   SubServices({required this.services, required this.text, super.key});
@@ -121,11 +121,11 @@ class SubServices extends StatelessWidget {
                                       ),
                                       GestureDetector(
                                         onTap: (){
-                                          favProvider.favItems.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
+                                          favProvider.favServices.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
                                         },
 
                                         child: Icon(
-                                          vm.favItems.contains(index) ? services[index]['staticIcon2'] : services[index]['staticIcon'],
+                                          vm.favServices.contains(index) ? services[index]['staticIcon2'] : services[index]['staticIcon'],
                                           size: heightX * 0.025,
                                           color: kButtonColor,
                                         ),

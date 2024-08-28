@@ -1,10 +1,10 @@
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/cart_screen.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_list.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:flutter/material.dart';
-
+import '../screens/data.dart';
+import '../screens/onboarding_screen/onboarding_screen.dart';
+import '../screens/splash_screen/splash_screen.dart';
 import 'custom_textfield.dart';
 import 'filter_icon.dart';
 
@@ -31,10 +31,15 @@ class Header extends StatelessWidget {
           left: widthX * 0.05,
           child: Row(
             children: [
-              Image.asset(
-                Assets.menuIcon,
-                color: kButtonColor,
-                height: heightX * 0.04,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const OnboardingScreen()));
+                },
+                child: Image.asset(
+                  Assets.menuIcon,
+                  color: kButtonColor,
+                  height: heightX * 0.04,
+                ),
               ),
               SizedBox(
                 width: widthX * 0.03,
@@ -61,9 +66,14 @@ class Header extends StatelessWidget {
         Positioned(
           left: widthX * 0.82,
           top: heightX * 0.067,
-          child: CircleAvatar(
-            radius: heightX * 0.025,
-            backgroundImage: const AssetImage(Assets.dp),
+          child: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Data()));
+            },
+            child: CircleAvatar(
+              radius: heightX * 0.025,
+              backgroundImage: const AssetImage(Assets.dp),
+            ),
           ),
         ),
         Positioned(

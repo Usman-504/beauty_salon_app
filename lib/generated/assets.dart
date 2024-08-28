@@ -59,5 +59,16 @@ class Assets {
  static const String sidraImage = 'assets/images/58.png';
  static const String hafsaStylistImage = 'assets/images/52.jpg';
  static const String hafsaImage = 'assets/images/59.png';
+ static const String shoppingCart = 'assets/icons/60.png';
+ static const String visaCard = 'assets/icons/61.png';
+ static const String masterCard = 'assets/icons/62.png';
+ static const String unionPayCard = 'assets/icons/63.png';
+ static const String tickIcon = 'assets/icons/64.png';
+ static const String beautilly = 'assets/icons/Beautilly.png';
+ static const String logo = 'assets/icons/Logo.png';
+ static const String homeScreenPic = 'assets/images/65.png';
+ static const String onBoarding1 = 'assets/images/66.png';
+ static const String onBoarding2 = 'assets/images/67.png';
+ static const String onBoarding3 = 'assets/images/68.png';
 
 }

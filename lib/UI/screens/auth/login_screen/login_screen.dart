@@ -2,14 +2,17 @@ import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_divider.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/image_container.dart';
+import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
+import 'package:beauty_salon/UI/screens/auth/login_screen/login_provider.dart';
 import 'package:beauty_salon/UI/screens/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/core/constants/const_text.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 
@@ -21,11 +24,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-
+final loginProvider = Provider.of<LoginProvider>(context);
     return Scaffold(
       backgroundColor: kContainerColor,
       body: SingleChildScrollView(
@@ -70,14 +76,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: heightX * 0.02,
                     ),
                     CustomTextField(
+                      suffix: const Icon(Icons.email_outlined),
+                      controller: loginProvider.emailController,
                       hintText: 'Enter Email',
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
                     ),
                     CustomTextField(
+                      controller: loginProvider.passwordController,
                       hintText: 'Enter Password',
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
+                      suffix: const Icon(Icons.password),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -99,11 +109,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: heightX * 0.06,
                         width: widthX * 0.8,
                         text: 'Login',
-                        onPress: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const BottomNavBar()));
+                        onPress: () async{
+                          try {
+                            String? validation = loginProvider.validation();
+                            if (validation != null){
+                              Utils().showSnackBar(context, validation);
+                            }
+                            else {
+                              String? error = await loginProvider.login();
+                              if(error == null){
+                                Utils().showSnackBar(context, 'Account Login Successfully');
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                           const BottomNavBar()));
+                              }
+                              else {
+                                Utils().showSnackBar(context, error);
+                              }
+                            }
+                          }
+                          catch (e){
+                            Utils().showSnackBar(context,
+                                'An unexpected error occurred. Please try again.');
+                            debugPrint(e as String?) ;
+                          }
+
                         },
                         borderRadius: heightX * 0.013,
                         style:
