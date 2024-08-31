@@ -96,7 +96,7 @@ class CancelBooking extends StatelessWidget {
                     SizedBox(
                       height: heightX * 0.03,
                     ),
-                    CustomButton(height: heightX * 0.07, width: widthX * 0.9, text: 'Cancel Booking', borderRadius: 10, onPress: (){}, style: mediumTextStyle)
+                    CustomButton(height: heightX * 0.07, width: widthX * 0.9, text: 'Cancel Booking', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kButtonColor,)
                   ],
                 ),
               ),

@@ -25,9 +25,9 @@ class Utils {
         content: Text(
           message,
           style:
-          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          const TextStyle(color: kButtonColor, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: kButtonColor,
+        backgroundColor: kCircleAvatorColor,
       ),
     );
   }

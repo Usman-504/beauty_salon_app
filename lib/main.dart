@@ -6,6 +6,7 @@ import 'package:beauty_salon/UI/screens/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'UI/screens/bookings/booking_provider.dart';
 import 'UI/screens/favourite/fav_provider.dart';
 import 'UI/screens/onboarding_screen/onboarding_provider.dart';
 import 'firebase_options.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> FavProvider()),
       ChangeNotifierProvider(create: (_)=> FavStylistsProvider()),
       ChangeNotifierProvider(create: (_)=> CartProvider()),
+      ChangeNotifierProvider(create: (_)=> BookingProvider()),
     ],
     child: const  MaterialApp(
       debugShowCheckedModeBanner: false,

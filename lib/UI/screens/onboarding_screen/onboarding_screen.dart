@@ -1,4 +1,5 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
+import 'package:beauty_salon/UI/screens/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/UI/screens/onboarding_screen/onboarding_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
@@ -25,31 +26,51 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           itemCount: onBoardingProvider.pageDetails.length,
           controller: onBoardingProvider.pageController,
           itemBuilder: (context, int index) {
-            return Container(
-              height: heightX * 1,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          onBoardingProvider.pageDetails[index]['bgImage']))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
+            return Stack(
+              children: [
+                Container(
+                  height: heightX * 1,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                          image: AssetImage(
+                              onBoardingProvider.pageDetails[index]['bgImage']))),
+
+                ),
+                Positioned(
+                  top: heightX * 0.65,
+                  left: widthX * 0.15,
+                  child: Text(
                     onBoardingProvider.pageDetails[index]['title'],
                     style: secondaryTextStyle.copyWith(shadows: boxShadow),
                   ),
-                  Padding(
-                    padding:  EdgeInsets.only(left: widthX * 0.06, right:  widthX * 0.06),
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      onBoardingProvider.pageDetails[index]['description'],
-                      style: smallTextStyle.copyWith(color: kWhiteColor, fontWeight: FontWeight.normal, shadows: boxShadow),
-                    ),
+                ),
+                Positioned(
+                  top: heightX * 0.7,
+                   left: widthX * 0.08,
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    onBoardingProvider.pageDetails[index]['description'],
+                    style: smallTextStyle.copyWith(color: kWhiteColor, fontWeight: FontWeight.normal, shadows: boxShadow),
                   ),
-                  CustomButton(
-                      height: heightX * 0.06, width: widthX * 0.9, text: onBoardingProvider.pageDetails[index]['btnText'], borderRadius: 25, onPress: (){}, style: mediumTextStyle),
-                  Row(
+                ),
+                Positioned(
+                  top: heightX * 0.78,
+                  left: widthX * 0.05,
+                  child: CustomButton(
+                    height: heightX * 0.06, width: widthX * 0.9, text: onBoardingProvider.pageDetails[index]['btnText'], borderRadius: 25, onPress: (){
+                      if(index != onBoardingProvider.pageDetails.length-1) {
+                        onBoardingProvider.nextPage();
+                      }
+                      else{ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                      }
+
+                  }, style: mediumTextStyle, btnColor: kButtonColor,),
+                ),
+                Positioned(
+                  top:  heightX *0.85,
+                  left: widthX * 0.13,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -57,14 +78,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: smallTextStyle.copyWith(
                             fontSize: heightX * 0.02,
                             fontWeight: FontWeight.normal,
-                        color: kWhiteColor),
+                            color: kWhiteColor),
                       ),
                       SizedBox(
                         width: widthX * 0.01,
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const LoginScreen()));
@@ -77,10 +98,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ],
                   ),
-                  TextButton(onPressed: (){}, child: Text('Skip', style: mediumTextStyle.copyWith(color: kWhiteColor, shadows: boxShadow),)),
-
-                ],
-              ),
+                ),
+                Positioned(
+                    top: heightX * 0.09,
+                    left: widthX * 0.75,
+                    child: TextButton(onPressed: (){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                    },
+                        child: Text('Skip', style: mediumTextStyle.copyWith(color: kButtonColor),))),
+                Positioned(
+                  bottom: heightX * 0.1,
+                  left: widthX * 0.5 - 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      onBoardingProvider.pageDetails.length,
+                          (index) => Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: onBoardingProvider.currentPage == index ? kButtonColor : Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             );
           }),
     );

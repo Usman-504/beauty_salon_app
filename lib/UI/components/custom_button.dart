@@ -11,6 +11,7 @@ class CustomButton extends StatelessWidget {
     required this.borderRadius,
     required this.onPress,
     required this.style,
+    required this.btnColor,
   });
 
   final double height;
@@ -19,6 +20,7 @@ class CustomButton extends StatelessWidget {
   final TextStyle style;
   final double borderRadius;
   final VoidCallback onPress;
+  final Color btnColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class CustomButton extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: kButtonColor,
+          color: btnColor,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child:  Center(

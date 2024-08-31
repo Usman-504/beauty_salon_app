@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => const AllServices()));
                                 },
                                 style: smallTextStyle.copyWith(
-                                    color: kWhiteColor)),
+                                    color: kWhiteColor), btnColor: kButtonColor,),
                           ),
                           Positioned(
                             left: widthX * 0.7,
@@ -275,9 +275,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         serviceCategories[0]
                                                                 ['services']
                                                             [index]['image'],
-                                                    price: serviceCategories[0]
+                                                    price: 'Rs. ${serviceCategories[0]
                                                             ['services'][index]
-                                                        ['price'],
+                                                        ['price']}/-',
                                                     description:
                                                         serviceCategories[0]
                                                                     ['services']
@@ -342,10 +342,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                Text(
-                                                  serviceCategories[0]
+                                                Text('Rs. ${serviceCategories[0]
                                                           ['services'][index]
-                                                      ['price'],
+                                                      ['price']}/-',
                                                   style:
                                                       smallTextStyle.copyWith(
                                                           color: kButtonColor,

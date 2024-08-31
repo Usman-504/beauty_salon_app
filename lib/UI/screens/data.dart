@@ -4,6 +4,7 @@ import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/constants/const_colors.dart';
 import '../../generated/assets.dart';
 
 class Data extends StatelessWidget {
@@ -64,7 +65,7 @@ class Data extends StatelessWidget {
                     print(e);
                       }
                 },
-                style: mediumTextStyle)
+                style: mediumTextStyle, btnColor: kButtonColor,)
           ],
         ),
       ),

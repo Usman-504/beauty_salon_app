@@ -134,11 +134,11 @@ class ServiceDetails extends StatelessWidget {
                               width: widthX * 0.38,
                               text: 'Book Now',
                               onPress: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const BookAppointment()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  BookAppointment(serviceIndex: index,)));
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.022),
+                                  fontSize: heightX * 0.022), btnColor: kButtonColor,
                             ),
                             CustomButton(
                               height: heightX * 0.06,
@@ -168,7 +168,7 @@ class ServiceDetails extends StatelessWidget {
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.022),
+                                  fontSize: heightX * 0.022), btnColor: kButtonColor,
                             ),
                           ],
                         );

@@ -70,5 +70,6 @@ class Assets {
  static const String onBoarding1 = 'assets/images/66.png';
  static const String onBoarding2 = 'assets/images/67.png';
  static const String onBoarding3 = 'assets/images/68.png';
+ static const String emptyBooking = 'assets/icons/69.png';
 
 }

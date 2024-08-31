@@ -72,8 +72,8 @@ class SubServices extends StatelessWidget {
                                           ['title'],
                                           imageUrl: services[index]
                                           ['image'],
-                                          price: services[index]
-                                          ['price'], description: services[index]['description'],
+                                          price: 'Rs. ${services[index]
+                                          ['price']}/-', description: services[index]['description'],
                                           favIcon: services[index]
                                         ['staticIcon'], index: services[index],
                                         )));
@@ -113,8 +113,7 @@ class SubServices extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Text(
-                                        services[index]['price'],
+                                      Text('Rs. ${services[index]['price']}/-',
                                         style: smallTextStyle.copyWith(
                                             color: kButtonColor,
                                             fontSize: heightX * 0.018),

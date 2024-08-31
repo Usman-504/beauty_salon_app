@@ -68,7 +68,7 @@ class _CartScreenState extends State<CartScreen> {
 
                       CustomButton(height: heightX * 0.06, width: widthX * 0.7, text: 'Add Service', borderRadius: 10, onPress: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const AllServices()));
-                      }, style: mediumTextStyle)
+                      }, style: mediumTextStyle, btnColor: kButtonColor,)
                     ],
                   ),
                 )
@@ -123,8 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                                               style: mediumTextStyle.copyWith(
                                                   color: kButtonColor),
                                             ),
-                                            Text(
-                                              cart.itemsList[index]['price'],
+                                            Text( 'Rs. ${cart.itemsList[index]['price']}/-',
                                               style: smallTextStyle,
                                             )
                                           ],
@@ -146,17 +145,17 @@ class _CartScreenState extends State<CartScreen> {
                             );
                           },
                         ),
-                        CustomButton(
-                          height: heightX * 0.06,
-                          width: widthX * 0.8,
-                          text: 'Checkout',
-                          onPress: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckoutScreen()));
-                          },
-                          borderRadius: heightX * 0.013,
-                          style: mediumTextStyle.copyWith(
-                              fontSize: heightX * 0.022),
-                        ),
+                        // CustomButton(
+                        //   height: heightX * 0.06,
+                        //   width: widthX * 0.8,
+                        //   text: 'Checkout',
+                        //   onPress: () {
+                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckoutScreen()));
+                        //   },
+                        //   borderRadius: heightX * 0.013,
+                        //   style: mediumTextStyle.copyWith(
+                        //       fontSize: heightX * 0.022),
+                        // ),
                       ],
                     ),
                   ),

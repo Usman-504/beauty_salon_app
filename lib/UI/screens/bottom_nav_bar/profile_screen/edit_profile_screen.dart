@@ -78,7 +78,7 @@ class EditProfileScreen extends StatelessWidget {
           CustomTextField(hintText: 'Update Name', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Update Email', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Update phone No', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
-          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){}, style: mediumTextStyle)
+          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kButtonColor,)
         ],
       ),
     );

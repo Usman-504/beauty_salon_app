@@ -3,8 +3,6 @@ import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/sub_services/sub
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
-import '../../../../components/custom_textfield.dart';
-import '../../../../components/filter_icon.dart';
 import '../../../../components/header.dart';
 import '../../bottom_nav_screen/bottom_nav_bar.dart';
 

@@ -1,5 +1,6 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
+import 'package:beauty_salon/UI/screens/bookings/booking_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List<Widget> screens = [
     const HomeScreen(),
     const AllServices(),
-    const  BookAppointment(),
+      BookingScreen(bookingDetails: {},),
      ProfileScreen(),
   ];
   List<TabItem> items = [
 
     const TabItem(icon: Icons.home, title: 'Home'),
     const TabItem(icon: Icons.filter_vintage_outlined, title: 'Services'),
-    const TabItem(icon: Icons.call_to_action, title: 'Appointment'),
+    const TabItem(icon: Icons.call_to_action, title: 'Bookings'),
     const TabItem(icon: Icons.account_circle, title:'Profile'),
   ];
   int selectedIndex = 0;

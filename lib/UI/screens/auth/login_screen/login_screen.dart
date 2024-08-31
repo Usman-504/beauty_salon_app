@@ -139,7 +139,7 @@ final loginProvider = Provider.of<LoginProvider>(context);
                         },
                         borderRadius: heightX * 0.013,
                         style:
-                            mediumTextStyle.copyWith(fontSize: heightX * 0.025),
+                            mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kButtonColor,
                       ),
                     ),
                     Row(
