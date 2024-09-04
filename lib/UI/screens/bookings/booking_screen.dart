@@ -1,4 +1,5 @@
 import 'package:beauty_salon/UI/screens/bookings/booking_provider.dart';
+import 'package:beauty_salon/UI/screens/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,18 +20,20 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+
   @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
+
     final bookingProvider = Provider.of<BookingProvider>(context);
     return Scaffold(
       backgroundColor: kContainerColor,
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
             },
             child: Icon(
               Icons.arrow_back,
@@ -51,12 +54,12 @@ class _BookingScreenState extends State<BookingScreen> {
             Text(
               'No booking yet',
               style: primaryTextStyle.copyWith(
-                  color: kButtonColor, fontSize: heightX * 0.04),
+                  color: kPrimaryColor, fontSize: heightX * 0.04),
             ),
             Text(textAlign: TextAlign.center,
               'When you book an service you can find your booking details here.',
               style: smallTextStyle.copyWith(
-                  color: kButtonColor,
+                  color: kPrimaryColor,
                   fontSize: heightX * 0.02,
                   fontWeight: FontWeight.normal),
             ),
@@ -66,7 +69,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
             CustomButton(height: heightX * 0.06, width: widthX * 0.7, text: 'Add Service', borderRadius: 10, onPress: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => const AllServices()));
-            }, style: mediumTextStyle, btnColor: kButtonColor,)
+            }, style: mediumTextStyle, btnColor: kPrimaryColor,)
           ],
         ),
       ) :
@@ -82,7 +85,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 right: widthX * 0.04),
             child: Text(
               'Upcoming Bookings',
-              style: mediumTextStyle.copyWith(color: kButtonColor),
+              style: mediumTextStyle.copyWith(color: kPrimaryColor),
             ),
           ),
 
@@ -95,7 +98,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   child: Container(
                     height: heightX * 0.12,
                     decoration: BoxDecoration(
-                      color: kCircleAvatorColor,
+                      color: kSecondaryColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
@@ -122,17 +125,17 @@ class _BookingScreenState extends State<BookingScreen> {
                               Text(
                                 bookingProvider.bookingList[index]['serviceName'],
                                 style: mediumTextStyle.copyWith(
-                                    color: kButtonColor),
+                                    color: kPrimaryColor),
                               ),
                               Text(
                                 bookingProvider.bookingList[index]['serviceType'],
                                 style: smallTextStyle.copyWith(
-                                    color: kButtonColor),
+                                    color: kPrimaryColor),
                               ),
                               Text(
                                 bookingProvider.bookingList[index]['date'],
                                 style: smallTextStyle.copyWith(
-                                    color: kButtonColor),
+                                    color: kPrimaryColor),
                               ),
                             ],
                           ),
@@ -140,11 +143,15 @@ class _BookingScreenState extends State<BookingScreen> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Icon(Icons.more_vert),
+                              GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => CancelBooking(title: bookingProvider.bookingList[index]['serviceName'], price: 'Rs. ${bookingProvider.bookingList[index]['totalPrice']}/-', imageUrl: bookingProvider.bookingList[index] ['image'], date: bookingProvider.bookingList[index]['date'], )));
+                                  },
+                                  child: const Icon(Icons.more_vert)),
                               Text(
                                 'Rs. ${bookingProvider.bookingList[index]['totalPrice']}/-',
                                 style: smallTextStyle.copyWith(
-                                    color: kButtonColor),
+                                    color: kPrimaryColor),
                               ),
                             ],
                           ),

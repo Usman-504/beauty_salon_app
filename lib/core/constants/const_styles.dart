@@ -19,7 +19,7 @@ var mediumTextStyle =  const TextStyle(
     fontWeight: FontWeight.bold);
 
 var smallTextStyle =  const TextStyle(
-    color: kButtonColor,
+    color: kPrimaryColor,
     fontSize:  15,
     fontWeight: FontWeight.bold);
 

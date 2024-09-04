@@ -14,7 +14,7 @@ class CustomDivider extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(widthX * 0.04),
         child: const Divider(
-          color: kButtonColor,
+          color: kPrimaryColor,
           thickness: 2,
         ),
       ),

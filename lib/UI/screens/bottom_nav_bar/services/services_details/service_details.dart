@@ -42,9 +42,9 @@ class ServiceDetails extends StatelessWidget {
           action: SnackBarAction(
             label: text,
             onPressed: onPress,
-            textColor: kButtonColor,
+            textColor: kPrimaryColor,
           ),
-          backgroundColor: kCircleAvatorColor,
+          backgroundColor: kSecondaryColor,
         ),
       );
     }
@@ -75,7 +75,7 @@ class ServiceDetails extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.arrow_back,
-                        color: kButtonColor,
+                        color: kPrimaryColor,
                       )))),
           Positioned(
             left: widthX * 0.05,
@@ -98,17 +98,17 @@ class ServiceDetails extends StatelessWidget {
                         Text(
                           title,
                           style: mediumTextStyle.copyWith(
-                              color: kButtonColor, fontSize: heightX * 0.03),
+                              color: kPrimaryColor, fontSize: heightX * 0.03),
                         ),
                         Icon(
                           favIcon,
-                          color: kButtonColor,
+                          color: kPrimaryColor,
                         )
                       ],
                     ),
                     Text(
                       price,
-                      style: smallTextStyle.copyWith(color: kCircleAvatorColor),
+                      style: smallTextStyle.copyWith(color: kSecondaryColor),
                     ),
                     SizedBox(
                       height: heightX * 0.03,
@@ -138,7 +138,7 @@ class ServiceDetails extends StatelessWidget {
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.022), btnColor: kButtonColor,
+                                  fontSize: heightX * 0.022), btnColor: kPrimaryColor,
                             ),
                             CustomButton(
                               height: heightX * 0.06,
@@ -168,7 +168,7 @@ class ServiceDetails extends StatelessWidget {
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.022), btnColor: kButtonColor,
+                                  fontSize: heightX * 0.022), btnColor: kPrimaryColor,
                             ),
                           ],
                         );

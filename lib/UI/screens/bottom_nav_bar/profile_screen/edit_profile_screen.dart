@@ -15,7 +15,7 @@ class EditProfileScreen extends StatelessWidget {
     var widthX = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -45,7 +45,7 @@ class EditProfileScreen extends StatelessWidget {
                  height: heightX * 0.18,
                  width: heightX * 0.18,
                  decoration: BoxDecoration(
-                     border: Border.all(color: kButtonColor, width: 3),
+                     border: Border.all(color: kPrimaryColor, width: 3),
                      shape: BoxShape.circle),
                ),
              ),
@@ -67,7 +67,7 @@ class EditProfileScreen extends StatelessWidget {
                  height: heightX * 0.05,
                  width: heightX * 0.05,
                  decoration: const BoxDecoration(
-                   color: kCircleAvatorColor,
+                   color: kSecondaryColor,
                    shape: BoxShape.circle,
                  ),
                  child: Icon(Icons.camera_alt, color: Colors.white,),
@@ -78,7 +78,7 @@ class EditProfileScreen extends StatelessWidget {
           CustomTextField(hintText: 'Update Name', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Update Email', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Update phone No', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
-          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kButtonColor,)
+          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kPrimaryColor,)
         ],
       ),
     );

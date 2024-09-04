@@ -31,9 +31,9 @@ class _BookAppointmentState extends State<BookAppointment> {
     var widthX = MediaQuery.of(context).size.width;
 print(widget.serviceIndex);
     return Scaffold(
-      backgroundColor: kWhiteColor,
+      backgroundColor: kScaffoldColor,
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -55,7 +55,7 @@ print(widget.serviceIndex);
           children: [
             Container(
               height: heightX * 0.2,
-              color: kContainerColor,
+              color: kWhiteColor,
               child: Column(
                 children: [
                   SizedBox(height: heightX * 0.025),
@@ -65,7 +65,7 @@ print(widget.serviceIndex);
                       DateTime.now(),
                       width: heightX * 0.11,
                       initialSelectedDate: DateTime.now(),
-                      selectionColor: kButtonColor,
+                      selectionColor: kPrimaryColor,
                       selectedTextColor: kWhiteColor,
                       onDateChange: (date) {
                         setState(() {
@@ -88,7 +88,7 @@ print(widget.serviceIndex);
                   top: heightX * 0.01),
               child: Text(
                 'Available Time Slots',
-                style: mediumTextStyle.copyWith(color: kButtonColor),
+                style: mediumTextStyle.copyWith(color: kPrimaryColor),
               ),
             ),
             Padding(
@@ -119,11 +119,11 @@ print(widget.serviceIndex);
                         child: Container(
                           decoration: BoxDecoration(
                               color: isSelected
-                                  ? kCircleAvatorColor
+                                  ? kSecondaryColor
                                   : kContainerColor,
                               borderRadius: BorderRadius.circular(5),
                               border:
-                                  Border.all(width: 2, color: kButtonColor)),
+                                  Border.all(width: 2, color: kPrimaryColor)),
                           child: Center(
                               child: Text(
                             timeSlot,
@@ -141,7 +141,7 @@ print(widget.serviceIndex);
                   top: heightX * 0.03),
               child: Text('Fill Out Your Details',
                   style: mediumTextStyle.copyWith(
-                      color: kButtonColor, fontSize: heightX * 0.024)),
+                      color: kPrimaryColor, fontSize: heightX * 0.024)),
             ),
             CustomTextField(
                 hintText: 'Enter Name',
@@ -179,11 +179,11 @@ print(widget.serviceIndex);
                     style: mediumTextStyle.copyWith(
                         fontSize: heightX * 0.022,
                         color: serviceType == 'Salon'
-                            ? kButtonColor
+                            ? kPrimaryColor
                             : kWhiteColor),
                     btnColor: serviceType == 'Salon'
-                        ? kCircleAvatorColor
-                        : kButtonColor,
+                        ? kSecondaryColor
+                        : kPrimaryColor,
                   ),
                   SizedBox(
                     width: widthX * 0.03,
@@ -202,10 +202,10 @@ print(widget.serviceIndex);
                     style: mediumTextStyle.copyWith(
                         fontSize: heightX * 0.022,
                         color:
-                            serviceType == 'Home' ? kButtonColor : kWhiteColor),
+                            serviceType == 'Home' ? kPrimaryColor : kWhiteColor),
                     btnColor: serviceType == 'Home'
-                        ? kCircleAvatorColor
-                        : kButtonColor,
+                        ? kSecondaryColor
+                        : kPrimaryColor,
                   ),
                 ],
               ),
@@ -257,7 +257,7 @@ print(widget.serviceIndex);
               },
               borderRadius: heightX * 0.013,
               style: mediumTextStyle.copyWith(fontSize: heightX * 0.022),
-              btnColor: kButtonColor,
+              btnColor: kPrimaryColor,
             )),
           ],
         ),

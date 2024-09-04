@@ -5,6 +5,7 @@ import 'package:beauty_salon/UI/components/image_container.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
+import 'package:beauty_salon/UI/screens/auth/auth_check.dart';
 import 'package:beauty_salon/UI/screens/auth/login_screen/login_provider.dart';
 import 'package:beauty_salon/UI/screens/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
@@ -32,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
 final loginProvider = Provider.of<LoginProvider>(context);
+print('Rebuild');
     return Scaffold(
       backgroundColor: kContainerColor,
       body: SingleChildScrollView(
@@ -119,11 +121,12 @@ final loginProvider = Provider.of<LoginProvider>(context);
                               String? error = await loginProvider.login();
                               if(error == null){
                                 Utils().showSnackBar(context, 'Account Login Successfully');
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                           const BottomNavBar()));
+                                AuthCheck().checkUserRoleAndNavigate(context);
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //            const BottomNavBar()));
                               }
                               else {
                                 Utils().showSnackBar(context, error);
@@ -139,7 +142,7 @@ final loginProvider = Provider.of<LoginProvider>(context);
                         },
                         borderRadius: heightX * 0.013,
                         style:
-                            mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kButtonColor,
+                            mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
                       ),
                     ),
                     Row(

@@ -61,9 +61,9 @@ class ProfileScreen extends StatelessWidget {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: kWhiteColor,
+        backgroundColor: kScaffoldColor,
         appBar: AppBar(
-          backgroundColor: kButtonColor,
+          backgroundColor: kPrimaryColor,
           leading: GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const BottomNavBar()));
@@ -87,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     height: heightX * 0.15,
                     decoration: BoxDecoration(
-                        color: kCircleAvatorColor,
+                        color: kSecondaryColor,
                         borderRadius: BorderRadius.circular(10)),
                   ),
                   Positioned(
@@ -97,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                       height: heightX * 0.13,
                       width: heightX * 0.13,
                       decoration: BoxDecoration(
-                          border: Border.all(color: kButtonColor, width: 3),
+                          border: Border.all(color: kPrimaryColor, width: 3),
                           shape: BoxShape.circle),
                     ),
                   ),
@@ -117,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                       left: widthX * 0.32,
                       child: Text(
                         'Mahnoor',
-                        style: secondaryTextStyle.copyWith(color: kButtonColor),
+                        style: secondaryTextStyle.copyWith(color: kPrimaryColor),
                       )),
                   Positioned(
                     top: heightX * 0.075,
@@ -136,7 +136,7 @@ class ProfileScreen extends StatelessWidget {
                         },
                           child: const Icon(
                         Icons.edit,
-                        color: kButtonColor,
+                        color: kPrimaryColor,
                       ))),
                 ],
               ),
@@ -154,7 +154,7 @@ class ProfileScreen extends StatelessWidget {
                         child: Container(
                           height: heightX * 0.09,
                           decoration: BoxDecoration(
-                            color: kCircleAvatorColor,
+                            color: kSecondaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: GestureDetector(
@@ -174,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
                             child: ListTile(
                               leading: Icon(
                                 info[index]['icon'],
-                                color: kButtonColor,
+                                color: kPrimaryColor,
                               ),
                               title: Text(
                                 info[index]['title'],

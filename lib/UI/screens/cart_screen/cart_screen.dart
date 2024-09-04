@@ -1,4 +1,5 @@
 
+import 'package:beauty_salon/UI/screens/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import 'package:beauty_salon/UI/screens/cart_screen/cart_provider.dart';
 import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/all_services/all_services.dart';
 import 'package:beauty_salon/UI/screens/checkout/checkout_screen.dart';
@@ -25,10 +26,10 @@ class _CartScreenState extends State<CartScreen> {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
             },
             child: Icon(
               Icons.arrow_back,
@@ -53,12 +54,12 @@ class _CartScreenState extends State<CartScreen> {
                       Text(
                         'Your Cart is empty',
                         style: primaryTextStyle.copyWith(
-                            color: kButtonColor, fontSize: heightX * 0.04),
+                            color: kPrimaryColor, fontSize: heightX * 0.04),
                       ),
                       Text(textAlign: TextAlign.center,
                         'You have no service in your shopping cart.\nLet\'s go and add a service',
                         style: smallTextStyle.copyWith(
-                            color: kButtonColor,
+                            color: kPrimaryColor,
                             fontSize: heightX * 0.02,
                             fontWeight: FontWeight.normal),
                       ),
@@ -68,7 +69,7 @@ class _CartScreenState extends State<CartScreen> {
 
                       CustomButton(height: heightX * 0.06, width: widthX * 0.7, text: 'Add Service', borderRadius: 10, onPress: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const AllServices()));
-                      }, style: mediumTextStyle, btnColor: kButtonColor,)
+                      }, style: mediumTextStyle, btnColor: kPrimaryColor,)
                     ],
                   ),
                 )
@@ -86,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: Container(
                                 height: heightX * 0.13,
                                 decoration: BoxDecoration(
-                                  color: kCircleAvatorColor,
+                                  color: kSecondaryColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Padding(
@@ -121,7 +122,7 @@ class _CartScreenState extends State<CartScreen> {
                                             Text(
                                               cart.itemsList[index]['title'],
                                               style: mediumTextStyle.copyWith(
-                                                  color: kButtonColor),
+                                                  color: kPrimaryColor),
                                             ),
                                             Text( 'Rs. ${cart.itemsList[index]['price']}/-',
                                               style: smallTextStyle,
@@ -136,7 +137,7 @@ class _CartScreenState extends State<CartScreen> {
                                           },
                                           child: const Icon(
                                             Icons.delete,
-                                            color: kButtonColor,
+                                            color: kPrimaryColor,
                                           ))
                                     ],
                                   ),

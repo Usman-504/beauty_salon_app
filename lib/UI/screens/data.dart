@@ -65,7 +65,7 @@ class Data extends StatelessWidget {
                     print(e);
                       }
                 },
-                style: mediumTextStyle, btnColor: kButtonColor,)
+                style: mediumTextStyle, btnColor: kPrimaryColor,)
           ],
         ),
       ),

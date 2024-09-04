@@ -62,10 +62,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       if(index != onBoardingProvider.pageDetails.length-1) {
                         onBoardingProvider.nextPage();
                       }
-                      else{ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                      else{ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
                       }
 
-                  }, style: mediumTextStyle, btnColor: kButtonColor,),
+                  }, style: mediumTextStyle, btnColor: kPrimaryColor,),
                 ),
                 Positioned(
                   top:  heightX *0.85,
@@ -103,9 +103,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     top: heightX * 0.09,
                     left: widthX * 0.75,
                     child: TextButton(onPressed: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
                     },
-                        child: Text('Skip', style: mediumTextStyle.copyWith(color: kButtonColor),))),
+                        child: Text('Skip', style: mediumTextStyle.copyWith(color: kPrimaryColor),))),
                 Positioned(
                   bottom: heightX * 0.1,
                   left: widthX * 0.5 - 20,
@@ -114,12 +114,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     children: List.generate(
                       onBoardingProvider.pageDetails.length,
                           (index) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
                         width: 8,
                         height: 8,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: onBoardingProvider.currentPage == index ? kButtonColor : Colors.grey,
+                          color: onBoardingProvider.currentPage == index ? kPrimaryColor : Colors.grey,
                         ),
                       ),
                     ),

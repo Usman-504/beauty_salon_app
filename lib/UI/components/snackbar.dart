@@ -11,7 +11,7 @@ class Utils {
           style:
               const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         action: SnackBarAction(
             label: text, textColor: Colors.white, onPressed: onPress),
       ),
@@ -25,9 +25,9 @@ class Utils {
         content: Text(
           message,
           style:
-          const TextStyle(color: kButtonColor, fontWeight: FontWeight.bold),
+          const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: kCircleAvatorColor,
+        backgroundColor: kSecondaryColor,
       ),
     );
   }

@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: kCircleAvatorColor,
+      backgroundColor: kSecondaryColor,
       body: Stack(
         children: [
           Container(
@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Positioned(
             left: widthX * 0.3,
               top: heightX * 0.48,
-              child: Image.asset(Assets.logo, color: kButtonColor,)),
+              child: Image.asset(Assets.logo, color: kPrimaryColor,)),
           Positioned(
               left: widthX * 0.47,
               top: heightX * 0.53,

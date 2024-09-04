@@ -31,13 +31,7 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  List<String> images = [
-    Assets.visaCard,
-    Assets.masterCard,
-    Assets.unionPayCard
-  ];
 
-  List<Color> borderColors = [Colors.blue, Colors.orange, Colors.red];
 
   int gstPrice = 49;
 
@@ -63,7 +57,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
-                  color: kButtonColor,
+                  color: kPrimaryColor,
                   Assets.tickIcon,
                   height: MediaQuery.of(context).size.height * 0.13,
                   fit: BoxFit.cover,
@@ -72,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   children: [
                     Text(
                       'Congratulations!',
-                      style: primaryTextStyle.copyWith(color: kButtonColor),
+                      style: primaryTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     Text(
                       textAlign: TextAlign.center,
@@ -81,9 +75,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                   ],
                 ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height * 0.025,
-                // ),
+
                 CustomButton(
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.7,
@@ -92,13 +84,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
 
 
-                    // checkoutDetailsList.add({
-                    //   'serviceName': widget.serviceName,
-                    //   'date': widget.date,
-                    //   'serviceType': widget.serviceType,
-                    //   'totalPrice': totalPrice,
-                    //   'image': widget.imageUrl,
-                    // });
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -107,7 +93,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   borderRadius: MediaQuery.of(context).size.height * 0.013,
                   style: mediumTextStyle.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.052),
-                  btnColor: kButtonColor,
+                  btnColor: kPrimaryColor,
                 ),
               ],
             ),
@@ -115,73 +101,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         });
   }
 
-  void _addCard() {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: kContainerColor,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(
-                        Icons.close,
-                        color: kButtonColor,
-                      ),
-                      Text(
-                        'Add New Card',
-                        style: mediumTextStyle.copyWith(color: kButtonColor),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                            hintText: 'Name on Card',
-                            constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width * 0.9,
-                                maxHeight:
-                                    MediaQuery.of(context).size.height * 0.06),
-                            hintStyle: smallTextStyle.copyWith(
-                                color: Colors.grey,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: kButtonColor)),
-                            enabledBorder: const UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: kButtonColor))),
-                      ),
-                      CustomButton(
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        text: 'Add Card',
-                        onPress: () {},
-                        borderRadius:
-                            MediaQuery.of(context).size.height * 0.013,
-                        style: mediumTextStyle.copyWith(
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.052),
-                        btnColor: kButtonColor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        });
-
-
-  }
 
 
 
@@ -192,8 +111,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     var widthX = MediaQuery.of(context).size.width;
     final bookingProvider = Provider.of<BookingProvider>(context);
     return Scaffold(
+      backgroundColor: kScaffoldColor,
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -218,8 +138,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 left: widthX * 0.04,
                 right: widthX * 0.04),
             child: Text(
-              'Payment Details',
-              style: mediumTextStyle.copyWith(color: kButtonColor),
+              'Appointment Details',
+              style: mediumTextStyle.copyWith(color: kPrimaryColor),
             ),
           ),
           Padding(
@@ -232,11 +152,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Service Name',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
                 Text(
                   widget.serviceName,
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
               ],
             ),
@@ -251,11 +171,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Service Price',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
                 Text(
                   'Rs. ${widget.servicePrice }/-',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
               ],
             ),
@@ -270,11 +190,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Date',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
                 Text(
                   widget.date,
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
               ],
             ),
@@ -289,11 +209,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Time',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
                 Text(
                   widget.time,
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
               ],
             ),
@@ -308,11 +228,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Service Type',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
                 Text(
                   widget.serviceType,
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
               ],
             ),
@@ -331,11 +251,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Sub Total',
-                  style: mediumTextStyle.copyWith(color: kButtonColor),
+                  style: mediumTextStyle.copyWith(color: kPrimaryColor),
                 ),
                 Text(
                   'Rs. ${widget.servicePrice}/-',
-                  style: mediumTextStyle.copyWith(color: kButtonColor),
+                  style: mediumTextStyle.copyWith(color: kPrimaryColor),
                 ),
               ],
             ),
@@ -350,11 +270,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'GST',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
                 Text(
                   'Rs. $gstPrice/-',
-                  style: mediumTextStyle.copyWith(color: kCircleAvatorColor),
+                  style: mediumTextStyle.copyWith(color: kSecondaryColor),
                 ),
               ],
             ),
@@ -373,64 +293,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 Text(
                   'Total',
-                  style: mediumTextStyle.copyWith(color: kButtonColor),
+                  style: mediumTextStyle.copyWith(color: kPrimaryColor),
                 ),
                 Text(
                  'Rs. $totalPrice/-',
-                  style: mediumTextStyle.copyWith(color: kButtonColor),
+                  style: mediumTextStyle.copyWith(color: kPrimaryColor),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: heightX * 0.03,
-                bottom: heightX * 0.01,
-                left: widthX * 0.04,
-                right: widthX * 0.04),
-            child: Text(
-              'Select Card',
-              style: mediumTextStyle.copyWith(color: kButtonColor),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04),
-              child: GridView.builder(
-                  itemCount: images.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 3 / 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        _addCard();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 2, color: borderColors[index]),
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            )),
-                        child: Image.asset(
-                          images[index],
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ),
+          Spacer(),
           Padding(
             padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04),
             child: CustomButton(
               height: heightX * 0.06,
               width: widthX * 0.9,
-              text: 'Pay Now',
+              text: 'Confirm Appointment',
               onPress: () {
                 checkoutDetailsMap['serviceName'] = widget.serviceName;
                 checkoutDetailsMap['date'] = widget.date;
@@ -447,7 +325,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               },
               borderRadius: heightX * 0.013,
               style: mediumTextStyle.copyWith(fontSize: heightX * 0.022),
-              btnColor: kButtonColor,
+              btnColor: kPrimaryColor,
             ),
           ),
         ],

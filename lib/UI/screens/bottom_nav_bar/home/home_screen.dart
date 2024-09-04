@@ -1,16 +1,11 @@
-import 'package:beauty_salon/UI/components/custom_button.dart';
+import 'package:beauty_salon/UI/components/custom_banner.dart';
 import 'package:beauty_salon/UI/components/header.dart';
-import 'package:beauty_salon/UI/screens/favourite/fav_stylists_provider.dart';
+import 'package:beauty_salon/UI/components/side_drawer.dart';
 import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/all_services/all_services.dart';
-import 'package:beauty_salon/UI/screens/stylists/all_stylists/all_stylists.dart';
-import 'package:beauty_salon/UI/screens/stylists/stylists_list/stylists_list.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../generated/assets.dart';
-import '../../stylists/stylists_details/stylists_details.dart';
 import '../../favourite/fav_provider.dart';
 import '../services/services_details/service_details.dart';
 import '../services/services_list/services_list.dart';
@@ -24,18 +19,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     final favProvider = Provider.of<FavProvider>(context, listen: false);
-    final favStylistsProvider =
-        Provider.of<FavStylistsProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: kWhiteColor,
+      key: _scaffoldKey,
+      drawer: const SideDrawer(),
+      backgroundColor: kScaffoldColor,
       body: Column(
         children: [
-          Header(),
+          Header(scaffoldKey: _scaffoldKey,),
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
@@ -53,67 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: Text(
                           'Exclusive Offers',
-                          style: mediumTextStyle.copyWith(color: kButtonColor),
+                          style: mediumTextStyle.copyWith(color: kPrimaryColor),
                         ),
                       ),
-                      Stack(
-                        children: [
-                          Container(
-                            height: heightX * 0.15,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kCircleAvatorColor,
-                            ),
-                          ),
-                          // Positioned(
-                          //   top: heightX * 0.005,
-                          //   left: widthX * 0.02,
-                          //   child: Text(
-                          //     'Upto 50%',
-                          //     style:
-                          //         mediumTextStyle.copyWith(color: kButtonColor),
-                          //   ),
-                          // ),
-                          Positioned(
-                            top: heightX * 0.015,
-                            left: widthX * 0.02,
-                            child: Text(
-                              'Look more beautiful and\nSave more discount.',
-                              style: smallTextStyle.copyWith(color: kWhiteColor),
-                            ),
-                          ),
-                          Positioned(
-                            top: heightX * 0.09,
-                            left: widthX * 0.02,
-                            child: CustomButton(
-                                height: heightX * 0.05,
-                                width: widthX * 0.4,
-                                text: 'Get offer now!',
-                                borderRadius: 10,
-                                onPress: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AllServices()));
-                                },
-                                style: smallTextStyle.copyWith(
-                                    color: kWhiteColor), btnColor: kButtonColor,),
-                          ),
-                          Positioned(
-                            left: widthX * 0.7,
-                            // right: widthX * 0.002,
-                            child: Container(
-                              height: heightX * 0.25,
-                              width: widthX * 0.25,
-                              decoration: BoxDecoration(
-                                color: kButtonColor,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                              top: heightX * 0.006,
-                              left: widthX * 0.57,
-                              child: Image.asset(Assets.homeScreenPic)),
-                        ],
-                      ),
+                      const CustomBanner(),
                       Padding(
                         padding: EdgeInsets.only(
                           top: heightX * 0.015,
@@ -142,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Icon(
                                     Icons.arrow_forward,
-                                    color: kButtonColor,
+                                    color: kPrimaryColor,
                                     size: heightX * 0.025,
                                   ),
                                 ],
@@ -180,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   decoration: BoxDecoration(
                                       color: kContainerColor,
                                       border: Border.all(
-                                          color: kButtonColor, width: 2),
+                                          color: kPrimaryColor, width: 2),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -188,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Image.asset(
                                         serviceCategories[index]['image'],
                                         height: heightX * 0.08,
-                                        color: kButtonColor,
+                                        color: kPrimaryColor,
                                       ),
                                       SizedBox(
                                         height: heightX * 0.01,
@@ -197,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         serviceCategories[index]['title'],
                                         style: mediumTextStyle.copyWith(
                                             fontSize: heightX * 0.025,
-                                            color: kButtonColor),
+                                            color: kPrimaryColor),
                                       ),
                                     ],
                                   ),
@@ -237,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Icon(
                                     Icons.arrow_forward,
-                                    color: kButtonColor,
+                                    color: kPrimaryColor,
                                     size: heightX * 0.025,
                                   ),
                                 ],
@@ -275,9 +215,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         serviceCategories[0]
                                                                 ['services']
                                                             [index]['image'],
-                                                    price: 'Rs. ${serviceCategories[0]
-                                                            ['services'][index]
-                                                        ['price']}/-',
+                                                    price:
+                                                        'Rs. ${serviceCategories[0]['services'][index]['price']}/-',
                                                     description:
                                                         serviceCategories[0]
                                                                     ['services']
@@ -296,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       decoration: BoxDecoration(
                                           color: kContainerColor,
                                           border: Border.all(
-                                              color: kButtonColor, width: 2),
+                                              color: kPrimaryColor, width: 2),
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       child: Column(
@@ -332,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Container(
                                             height: heightX * 0.027,
                                             decoration: const BoxDecoration(
-                                                color: kCircleAvatorColor,
+                                                color: kSecondaryColor,
                                                 borderRadius: BorderRadius.only(
                                                     bottomLeft:
                                                         Radius.circular(8),
@@ -342,12 +281,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                Text('Rs. ${serviceCategories[0]
-                                                          ['services'][index]
-                                                      ['price']}/-',
+                                                Text(
+                                                  'Rs. ${serviceCategories[0]['services'][index]['price']}/-',
                                                   style:
                                                       smallTextStyle.copyWith(
-                                                          color: kButtonColor,
+                                                          color: kPrimaryColor,
                                                           fontSize:
                                                               heightX * 0.016),
                                                 ),
@@ -372,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 [index]
                                                             ['staticIcon'],
                                                     size: heightX * 0.025,
-                                                    color: kButtonColor,
+                                                    color: kPrimaryColor,
                                                   ),
                                                 ),
                                               ],
@@ -386,138 +324,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                       ),
-                      // Padding(
-                      //   padding: EdgeInsets.only(
-                      //     top: heightX * 0.015,
-                      //     bottom: heightX * 0.015,
-                      //     left: heightX * 0.02,
-                      //     right: heightX * 0.02,
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       Text(
-                      //         'Top Stylists',
-                      //         style: smallTextStyle,
-                      //       ),
-                      //       GestureDetector(
-                      //         onTap: () {
-                      //           Navigator.push(
-                      //               context,
-                      //               MaterialPageRoute(
-                      //                   builder: (context) =>
-                      //                       const AllStylists()));
-                      //         },
-                      //         child: Row(
-                      //           children: [
-                      //             Text(
-                      //               'See all',
-                      //               style: smallTextStyle,
-                      //             ),
-                      //             Icon(
-                      //               Icons.arrow_forward,
-                      //               color: kButtonColor,
-                      //               size: heightX * 0.025,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // Expanded(
-                      //   child: Padding(
-                      //     padding: EdgeInsets.only(
-                      //         left: widthX * 0.03, right: widthX * 0.03),
-                      //     child: Consumer<FavStylistsProvider>(
-                      //       builder: (context, vm, child) {
-                      //         return GridView.builder(
-                      //             scrollDirection: Axis.horizontal,
-                      //             itemCount: stylists.length - 1,
-                      //             gridDelegate:
-                      //             const SliverGridDelegateWithFixedCrossAxisCount(
-                      //               crossAxisCount: 1,
-                      //               childAspectRatio: 2 / 2,
-                      //               mainAxisSpacing: 10,
-                      //               crossAxisSpacing: 10,
-                      //             ),
-                      //             itemBuilder: (context, int index) {
-                      //               return GestureDetector(
-                      //                 onTap: () {
-                      //                   Navigator.push(
-                      //                       context,
-                      //                       MaterialPageRoute(
-                      //                           builder: (context) => StylistsDetails(
-                      //                             name: stylists[index]['name'],
-                      //                             category: stylists[index]
-                      //                             ['category'],
-                      //                             image: stylists[index]['image'],
-                      //                             about: stylists[index]['about'],
-                      //                           )));
-                      //                 },
-                      //                 child: Container(
-                      //                   decoration: BoxDecoration(
-                      //                       color: kContainerColor,
-                      //                       border: Border.all(
-                      //                           color: kButtonColor, width: 2),
-                      //                       borderRadius: BorderRadius.circular(10)),
-                      //                   child: Column(
-                      //                     mainAxisAlignment:
-                      //                     MainAxisAlignment.spaceBetween,
-                      //                     children: [
-                      //                       Container(
-                      //                         height: heightX * 0.126,
-                      //                         decoration: BoxDecoration(
-                      //                           borderRadius: const BorderRadius.only(
-                      //                               topRight: Radius.circular(8),
-                      //                               topLeft: Radius.circular(8)),
-                      //                           image: DecorationImage(
-                      //                               fit: BoxFit.cover,
-                      //                               image: AssetImage(
-                      //                                   stylists[index]['image'])),
-                      //                         ),
-                      //                       ),
-                      //                       Container(
-                      //                         height: heightX * 0.027,
-                      //                         width: widthX * 0.5,
-                      //                         decoration: const BoxDecoration(
-                      //                             color: kCircleAvatorColor,
-                      //                             borderRadius: BorderRadius.only(
-                      //                                 bottomLeft: Radius.circular(8),
-                      //                                 bottomRight:
-                      //                                 Radius.circular(8))),
-                      //                         child: Row(
-                      //                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //                           children: [
-                      //                             Text(
-                      //                               stylists[index]['name'],
-                      //                               style: smallTextStyle.copyWith(
-                      //                                   color: kButtonColor,
-                      //                                   fontSize: heightX * 0.023),
-                      //                             ),
-                      //                             GestureDetector(
-                      //                               onTap: (){
-                      //                                 favStylistsProvider.favStylists.contains(index) ? favStylistsProvider.removeItem(index) : favStylistsProvider.addItem(index);
-                      //                               },
-                      //
-                      //                               child: Icon(
-                      //                                 vm.favStylists.contains(index) ? stylists[index]['staticIcon2'] : stylists[index]['staticIcon'],
-                      //                                 size: heightX * 0.025,
-                      //                                 color: kButtonColor,
-                      //                               ),
-                      //                             ),
-                      //                           ],
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               );
-                      //             });
-                      //       },
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -529,3 +335,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

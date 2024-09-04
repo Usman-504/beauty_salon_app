@@ -48,12 +48,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
         backgroundColor: kWhiteColor,
         items: items,
         colorSelected: kWhiteColor,
-        color: kButtonColor,
+        color: kPrimaryColor,
         indexSelected: selectedIndex,
         animated: false,
 
         itemStyle: ItemStyle.circle,
-        chipStyle: const ChipStyle(background: kButtonColor),
+        chipStyle: const ChipStyle(background: kPrimaryColor),
         titleStyle: smallTextStyle.copyWith(fontSize: heightX *0.015),
 
       ),

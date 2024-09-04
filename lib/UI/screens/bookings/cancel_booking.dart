@@ -3,14 +3,24 @@ import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../../core/constants/const_colors.dart';
 import '../../components/image_container.dart';
+import 'booking_provider.dart';
 
 
 class CancelBooking extends StatelessWidget {
+
+  final String imageUrl;
+  final String title;
+  final String price;
+  final String date;
   const CancelBooking(
       {
-
+        required this.imageUrl,
+        required this.title,
+        required this.price,
+        required this.date,
         super.key});
 
 
@@ -20,22 +30,7 @@ class CancelBooking extends StatelessWidget {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
 
-    void showSnackBar(String message, Function() onPress, String text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            message,
-            style: smallTextStyle,
-          ),
-          action: SnackBarAction(
-            label: text,
-            onPressed: onPress,
-            textColor: kButtonColor,
-          ),
-          backgroundColor: kCircleAvatorColor,
-        ),
-      );
-    }
+    final bookingProvider = Provider.of<BookingProvider>(context);
 
     return Scaffold(
       backgroundColor: kContainerColor,
@@ -46,7 +41,7 @@ class CancelBooking extends StatelessWidget {
           ),
           ImageContainer(
             height: heightX * 0.6,
-            imageUrl: Assets.classicManicureImage,
+            imageUrl: imageUrl,
           ),
           Positioned(
               top: heightX * 0.05,
@@ -63,7 +58,7 @@ class CancelBooking extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.arrow_back,
-                        color: kButtonColor,
+                        color: kPrimaryColor,
                       )))),
           Positioned(
             left: widthX * 0.05,
@@ -81,22 +76,27 @@ class CancelBooking extends StatelessWidget {
                       height: heightX * 0.03,
                     ),
                     Text(
-                      'Classic Manicure',
+                      title,
                       style: mediumTextStyle.copyWith(
-                          color: kButtonColor, fontSize: heightX * 0.03),
+                          color: kPrimaryColor, fontSize: heightX * 0.03),
                     ),
                     Text(
-                      '2499',
-                      style: smallTextStyle.copyWith(color: kCircleAvatorColor),
+                      price,
+                      style: smallTextStyle.copyWith(color: kSecondaryColor),
                     ),
                     SizedBox(
                       height: heightX * 0.03,
                     ),
-                    Text('22 October 2024',style: primaryTextStyle.copyWith(color: kButtonColor),),
+                    Text(date,style: primaryTextStyle.copyWith(color: kPrimaryColor),),
                     SizedBox(
                       height: heightX * 0.03,
                     ),
-                    CustomButton(height: heightX * 0.07, width: widthX * 0.9, text: 'Cancel Booking', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kButtonColor,)
+                    CustomButton(height: heightX * 0.07, width: widthX * 0.9, text: 'Cancel Booking', borderRadius: 10, onPress: (){
+                      bookingProvider.deleteItem(title);
+                      Navigator.pop(context);
+
+
+                    }, style: mediumTextStyle, btnColor: kPrimaryColor,)
                   ],
                 ),
               ),

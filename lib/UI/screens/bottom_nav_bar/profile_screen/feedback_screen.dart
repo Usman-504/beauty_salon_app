@@ -15,7 +15,7 @@ class FeedbackScreen extends StatelessWidget {
     var widthX = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -36,7 +36,7 @@ class FeedbackScreen extends StatelessWidget {
           CustomTextField(hintText: 'Your Name', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Your Email', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Your Message', maxWidth: widthX * 0.9, maxHeight: heightX * 0.5, maxLines: 5,),
-          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Send', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kButtonColor,)
+          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Send', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kPrimaryColor,)
         ],
       ),
     );

@@ -15,7 +15,7 @@ class ChangePasswordScreen extends StatelessWidget {
     var widthX = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kButtonColor,
+        backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -36,7 +36,7 @@ class ChangePasswordScreen extends StatelessWidget {
           CustomTextField(hintText: 'Old Password', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'New Password', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
           CustomTextField(hintText: 'Confirm New Password', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
-          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kButtonColor,)
+          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kPrimaryColor,)
         ],
       ),
     );

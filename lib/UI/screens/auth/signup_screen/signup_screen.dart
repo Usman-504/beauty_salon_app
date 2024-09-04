@@ -142,7 +142,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                             debugPrint(e as String?) ;
                           }
                         },
-                        borderRadius: heightX * 0.013, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kButtonColor,
+                        borderRadius: heightX * 0.013, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
                       ),
                     ),
                     Row(

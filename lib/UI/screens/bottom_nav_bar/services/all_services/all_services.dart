@@ -4,6 +4,7 @@ import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 import '../../../../components/header.dart';
+import '../../../../components/side_drawer.dart';
 import '../../bottom_nav_screen/bottom_nav_bar.dart';
 
 class AllServices extends StatefulWidget {
@@ -19,12 +20,15 @@ class _AllServicesState extends State<AllServices> {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-      backgroundColor: kWhiteColor,
+      key: _scaffoldKey,
+      drawer: const SideDrawer(),
+      backgroundColor: kScaffoldColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Header(),
+            Header(scaffoldKey: _scaffoldKey,),
           Padding(
             padding: EdgeInsets.only(left: widthX * 0.04, top: heightX * 0.02),
             child: Row(
@@ -39,14 +43,14 @@ class _AllServicesState extends State<AllServices> {
                     child: Icon(
                       Icons.arrow_back,
                       size: heightX * 0.04,
-                      color: kButtonColor,
+                      color: kPrimaryColor,
                     )),
                 SizedBox(
                   width: widthX * 0.03,
                 ),
                 Text('All Services',
                     style: secondaryTextStyle.copyWith(
-                        color: kButtonColor, fontSize: heightX * 0.03)),
+                        color: kPrimaryColor, fontSize: heightX * 0.03)),
               ],
             ),
           ),
@@ -69,7 +73,7 @@ class _AllServicesState extends State<AllServices> {
                       child: Container(
                         decoration: BoxDecoration(
                             color: kContainerColor,
-                            border: Border.all(color: kButtonColor, width: 2),
+                            border: Border.all(color: kPrimaryColor, width: 2),
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +81,7 @@ class _AllServicesState extends State<AllServices> {
                             Image.asset(
                               serviceCategories[index]['image'],
                               height: heightX * 0.11,
-                              color: kButtonColor,
+                              color: kPrimaryColor,
                             ),
                             SizedBox(
                               height: heightX * 0.02,
@@ -85,7 +89,7 @@ class _AllServicesState extends State<AllServices> {
                             Text(
                               serviceCategories[index]['title'],
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.025, color: kButtonColor),
+                                  fontSize: heightX * 0.025, color: kPrimaryColor),
                             ),
                           ],
                         ),

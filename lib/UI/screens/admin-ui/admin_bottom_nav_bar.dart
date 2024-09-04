@@ -18,7 +18,7 @@ class AdminBottomNavBar extends StatefulWidget {
 class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
 
   List<Widget> screens = [
-    const AdminCategoriesScreen(),
+     AdminCategoriesScreen(),
     const AdminServicesScreen(),
     const  AdminBookingsScreen(),
     AdminProfileScreen(),
@@ -47,12 +47,12 @@ class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
         backgroundColor: kWhiteColor,
         items: items,
         colorSelected: kWhiteColor,
-        color: kButtonColor,
+        color: kPrimaryColor,
         indexSelected: selectedIndex,
         animated: false,
 
         itemStyle: ItemStyle.circle,
-        chipStyle: const ChipStyle(background: kButtonColor),
+        chipStyle: const ChipStyle(background: kPrimaryColor),
         titleStyle: smallTextStyle.copyWith(fontSize: heightX *0.015),
 
       ),

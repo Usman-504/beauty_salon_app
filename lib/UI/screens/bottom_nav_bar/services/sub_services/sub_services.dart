@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 import '../../../../../core/constants/const_colors.dart';
 import '../../../../../core/constants/const_styles.dart';
 import '../../../../components/filter_icon.dart';
+import '../../../../components/side_drawer.dart';
 import '../../../favourite/fav_provider.dart';
+import '../all_services/all_services.dart';
 
 class SubServices extends StatelessWidget {
   SubServices({required this.services, required this.text, super.key});
@@ -19,31 +21,34 @@ class SubServices extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final favProvider = Provider.of<FavProvider>(context, listen: false);
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const SideDrawer(),
       backgroundColor: Colors.white,
       body: Column(
         children: [
-         Header(),
+         Header(scaffoldKey: _scaffoldKey,),
           Padding(
             padding: EdgeInsets.only(left: widthX * 0.04, top: heightX * 0.02),
             child: Row(
               children: [
                 GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AllServices()));
                     },
                     child:  Icon(
                       Icons.arrow_back,
                       size: heightX * 0.04,
-                      color: kButtonColor,
+                      color: kPrimaryColor,
                     )),
                 SizedBox(
                   width: widthX * 0.03,
                 ),
                 Text(text,
                     style: mediumTextStyle.copyWith(
-                        color: kButtonColor, fontSize: heightX * 0.03)),
+                        color: kPrimaryColor, fontSize: heightX * 0.03)),
               ],
             ),
           ),
@@ -81,7 +86,7 @@ class SubServices extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                                 color: kContainerColor,
-                                border: Border.all(color: kButtonColor, width: 2),
+                                border: Border.all(color: kPrimaryColor, width: 2),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,7 +112,7 @@ class SubServices extends StatelessWidget {
                                 Container(
                                   height: heightX * 0.035,
                                   decoration: const BoxDecoration(
-                                      color: kCircleAvatorColor,
+                                      color: kSecondaryColor,
                                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
                                   ),
                                   child: Row(
@@ -115,7 +120,7 @@ class SubServices extends StatelessWidget {
                                     children: [
                                       Text('Rs. ${services[index]['price']}/-',
                                         style: smallTextStyle.copyWith(
-                                            color: kButtonColor,
+                                            color: kPrimaryColor,
                                             fontSize: heightX * 0.018),
                                       ),
                                       GestureDetector(
@@ -126,7 +131,7 @@ class SubServices extends StatelessWidget {
                                         child: Icon(
                                           vm.favServices.contains(index) ? services[index]['staticIcon2'] : services[index]['staticIcon'],
                                           size: heightX * 0.025,
-                                          color: kButtonColor,
+                                          color: kPrimaryColor,
                                         ),
                                       ),
                                     ],
