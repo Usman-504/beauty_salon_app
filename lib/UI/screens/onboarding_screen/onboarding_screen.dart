@@ -1,12 +1,13 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/screens/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/UI/screens/onboarding_screen/onboarding_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../auth/login_screen/login_screen.dart';
+import '../User_ui/auth/login_screen/login_screen.dart';
+import '../User_ui/auth/signup_screen/signup_screen.dart';
+
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -93,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Text(
                           'Login Now',
                           style: smallTextStyle.copyWith(
-                              fontSize: heightX * 0.02),
+                              fontSize: widthX * 0.042),
                         ),
                       ),
                     ],

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:flutter/material.dart';
 import '../../../generated/assets.dart';
-import '../auth/auth_check.dart';
+import '../User_ui/auth/auth_check.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

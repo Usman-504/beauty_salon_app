@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/const_colors.dart';
-import '../../generated/assets.dart';
 
 class Data extends StatelessWidget {
   Data({super.key});

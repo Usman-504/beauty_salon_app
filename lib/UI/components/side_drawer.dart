@@ -1,18 +1,18 @@
-import 'package:beauty_salon/UI/screens/bookings/booking_screen.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/home/home_screen.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/profile_screen/about_us_screen.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/profile_screen/privacy_screen.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/services_list/services_list.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/services/sub_services/sub_services.dart';
-import 'package:beauty_salon/UI/screens/cart_screen/cart_screen.dart';
+
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/auth/login_screen/login_screen.dart';
+import '../screens/User_ui/auth/login_screen/login_screen.dart';
+import '../screens/User_ui/bookings/booking_screen.dart';
+import '../screens/User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
+import '../screens/User_ui/bottom_nav_bar/profile_screen/about_us_screen.dart';
+import '../screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
+import '../screens/User_ui/bottom_nav_bar/services/services_list/services_list.dart';
+import '../screens/User_ui/bottom_nav_bar/services/sub_services/sub_services.dart';
+import '../screens/User_ui/cart_screen/cart_screen.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -28,15 +28,15 @@ class SideDrawer extends StatelessWidget {
         // padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: kPrimaryColor,
               // image: DecorationImage(
               //   fit: BoxFit.cover,
               //     image: AssetImage(Assets.mahnoorStylistImage)),
             ),
-            accountName: Text('Mahnoor'),
-            accountEmail: Text('Abc123@gmail.com'),
-            currentAccountPicture: CircleAvatar(
+            accountName: Text('Mahnoor', style: smallTextStyle.copyWith(color: kContainerColor),),
+            accountEmail: Text('Abc123@gmail.com', style: smallTextStyle.copyWith(color: kContainerColor),),
+            currentAccountPicture: const CircleAvatar(
               backgroundImage: AssetImage(
                 Assets.mahnoorStylistImage,
               ),
@@ -47,21 +47,21 @@ class SideDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.home),
+                    leading: const Icon(Icons.home),
                     title: Text(
                       'Home',
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
                     },
                   ),
                   ExpansionTile(
                     iconColor: kPrimaryColor,
                   
-                   childrenPadding: EdgeInsets.only(left: 28),
+                   childrenPadding: const EdgeInsets.only(left: 28),
                     title: Text('All Services', style: mediumTextStyle.copyWith(color: kPrimaryColor),),
-                  leading: Icon(Icons.filter_vintage_outlined),
+                  leading: const Icon(Icons.filter_vintage_outlined),
                   
                     children: [
                       SizedBox(
@@ -89,17 +89,17 @@ class SideDrawer extends StatelessWidget {
                     ],
                   ),
                   ListTile(
-                    leading: Icon(Icons.shopping_cart_rounded),
+                    leading: const Icon(Icons.shopping_cart_rounded),
                     title: Text(
                       'Cart',
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CartScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CartScreen()));
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.call_to_action),
+                    leading: const Icon(Icons.call_to_action),
                     title: Text(
                       'Booking',
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
@@ -109,27 +109,27 @@ class SideDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.info_outlined),
+                    leading: const Icon(Icons.info_outlined),
                     title: Text(
                       'About Us',
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AboutUsScreen()));
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.privacy_tip_outlined),
+                    leading: const Icon(Icons.privacy_tip_outlined),
                     title: Text(
                       'Privacy',
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PrivacyScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PrivacyScreen()));
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.logout),
+                    leading: const Icon(Icons.logout),
                     title: Text(
                       'Logout',
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),

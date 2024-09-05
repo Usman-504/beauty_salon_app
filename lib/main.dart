@@ -1,15 +1,19 @@
-import 'package:beauty_salon/UI/screens/admin-ui/add_category_provider.dart';
-import 'package:beauty_salon/UI/screens/auth/login_screen/login_provider.dart';
-import 'package:beauty_salon/UI/screens/auth/signup_screen/signup_provider.dart';
-import 'package:beauty_salon/UI/screens/cart_screen/cart_provider.dart';
-import 'package:beauty_salon/UI/screens/favourite/fav_stylists_provider.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/add_category/add_category_provider.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/update_category/update_category_provider.dart';
 import 'package:beauty_salon/UI/screens/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'UI/screens/bookings/booking_provider.dart';
-import 'UI/screens/favourite/fav_provider.dart';
+import 'UI/screens/User_ui/auth/login_screen/login_provider.dart';
+import 'UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
+import 'UI/screens/User_ui/bookings/booking_provider.dart';
+import 'UI/screens/User_ui/cart_screen/cart_provider.dart';
+import 'UI/screens/User_ui/favourite/fav_provider.dart';
+import 'UI/screens/User_ui/favourite/fav_stylists_provider.dart';
+import 'UI/screens/admin-ui/add_service/add_service_provider.dart';
+import 'UI/screens/admin-ui/all_services/admin_services_provider.dart';
 import 'UI/screens/onboarding_screen/onboarding_provider.dart';
 import 'firebase_options.dart';
 
@@ -42,7 +46,11 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> FavStylistsProvider()),
       ChangeNotifierProvider(create: (_)=> CartProvider()),
       ChangeNotifierProvider(create: (_)=> BookingProvider()),
+      ChangeNotifierProvider(create: (_)=> AllCategoriesProvider()),
       ChangeNotifierProvider(create: (_)=> AddCategoryProvider()),
+      ChangeNotifierProvider(create: (_)=> UpdateCategoryProvider()),
+      ChangeNotifierProvider(create: (_)=> AdminServicesProvider()),
+      ChangeNotifierProvider(create: (_)=> AddServiceProvider()),
     ],
     child: const  MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/const_colors.dart';
-import '../../generated/assets.dart';
-import '../screens/cart_screen/cart_provider.dart';
-import '../screens/cart_screen/cart_screen.dart';
+import '../screens/User_ui/cart_screen/cart_provider.dart';
+import '../screens/User_ui/cart_screen/cart_screen.dart';
 
 class ShoppingCart extends StatelessWidget {
   const ShoppingCart({
@@ -28,13 +27,14 @@ class ShoppingCart extends StatelessWidget {
           padding: EdgeInsets.all(heightX * 0.016),
           child: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> CartScreen(
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const CartScreen(
               )));
             },
               child: Center(
                 child: Badge(
+                  backgroundColor: kSecondaryColor,
                   label: Text(cart.itemsList.length.toString()),
-                  child: Icon(
+                  child: const Icon(
                               Icons.shopping_cart_rounded,
                               color: kWhiteColor,
                             ),

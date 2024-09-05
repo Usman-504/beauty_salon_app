@@ -1,11 +1,8 @@
-
-import 'package:beauty_salon/UI/components/side_drawer.dart';
-import 'package:beauty_salon/UI/screens/bottom_nav_bar/profile_screen/profile_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:flutter/material.dart';
-import '../screens/data.dart';
+import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_screen.dart';
 
 import 'custom_textfield.dart';
 import 'filter_icon.dart';
@@ -49,7 +46,7 @@ required this.scaffoldKey,
               Text(
                 'Hi There',
                 style: mediumTextStyle.copyWith(
-                    fontSize: heightX * 0.027, color: kPrimaryColor),
+                    fontSize: widthX * 0.058, color: kPrimaryColor),
               ),
               SizedBox(
                 width: widthX * 0.4,
@@ -82,6 +79,7 @@ required this.scaffoldKey,
           top: heightX * 0.15,
           child: CustomTextField(
             hintText: 'Find Services',
+
             maxWidth: widthX * 0.75,
             maxHeight: heightX * 0.065,
             prefix: const Icon(Icons.search),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/constants/const_colors.dart';
 import '../../core/constants/const_styles.dart';
 import '../../generated/assets.dart';
-import '../screens/bottom_nav_bar/services/all_services/all_services.dart';
+import '../screens/User_ui/bottom_nav_bar/services/all_services/all_services.dart';
 import 'custom_button.dart';
 
 class CustomBanner extends StatelessWidget {

@@ -38,7 +38,7 @@ class SocialContainer extends StatelessWidget {
             SizedBox(
               width: widthX * 0.02,
             ),
-            Text(text, style: mediumTextStyle.copyWith(fontSize: heightX*0.024, color: kPrimaryColor),)
+            Text(text, style: mediumTextStyle.copyWith(fontSize: widthX*0.05, color: kPrimaryColor),)
             //H2(text: text, color: kButtonColor),
           ],
         ),

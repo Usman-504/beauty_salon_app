@@ -41,13 +41,13 @@ class CustomTextField extends StatelessWidget {
         maxLines: maxLines,
         keyboardType: keyBoardType,
         controller: controller,
-        style: smallTextStyle.copyWith(fontSize: heightX * 0.02),
+        style: smallTextStyle.copyWith(fontSize: widthX * 0.042),
         decoration: InputDecoration(
             hintText: hintText,
           prefixIcon: prefix,
             suffixIcon: suffix,
             constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
-            hintStyle: smallTextStyle.copyWith(color: Colors.grey, fontSize: heightX * 0.02),
+            hintStyle: smallTextStyle.copyWith(color: Colors.grey, fontSize: widthX * 0.042),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
