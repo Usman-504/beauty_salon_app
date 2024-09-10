@@ -9,11 +9,13 @@ import 'package:provider/provider.dart';
 import 'UI/screens/User_ui/auth/login_screen/login_provider.dart';
 import 'UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'UI/screens/User_ui/bookings/booking_provider.dart';
+import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'UI/screens/User_ui/cart_screen/cart_provider.dart';
 import 'UI/screens/User_ui/favourite/fav_provider.dart';
 import 'UI/screens/User_ui/favourite/fav_stylists_provider.dart';
 import 'UI/screens/admin-ui/add_service/add_service_provider.dart';
 import 'UI/screens/admin-ui/all_services/admin_services_provider.dart';
+import 'UI/screens/admin-ui/update_services/update_services_provider.dart';
 import 'UI/screens/onboarding_screen/onboarding_provider.dart';
 import 'firebase_options.dart';
 
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> UpdateCategoryProvider()),
       ChangeNotifierProvider(create: (_)=> AdminServicesProvider()),
       ChangeNotifierProvider(create: (_)=> AddServiceProvider()),
+      ChangeNotifierProvider(create: (_)=> UpdateServicesProvider()),
+      ChangeNotifierProvider(create: (_)=> ProfileProvider()),
     ],
     child: const  MaterialApp(
       debugShowCheckedModeBanner: false,

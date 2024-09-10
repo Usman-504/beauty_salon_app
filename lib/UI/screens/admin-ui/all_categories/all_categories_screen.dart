@@ -1,11 +1,13 @@
 import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
 import 'package:beauty_salon/UI/screens/admin-ui/update_category/update_category_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
+import 'package:beauty_salon/global_doc_id.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/constants/const_styles.dart';
 import '../add_category/add_category.dart';
 import '../add_category/add_category_provider.dart';
 
@@ -22,7 +24,7 @@ class AllCategoriesScreen extends StatelessWidget {
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context);
     final addCategoriesProvider = Provider.of<AddCategoryProvider>(context);
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: kScaffoldColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
@@ -61,66 +63,73 @@ class AllCategoriesScreen extends StatelessWidget {
             if (snapshot != null && snapshot.data != null) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                          color: kSecondaryColor,
-                          child: ListTile(
-                            leading: ColorFiltered(
-                              colorFilter: ColorFilter.mode(kPrimaryColor, BlendMode.srcATop),
-                              child: Image(image: NetworkImage(snapshot
-                                          .data!.docs[index]['image_url'])),
-                            ),
-                            title: Text(
-                              snapshot.data!.docs[index].id,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            // subtitle: Text(
-                            //   snapshot.data.docs[index]['Account Password'],
-                            //   style: const TextStyle(
-                            //     color: Colors.white,
-                            //   ),
-                            // ),
-                            trailing: SizedBox(
-                              width: 70,
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  UpdateCategoryScreen(categoryName: snapshot.data!.docs[index].id, docId: snapshot.data!.docs[index].id, imageUrl: snapshot.data!.docs[index]['image_url'],
+child: GridView.builder(
+    itemCount: snapshot.data!.docs.length,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      childAspectRatio: 2 / 2,
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
+    ),
+    itemBuilder: (context, int index) {
+      return Container(
+        decoration: BoxDecoration(
+            color: kContainerColor,
+            border: Border.all(color: kPrimaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  UpdateCategoryScreen(categoryName: snapshot.data!.docs[index]['category_name'],  imageUrl: snapshot.data!.docs[index]['image_url'], catId: snapshot.data!.docs[index].id,
 
-                                                  )));
-                                    },
-                                    child: const Icon(
-                                      Icons.edit,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-allCategoriesProvider.deleteCategory(snapshot.data.docs[index].id);
-                                    },
-                                    child: const Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ));
-                    }),
+                                  )));
+                    },
+                    child: const Icon(
+                      Icons.edit,
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      allCategoriesProvider.deleteCategory(snapshot.data.docs[index].id);
+                    },
+                    child: const Icon(
+                      Icons.delete,
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ColorFiltered(
+                colorFilter: const ColorFilter.mode(kPrimaryColor, BlendMode.srcATop),
+                child: Image.network(snapshot.data!.docs[index]['image_url'], height: heightX * 0.11,)),
+            SizedBox(
+              height: heightX * 0.02,
+            ),
+            Text(allCategoriesProvider.capitalizeFirstLetter(snapshot.data!.docs[index]['category_name'],),
+
+              style: mediumTextStyle.copyWith(
+                  fontSize: widthX * 0.052, color: kPrimaryColor),
+            ),
+          ],
+        ),
+      );
+    }),
               );
             }
             return const CircularProgressIndicator();

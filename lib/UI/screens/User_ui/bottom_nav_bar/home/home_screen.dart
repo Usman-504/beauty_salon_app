@@ -105,16 +105,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, int index) {
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => SubServices(
-                                                services:
-                                                    serviceCategories[index]
-                                                        ['services'],
-                                                text: serviceCategories[index]
-                                                    ['title'],
-                                              )));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => SubServices(
+                                  //               services:
+                                  //                   serviceCategories[index]
+                                  //                       ['services'],
+                                  //               text: serviceCategories[index]
+                                  //                   ['title'],
+                                  //             )));
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -159,15 +159,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SubServices(
-                                              services: serviceCategories[4]
-                                                  ['services'],
-                                              text: serviceCategories[4]
-                                                  ['title'],
-                                            )));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => SubServices(
+                                //               services: serviceCategories[4]
+                                //                   ['services'],
+                                //               text: serviceCategories[4]
+                                //                   ['title'],
+                                //             )));
                               },
                               child: Row(
                                 children: [

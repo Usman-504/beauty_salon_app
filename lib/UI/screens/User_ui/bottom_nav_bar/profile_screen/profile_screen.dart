@@ -1,7 +1,10 @@
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../core/constants/const_colors.dart';
 import '../../../../../generated/assets.dart';
 import '../../auth/login_screen/login_screen.dart';
@@ -11,9 +14,14 @@ import 'change_password.dart';
 import 'edit_profile_screen.dart';
 import 'feedback_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final List<Map<String, dynamic>> info = [
     {
       'title': 'Change Password',
@@ -56,9 +64,16 @@ class ProfileScreen extends StatelessWidget {
   ];
 
   @override
+  void initState(){
+    super.initState();
+    Provider.of<ProfileProvider>(context, listen: false).fetchUserDetails();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
+    final profileProvider = Provider.of<ProfileProvider>(context);
     return Scaffold(
         backgroundColor: kScaffoldColor,
         appBar: AppBar(
@@ -115,15 +130,15 @@ class ProfileScreen extends StatelessWidget {
                       top: heightX * 0.04,
                       left: widthX * 0.32,
                       child: Text(
-                        'Mahnoor',
+                        profileProvider.name!,
                         style: secondaryTextStyle.copyWith(color: kPrimaryColor),
                       )),
                   Positioned(
                     top: heightX * 0.075,
                     left: widthX * 0.32,
                     child: Text(
-                      'Mahnoor123@gmail.com',
-                      style: smallTextStyle,
+                      profileProvider.email!,
+                      style: smallTextStyle.copyWith(fontSize: 12),
                     ),
                   ),
                   Positioned(

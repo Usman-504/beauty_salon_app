@@ -1,3 +1,5 @@
+import 'package:beauty_salon/UI/screens/User_ui/auth/login_screen/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AdminProfileScreen extends StatelessWidget {
@@ -6,7 +8,12 @@ class AdminProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Profile'),
+      body: Center(child: GestureDetector(
+          onTap: (){
+            FirebaseAuth.instance.signOut();
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
+          child: Text('Profile'))),
     );
   }
 }

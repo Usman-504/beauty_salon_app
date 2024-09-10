@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:beauty_salon/core/constants/const_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../generated/assets.dart';
 import '../User_ui/auth/auth_check.dart';
@@ -14,31 +15,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   AuthCheck authCheck = AuthCheck();
 
+  User? user = FirebaseAuth.instance.currentUser ;
   @override
   void initState(){
     super.initState();
     Timer(const Duration(seconds: 3), (){
-      authCheck.checkUserRoleAndNavigate(context);
+      user != null ?
+      authCheck.checkUserRole(context) : authCheck.signInUser(context) ;
     });
   }
-
-  // void checkUserRoleAndNavigate() async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //
-  //   if (user != null) {
-  //     DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('user').doc(user.uid).get();
-  //
-  //     String role = userDoc.get('role');
-  //
-  //     if (role == 'admin') {
-  //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AdminBottomNavBar()));
-  //     } else {
-  //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
-  //     }
-  //   } else {
-  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-  //   }
-  // }
 
 @override
   Widget build(BuildContext context) {

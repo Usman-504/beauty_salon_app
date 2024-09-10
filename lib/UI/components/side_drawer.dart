@@ -80,7 +80,7 @@ class SideDrawer extends StatelessWidget {
                                   style:smallTextStyle.copyWith(color: kPrimaryColor),
                                 ),
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SubServices(services: serviceCategories[index]['services'], text: serviceCategories[index]['title'])));
+                                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SubServices(services: serviceCategories[index]['services'], text: serviceCategories[index]['title'])));
                                 },
                               );
                             }),

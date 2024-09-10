@@ -135,7 +135,7 @@ print('Rebuild');
                           catch (e){
                             Utils().showSnackBar(context,
                                 'An unexpected error occurred. Please try again.');
-                            debugPrint(e as String?) ;
+                            debugPrint(e.toString()) ;
                           }
 
                         },

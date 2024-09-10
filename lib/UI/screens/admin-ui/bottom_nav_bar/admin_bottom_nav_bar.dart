@@ -18,15 +18,15 @@ class AdminBottomNavBar extends StatefulWidget {
 class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
 
   List<Widget> screens = [
+    AdminServicesScreen(),
      AllCategoriesScreen(),
-     AdminServicesScreen(),
     const  AdminBookingsScreen(),
     AdminProfileScreen(),
   ];
   List<TabItem> items = [
 
-    const TabItem(icon: Icons.home, title: 'Categories'),
-    const TabItem(icon: Icons.filter_vintage_outlined, title: 'Services'),
+    const TabItem(icon: Icons.home, title: 'Services'),
+    const TabItem(icon: Icons.filter_vintage_outlined, title: 'Categories'),
     const TabItem(icon: Icons.call_to_action, title: 'Bookings'),
     const TabItem(icon: Icons.account_circle, title:'Profile'),
   ];

@@ -26,6 +26,10 @@ class AddServiceProvider with ChangeNotifier {
 
   String? _selectedCategory;
   String? get selectedCategory => _selectedCategory;
+  set selectedCategory(String? selectedItem) {
+    _selectedCategory = selectedItem;
+    notifyListeners();  // Notify listeners whenever the category is changed
+  }
 
   void clearFields() {
     serviceNameController.clear();
@@ -108,7 +112,7 @@ class AddServiceProvider with ChangeNotifier {
 
   void dropDownCategory (String? selectedItem){
     _selectedCategory = selectedItem;
-    _selectedCategory = selectedItem;
+
     notifyListeners();
   }
 

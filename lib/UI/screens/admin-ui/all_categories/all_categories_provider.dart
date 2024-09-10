@@ -8,25 +8,45 @@ import '../../User_ui/auth/login_screen/login_screen.dart';
 
 class AllCategoriesProvider with ChangeNotifier{
 
+
   Stream<QuerySnapshot> getServices() {
   return FirebaseFirestore.instance
-      .collection('services')
-  // .where('user_id', isEqualTo: currentUser!.uid) // Uncomment if needed
-      .snapshots();
+      .collection('services').snapshots();
+
+}
+
+  Stream<QuerySnapshot> getSubServices(catId) {
+  return FirebaseFirestore.instance
+      .collection('services').doc(catId).collection('subServices').snapshots();
+
 }
 
 
-  List<String> _categoryList = [];
+late  List<String> _categoryList = [];
   List<String> get categoryList => _categoryList;
 
+  late  List<String> _categoryNameList = [];
+  List<String> get categoryNameList => _categoryNameList;
 
-  void getCategories() {
-    FirebaseFirestore.instance.collection('services').snapshots().listen((snapshot) {
-      _categoryList = snapshot.docs.map((doc) => doc.id).toList();
+
+void getCategoryName(catId) async{
+ DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('services').doc(catId).get();
+  
+ String categoryName = documentSnapshot.get('category_name');
+ categoryNameList.add(categoryName);
+ notifyListeners();
+
+}
+
+
+  void getCategories() async {
+   await FirebaseFirestore.instance.collection('services').snapshots().listen((snapshot) {
+      _categoryList = snapshot.docs.map((doc) => doc.id).toList() ;
+
+      notifyListeners();
       print(categoryList);
     });
   }
-
 
 void logout(BuildContext context){
 
@@ -36,25 +56,76 @@ void logout(BuildContext context){
     notifyListeners();
   }
 
-  void deleteCategory (String docId) async {
-
-    //String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+  void deleteCategory(String docId, ) async {
     DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('services')
         .doc(docId)
         .get();
+
+
     if (doc.exists) {
       String path = doc.get('image_path');
 
-      if(path.isNotEmpty){
+      if (path.isNotEmpty) {
         await FirebaseStorage.instance.ref(path).delete();
       }
-      await FirebaseFirestore.instance
-          .collection('services')
-          .doc(docId)
-          .delete();
+
+      // Delete all documents in the subcollection
+      Future<void> deleteSubCollection(String docId, String subcollectionName) async {
+        var subcollection = FirebaseFirestore.instance
+            .collection('services')
+            .doc(docId)
+            .collection(subcollectionName);
+        var querySnapshot = await subcollection.get();
+
+        // Iterate over all documents in the subcollection and delete them
+        for (var document in querySnapshot.docs) {
+          if(document.exists && document.data().containsKey('image_path')){
+            String subImagePath = document.get('image_path');
+            if(subImagePath.isNotEmpty){
+              await FirebaseStorage.instance.ref(subImagePath).delete();
+            }
+          }
+          await document.reference.delete();
+        }
+      }
+
+      Future<void> deleteDocumentAndSubCollections(String docId) async {
+        // Delete the 'subServices' subcollection
+        await deleteSubCollection(docId, 'subServices');
+
+        // After subcollection is deleted, delete the main document
+        await FirebaseFirestore.instance.collection('services').doc(docId).delete();
+      }
+
+      await deleteDocumentAndSubCollections(docId);
+    }
+  }
+
+
+  // String capitalizeFirstLetter(String text) {
+  //   if (text.isEmpty) return text;  // Return if the string is empty
+  //   return text[0].toUpperCase() + text.substring(1).toLowerCase();
+  // }
+
+  String capitalizeFirstLetter(String text) {
+    if (text.isEmpty) return text;  // Return if the string is empty
+
+    // Split the string by spaces or underscores
+    List<String> words = text.split(RegExp(r'[\s_]+'));
+
+    // Capitalize the first letter of each word
+    for (int i = 0; i < words.length; i++) {
+      if (words[i].isNotEmpty) {
+        words[i] = words[i][0].toUpperCase() + words[i].substring(1).toLowerCase();
+      }
     }
 
+    // Join the words back into a single string with spaces
+    return words.join(' ');
   }
+
+
+
 
 }
