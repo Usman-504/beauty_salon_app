@@ -58,6 +58,7 @@ class AddServiceProvider with ChangeNotifier {
     if (_imageUrl.isNotEmpty) {
       await FirebaseFirestore.instance.collection('services').doc(docId).collection('subServices').doc(serviceNameController.text.trim().toLowerCase()).
       set({
+        'service_name' : serviceNameController.text.trim(),
         'service_price' : servicePriceController.text.trim(),
         'service_description' : serviceDescriptionController.text.trim(),
         'image_url': _imageUrl,
@@ -95,21 +96,21 @@ class AddServiceProvider with ChangeNotifier {
     }
   }
 
-  void deleteImage(String docId) async {
-    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-    DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection('Passwords')
-        .doc(docId)
-        .get();
-    if (doc.exists) {
-      String path = doc['images/${uniqueFileName}'];
-
-      if(path.isNotEmpty){
-        await FirebaseStorage.instance.ref().delete();
-      }
-    }
-  }
-
+  // void deleteImage(String docId) async {
+  //   String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+  //   DocumentSnapshot doc = await FirebaseFirestore.instance
+  //       .collection('Passwords')
+  //       .doc(docId)
+  //       .get();
+  //   if (doc.exists) {
+  //     String path = doc['images/${uniqueFileName}'];
+  //
+  //     if(path.isNotEmpty){
+  //       await FirebaseStorage.instance.ref().delete();
+  //     }
+  //   }
+  // }
+  //
   void dropDownCategory (String? selectedItem){
     _selectedCategory = selectedItem;
 

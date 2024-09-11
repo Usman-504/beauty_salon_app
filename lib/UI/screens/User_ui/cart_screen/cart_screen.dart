@@ -108,9 +108,9 @@ class _CartScreenState extends State<CartScreen> {
                                                 BorderRadius.circular(10),
                                             image: DecorationImage(
                                                 fit: BoxFit.cover,
-                                                image: AssetImage(
+                                                image: NetworkImage(
                                                     cart.itemsList[index]
-                                                        ['image']))),
+                                                        ['image_url']))),
                                       ),
                                       SizedBox(
                                         width: widthX * 0.47,
@@ -121,11 +121,11 @@ class _CartScreenState extends State<CartScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              cart.itemsList[index]['title'],
+                                              cart.itemsList[index]['service_name'],
                                               style: mediumTextStyle.copyWith(
                                                   color: kPrimaryColor),
                                             ),
-                                            Text( 'Rs. ${cart.itemsList[index]['price']}/-',
+                                            Text( 'Rs. ${cart.itemsList[index]['service_price']}/-',
                                               style: smallTextStyle,
                                             )
                                           ],

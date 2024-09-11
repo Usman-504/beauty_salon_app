@@ -241,15 +241,17 @@ print(widget.serviceIndex);
                 else {
                   String formattedDate =
                   DateFormat('dd/MM/yyyy').format(selectedDate);
+                  var StringPrice = widget.serviceIndex['service_price'];
+                  var price = int.tryParse(StringPrice);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => CheckoutScreen(
-                            serviceName: widget.serviceIndex['title'],
-                            servicePrice: widget.serviceIndex['price'],
+                            serviceName: widget.serviceIndex['service_name'],
+                            servicePrice: price!,
                             time: selectedTimeSlot!,
                             date: formattedDate,
-                            serviceType: serviceType!, imageUrl: widget.serviceIndex['image'],
+                            serviceType: serviceType!, imageUrl: widget.serviceIndex['image_url'],
                           )));
                 }
 

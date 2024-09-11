@@ -117,7 +117,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 BorderRadius.circular(10),
                                 image:  DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
+                                    image: NetworkImage(
                                         bookingProvider.bookingList[index] ['image']))),
                           ),
                           Column(

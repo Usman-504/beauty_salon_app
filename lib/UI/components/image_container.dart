@@ -16,7 +16,7 @@ class ImageContainer extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         image: DecorationImage(
-            fit: BoxFit.cover, image: AssetImage(imageUrl)),
+            fit: BoxFit.cover, image: NetworkImage(imageUrl)),
       ),
     );
   }

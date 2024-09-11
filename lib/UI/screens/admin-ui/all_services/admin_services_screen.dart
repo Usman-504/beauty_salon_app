@@ -145,9 +145,9 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          UpdateServicesScreen(serviceName: snapshot.data!.docs[index].id, imageUrl: snapshot
+                                                          UpdateServicesScreen(serviceName: snapshot.data!.docs[index]['service_name'], imageUrl: snapshot
                                                               .data!.docs[index]
-                                                          ['image_url'], categoryName: catId, price: snapshot.data!.docs[index]['service_price'], description: snapshot.data!.docs[index]['service_description'],
+                                                          ['image_url'], categoryName: catId, price: snapshot.data!.docs[index]['service_price'], description: snapshot.data!.docs[index]['service_description'], docId: snapshot.data!.docs[index].id,
 
                                                           )));
                                             },
@@ -175,8 +175,8 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
                                   // SizedBox(
                                   //   height: heightX * 0.02,
                                   // ),
-                                  Text(
-                                      allCategoriesProvider.capitalizeFirstLetter(snapshot.data!.docs[index].id),
+                                  Text(snapshot.data!.docs[index]['service_name'],
+                                     // allCategoriesProvider.capitalizeFirstLetter(snapshot.data!.docs[index].id),
                                     style: smallTextStyle.copyWith(
                                         fontSize: widthX * 0.042),
                                   ),

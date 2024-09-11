@@ -16,7 +16,7 @@ class ServiceDetails extends StatelessWidget {
       required this.price,
       required this.description,
       required this.favIcon,
-      required this.index,
+        required this.index,
       super.key});
 
   final String imageUrl;
@@ -67,7 +67,7 @@ class ServiceDetails extends StatelessWidget {
                   height: heightX * 0.047,
                   width: widthX * 0.1,
                   decoration: BoxDecoration(
-                      color: kWhiteColor,
+                      color: kSecondaryColor,
                       borderRadius: BorderRadius.circular(heightX * 0.03)),
                   child: GestureDetector(
                       onTap: () {

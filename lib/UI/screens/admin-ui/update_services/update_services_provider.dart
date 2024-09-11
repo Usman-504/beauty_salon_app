@@ -32,27 +32,28 @@ class UpdateServicesProvider with ChangeNotifier {
         .collection('services')
         .doc(catId).collection('subServices').doc(docId)
         .update({
+      'service_name' : serviceNameController.text.trim(),
       'service_price': price.text.trim(),
       'service_description': description.text.trim(),
     });
 
 
-    String serviceName = serviceNameController.text.trim().toLowerCase();
-
-    bool isNameChanged = serviceName.isNotEmpty && serviceName != docId;
-
-    if (isNameChanged) {
-      await FirebaseFirestore.instance
-          .collection('services')
-          .doc(catId).collection('subServices').doc(serviceName)
-          .set(Map<String, dynamic>.from(document.data() as Map));
-
-      await FirebaseFirestore.instance
-          .collection('services')
-          .doc(catId).collection('subServices').doc(docId)
-          .delete();
-
-    }
+    // String serviceName = serviceNameController.text.trim().toLowerCase();
+    //
+    // bool isNameChanged = serviceName.isNotEmpty && serviceName != docId;
+    //
+    // if (isNameChanged) {
+    //   await FirebaseFirestore.instance
+    //       .collection('services')
+    //       .doc(catId).collection('subServices').doc(serviceName)
+    //       .set(Map<String, dynamic>.from(document.data() as Map));
+    //
+    //   await FirebaseFirestore.instance
+    //       .collection('services')
+    //       .doc(catId).collection('subServices').doc(docId)
+    //       .delete();
+    //
+    // }
 
 
 
@@ -70,7 +71,7 @@ class UpdateServicesProvider with ChangeNotifier {
       if (_imageNewUrl.isNotEmpty) {
         FirebaseFirestore.instance
             .collection('services')
-            .doc(catId).collection('subServices').doc(serviceName)
+            .doc(catId).collection('subServices').doc(docId)
             .update({
           'image_url': _imageNewUrl,
           'image_path': _imagePath,

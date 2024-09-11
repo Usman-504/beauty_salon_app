@@ -1,4 +1,5 @@
 import 'package:beauty_salon/UI/components/header.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/all_services/admin_services_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../core/constants/const_colors.dart';
@@ -10,11 +11,12 @@ import '../all_services/all_services.dart';
 import '../services_details/service_details.dart';
 
 class SubServices extends StatelessWidget {
-  SubServices({ required this.text, required this.subServices, super.key});
+  SubServices({ required this.text, required this.subServices, required this.catId, super.key});
 
  // List<Map<String, dynamic>> services = [];
   Stream subServices;
   String text;
+  String catId;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class SubServices extends StatelessWidget {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final favProvider = Provider.of<FavProvider>(context, listen: false);
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context);
+    final allServicesProvider = Provider.of<AdminServicesProvider>(context);
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
@@ -85,20 +88,23 @@ class SubServices extends StatelessWidget {
                           ),
                           itemBuilder: (context, int index) {
                             return GestureDetector(
-                              onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             ServiceDetails(
-                                //               title:  allCategoriesProvider.capitalizeFirstLetter( snapshot.data!.docs[index].id)
-                                //               imageUrl: services[index]
-                                //               ['image'],
-                                //               price: 'Rs. ${services[index]
-                                //               ['price']}/-', description: services[index]['description'],
-                                //               favIcon: services[index]
-                                //               ['staticIcon'], index: services[index],
-                                //             )));
+                              onTap: () async{
+                                Map<String, dynamic>? documentData = await allServicesProvider.fetchDocumentAsMap(catId, snapshot.data!.docs[index].id);
+                                if (documentData != null){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ServiceDetails(
+                                                title:  snapshot.data!.docs[index]['service_name'],
+                                                imageUrl: snapshot.data!.docs[index]['image_url'],
+                                                price: 'Rs. ${snapshot.data!.docs[index]['service_price']}/-',
+                                                description: snapshot.data!.docs[index]['service_description'],
+                                                favIcon: Icons.favorite_border,
+                                                index:  documentData,
+                                              )));
+                                }
+
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -122,7 +128,7 @@ class SubServices extends StatelessWidget {
                                     //   height: heightX * 0.02,
                                     // ),
                                     Text(
-                                     allCategoriesProvider.capitalizeFirstLetter( snapshot.data!.docs[index].id),
+                                      snapshot.data!.docs[index]['service_name'],
                                       style: smallTextStyle.copyWith(
                                           fontSize: widthX * 0.042),
                                     ),

@@ -15,6 +15,7 @@ import '../all_categories/all_categories_provider.dart';
 class UpdateServicesScreen extends StatefulWidget {
 
   String? serviceName;
+  String? docId;
   String? categoryName;
   String? imageUrl;
   String? price;
@@ -26,6 +27,7 @@ class UpdateServicesScreen extends StatefulWidget {
         required this.categoryName,
         required this.price,
         required this.description,
+        required this.docId,
         super.key});
 
   @override
@@ -149,7 +151,7 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
                     borderRadius: 9,
                     onPress: () {
 
-                      vm.updateServiceData(widget.serviceName!, widget.categoryName!, _serviceNameController, _priceController, _descriptionController,
+                      vm.updateServiceData(widget.docId!, widget.categoryName!, _serviceNameController, _priceController, _descriptionController,
                       );
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AdminBottomNavBar()));
                     }, style: mediumTextStyle.copyWith(color: kContainerColor), btnColor: kPrimaryColor,),

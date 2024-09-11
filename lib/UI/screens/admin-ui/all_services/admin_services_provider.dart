@@ -7,6 +7,26 @@ import 'package:flutter/material.dart';
 class AdminServicesProvider with ChangeNotifier{
 
 
+  Future<Map<String, dynamic>?> fetchDocumentAsMap(String catId, String docId) async {
+    try {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('services')
+          .doc(catId).collection('subServices').doc(docId)
+          .get();
+
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+        return data;
+      } else {
+        print("Document does not exist!");
+        return null;
+      }
+    } catch (e) {
+      print("Error fetching document: $e");
+      return null;
+    }
+  }
+
 
 
 

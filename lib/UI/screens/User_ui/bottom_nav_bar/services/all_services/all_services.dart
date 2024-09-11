@@ -16,7 +16,6 @@ class AllServices extends StatefulWidget {
 }
 
 class _AllServicesState extends State<AllServices> {
-
   @override
   void initState() {
     super.initState();
@@ -29,7 +28,7 @@ class _AllServicesState extends State<AllServices> {
     var widthX = MediaQuery.of(context).size.width;
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context);
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-   print(allCategoriesProvider.categoryList.length);
+    print(allCategoriesProvider.categoryList.length);
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
@@ -37,7 +36,9 @@ class _AllServicesState extends State<AllServices> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            Header(scaffoldKey: _scaffoldKey,),
+          Header(
+            scaffoldKey: _scaffoldKey,
+          ),
           Padding(
             padding: EdgeInsets.only(left: widthX * 0.04, top: heightX * 0.02),
             child: Row(
@@ -66,16 +67,14 @@ class _AllServicesState extends State<AllServices> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(heightX * 0.02),
-              child:  StreamBuilder(
+              child: StreamBuilder(
                   stream: allCategoriesProvider.getServices(),
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.hasError) {
                       print('error');
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return
-                        const Center(child: CircularProgressIndicator());
-
+                      return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.data.docs.isEmpty) {
                       print('Empty');
@@ -84,9 +83,9 @@ class _AllServicesState extends State<AllServices> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GridView.builder(
-
                             itemCount: snapshot.data!.docs.length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               childAspectRatio: 2 / 2,
                               mainAxisSpacing: 10,
@@ -94,27 +93,48 @@ class _AllServicesState extends State<AllServices> {
                             ),
                             itemBuilder: (context, int index) {
                               return GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SubServices( text: allCategoriesProvider.categoryList[index], subServices: allCategoriesProvider.getSubServices(allCategoriesProvider.categoryList[index]),)));
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SubServices(
+                                                text: snapshot.data!.docs[index]
+                                                    ['category_name'],
+                                                subServices: allCategoriesProvider
+                                                    .getSubServices(
+                                                        allCategoriesProvider
+                                                                .categoryList[
+                                                            index]),
+                                                catId: allCategoriesProvider
+                                                    .categoryList[index],
+                                              )));
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: kContainerColor,
-                                      border: Border.all(color: kPrimaryColor, width: 2),
+                                      border: Border.all(
+                                          color: kPrimaryColor, width: 2),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ColorFiltered(
-                                          colorFilter: const ColorFilter.mode(kPrimaryColor, BlendMode.srcATop),
-                                          child: Image.network(snapshot.data!.docs[index]['image_url'], height: heightX * 0.11,)),
+                                          colorFilter: const ColorFilter.mode(
+                                              kPrimaryColor, BlendMode.srcATop),
+                                          child: Image.network(
+                                            snapshot.data!.docs[index]
+                                                ['image_url'],
+                                            height: heightX * 0.11,
+                                          )),
                                       SizedBox(
                                         height: heightX * 0.02,
                                       ),
-                                      Text(allCategoriesProvider.capitalizeFirstLetter(snapshot.data!.docs[index].id,),
-
+                                      Text(
+                                        snapshot.data!.docs[index]
+                                            ['category_name'],
                                         style: mediumTextStyle.copyWith(
-                                            fontSize: widthX * 0.052, color: kPrimaryColor),
+                                            fontSize: widthX * 0.052,
+                                            color: kPrimaryColor),
                                       ),
                                     ],
                                   ),
