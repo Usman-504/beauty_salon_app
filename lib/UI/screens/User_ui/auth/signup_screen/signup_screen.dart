@@ -173,7 +173,10 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                         SocialContainer(
                           imageUrl: Assets.googleIcon,
                           text: 'Google',
-                          onPress: () {},
+                          onPress: () {
+                            signUpProvider.signUpWithGoogle(context);
+
+                          },
                           height: heightX * 0.033,
                         )
                       ],

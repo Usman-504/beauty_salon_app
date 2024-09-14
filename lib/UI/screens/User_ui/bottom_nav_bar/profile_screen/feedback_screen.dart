@@ -1,9 +1,11 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/const_colors.dart';
 import '../../../../../core/constants/const_styles.dart';
+import 'feedback_provider.dart';
 
 class FeedbackScreen extends StatelessWidget {
   const FeedbackScreen({super.key});
@@ -12,6 +14,7 @@ class FeedbackScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
+    final feedbackProvider = Provider.of<FeedbackProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -29,14 +32,20 @@ class FeedbackScreen extends StatelessWidget {
             style: secondaryTextStyle.copyWith(
                 color: kWhiteColor, fontSize: widthX * 0.063)),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomTextField(hintText: 'Your Name', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
-          CustomTextField(hintText: 'Your Email', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08),
-          CustomTextField(hintText: 'Your Message', maxWidth: widthX * 0.9, maxHeight: heightX * 0.5, maxLines: 5,),
-          CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Send', borderRadius: 10, onPress: (){}, style: mediumTextStyle, btnColor: kPrimaryColor,)
-        ],
+      body: Consumer<FeedbackProvider>(
+       builder: (context, vm, child) {
+         return Column(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             CustomTextField(hintText: 'Your Name', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08, controller: vm.nameController,),
+             CustomTextField(hintText: 'Your Email', maxWidth: widthX * 0.9, maxHeight: heightX * 0.08, controller: vm.emailController,),
+             CustomTextField(hintText: 'Your Message', maxWidth: widthX * 0.9, maxHeight: heightX * 0.5, maxLines: 5, controller: vm.messageController,),
+             CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Send', borderRadius: 10, onPress: (){
+               vm.feedBack(context);
+             }, style: mediumTextStyle, btnColor: kPrimaryColor,)
+           ],
+         );
+       },
       ),
     );
   }

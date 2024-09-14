@@ -39,7 +39,7 @@ class SubServices extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const AllServices()));
+                      Navigator.pop(context);
                     },
                     child:  Icon(
                       Icons.arrow_back,

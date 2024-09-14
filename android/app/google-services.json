@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "609730980645",
+    "project_id": "beauty-salon-467a5",
+    "storage_bucket": "beauty-salon-467a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609730980645:android:4b30c8ff4a495514e3c8cc",
+        "android_client_info": {
+          "package_name": "com.example.beauty_salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609730980645-3e1ea8q766ribpt5j5kj6n53pgdltokn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beauty_salon",
+            "certificate_hash": "f265320ea6b951d535cdd618dea9a3bb72204f28"
+          }
+        },
+        {
+          "client_id": "609730980645-7b3a5a8ajk2kf5f677gb41ibimtsmg20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_pP6hmrWhs1Gq2vvFE4JAbrrfG_E5IPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609730980645-7b3a5a8ajk2kf5f677gb41ibimtsmg20.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "609730980645-9icndr6ukhkea4e4g5pq30jfjq7svc65.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.beautySalon"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

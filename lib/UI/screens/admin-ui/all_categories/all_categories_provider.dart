@@ -23,6 +23,10 @@ class AllCategoriesProvider with ChangeNotifier {
   late List<String> _categoryList = [];
   List<String> get categoryList => _categoryList;
 
+  late List<String> _categoryNameList = [];
+  List<String> get categoryNameList => _categoryNameList;
+
+
 
   void getCategories() async {
     await FirebaseFirestore.instance
@@ -31,10 +35,34 @@ class AllCategoriesProvider with ChangeNotifier {
         .listen((snapshot) {
       _categoryList = snapshot.docs.map((doc) => doc.id).toList();
 
+      // notifyListeners();
+      // getCategoryTitle();
       notifyListeners();
       print(categoryList);
     });
   }
+
+
+  void getCategoryName() async {
+    await FirebaseFirestore.instance
+        .collection('services')
+        .snapshots()
+        .listen((snapshot) {
+      _categoryNameList = snapshot.docs.map((doc) => doc['category_name'].toString()).toList();
+      notifyListeners();
+      print(categoryNameList);
+    });
+  }
+
+
+// void getCategoryTitle () async{
+//   for(String i in categoryList) {
+//     var docSnap = await FirebaseFirestore.instance.collection('services').doc(i).get();
+//     var catName = docSnap.get('category_name');
+//     _categoryNameList.add(catName);
+//   }
+//
+// }
 
 
 

@@ -3,8 +3,8 @@ import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/pr
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../core/constants/const_colors.dart';
 import '../../../../../generated/assets.dart';
 import '../../auth/login_screen/login_screen.dart';
@@ -15,7 +15,7 @@ import 'edit_profile_screen.dart';
 import 'feedback_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({super.key});
+ const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -130,8 +130,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       top: heightX * 0.04,
                       left: widthX * 0.32,
                       child: Text(
-                        profileProvider.name!,
-                        style: secondaryTextStyle.copyWith(color: kPrimaryColor),
+                        profileProvider.name,
+                        style: mediumTextStyle.copyWith(color: kPrimaryColor),
                       )),
                   Positioned(
                     top: heightX * 0.075,
@@ -176,6 +176,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               if(index == 4)
                               {
                                 FirebaseAuth.instance.signOut().then((_){
+                                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (Route<dynamic> route) => false,);
+                                });
+                                GoogleSignIn().signOut().then((_){
                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (Route<dynamic> route) => false,);
                                 });
                               }

@@ -1,6 +1,9 @@
+import 'package:beauty_salon/UI/components/snackbar.dart';
+import 'package:beauty_salon/UI/screens/User_ui/auth/auth_check.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupProvider with ChangeNotifier {
@@ -27,7 +30,7 @@ class SignupProvider with ChangeNotifier {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-     // String userRole;
+      // String userRole;
       // if(emailController.text.trim().toLowerCase() == 'usmankhan14307@gmail.com'){}
       // else{}
       await FirebaseFirestore.instance
@@ -55,17 +58,59 @@ class SignupProvider with ChangeNotifier {
     }
   }
 
-  void userRole() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection('user')
-        .doc(user!.uid)
-        .get();
-
-    String role = userDoc.get('role');
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setString('role', role);
-    print(sp.get('User Role saved as $role'));
-    notifyListeners();
+  Future<User?> signUpWithGoogle(BuildContext context) async {
+    try{
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser!.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      User? user = userCredential.user;
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('user').doc(user.uid).set({
+          'role': 'client',
+          'email': user.email,
+          'name': user.displayName,
+          'user_id' : user.uid,
+        }).then((value) async{
+          //       DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          //           .collection('user')
+          //           .doc(user.uid)
+          //           .get();
+          // String role = userDoc.get('role');
+          //       String name = userDoc.get('name');
+          //       String email = userDoc.get('email');
+                SharedPreferences sp = await SharedPreferences.getInstance();
+                sp.setString('role', 'client');
+                sp.setString('name', user.displayName!);
+                sp.setString('email', user.email!);
+                print(sp.getString('role'));
+        });
+       AuthCheck().checkUserRoleAndNavigate(context);
+       Utils().showSnackBar(context, 'Account Login Successfully');
+        return user;
+      }
+    } on FirebaseException catch(e){
+      print(e.code);
+    }
+        catch (e){
+      print(e);
+        }
+    return null;
   }
+
+  // void userRole() async {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   DocumentSnapshot userDoc = await FirebaseFirestore.instance
+  //       .collection('user')
+  //       .doc(user!.uid)
+  //       .get();
+  //
+  //   String role = userDoc.get('role');
+  //   SharedPreferences sp = await SharedPreferences.getInstance();
+  //   sp.setString('role', role);
+  //   print(sp.get('User Role saved as $role'));
+  //   notifyListeners();
+  // }
 }

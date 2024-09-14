@@ -1,6 +1,7 @@
 import 'package:beauty_salon/UI/components/custom_banner.dart';
 import 'package:beauty_salon/UI/components/header.dart';
 import 'package:beauty_salon/UI/components/side_drawer.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<AllCategoriesProvider>(context, listen: false).getCategories();
+    // Provider.of<AllCategoriesProvider>(context, listen: false).getCategories();
+  }
+
   @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     final favProvider = Provider.of<FavProvider>(context, listen: false);
+    final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context,);
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
@@ -91,60 +101,94 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: GridView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: serviceCategories.length - 3,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              childAspectRatio: 2 / 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
-                            itemBuilder: (context, int index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => SubServices(
-                                  //               services:
-                                  //                   serviceCategories[index]
-                                  //                       ['services'],
-                                  //               text: serviceCategories[index]
-                                  //                   ['title'],
-                                  //             )));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: kContainerColor,
-                                      border: Border.all(
-                                          color: kPrimaryColor, width: 2),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        serviceCategories[index]['image'],
-                                        height: heightX * 0.08,
-                                        color: kPrimaryColor,
+                      StreamBuilder(
+                          stream: allCategoriesProvider.getServices(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              print('error');
+                            }
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return
+                                const Center(child: CircularProgressIndicator());
+
+                            }
+                            if (!snapshot.hasData || snapshot.data == null ) {
+                              return const Center(child: Text('No data available'));
+
+                            }
+                            if (snapshot.data!.docs.isEmpty) {
+                              print('Empty');
+
+                            }
+                            if (snapshot.data != null){
+                              return
+                                Expanded(
+                                  child: GridView.builder(
+                                    shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: snapshot.data!.docs.length - 3,
+                                      gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        childAspectRatio: 2 / 2,
+                                        mainAxisSpacing: 10,
+                                        crossAxisSpacing: 10,
                                       ),
-                                      SizedBox(
-                                        height: heightX * 0.01,
-                                      ),
-                                      Text(
-                                        serviceCategories[index]['title'],
-                                        style: mediumTextStyle.copyWith(
-                                            fontSize: widthX * 0.052,
-                                            color: kPrimaryColor),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                      ),
+                                      itemBuilder: (context, int index) {
+
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => SubServices(
+                                                      text: snapshot.data!.docs[index]
+                                                      ['category_name'],
+                                                      subServices: allCategoriesProvider
+                                                          .getSubServices(
+                                                          allCategoriesProvider
+                                                              .categoryList[
+                                                          index]),
+                                                      catId: allCategoriesProvider
+                                                          .categoryList[index],
+                                                    )));
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: kContainerColor,
+                                                border: Border.all(
+                                                    color: kPrimaryColor, width: 2),
+                                                borderRadius: BorderRadius.circular(10)),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ColorFiltered(
+                                                    colorFilter: const ColorFilter.mode(
+                                                        kPrimaryColor, BlendMode.srcATop),
+                                                    child: Image.network(
+                                                      snapshot.data!.docs[index]
+                                                      ['image_url'],
+                                                      height: heightX * 0.08,
+                                                    )),
+                                                SizedBox(
+                                                  height: heightX * 0.01,
+                                                ),
+                                                Text(
+                                                  snapshot.data!.docs[index]
+                                                  ['category_name'],
+                                                  style: mediumTextStyle.copyWith(
+                                                      fontSize: widthX * 0.052,
+                                                      color: kPrimaryColor),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                );
+                            }
+                            return const CircularProgressIndicator();
+                          },),
                       Padding(
                         padding: EdgeInsets.only(
                           top: heightX * 0.015,
@@ -159,15 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => SubServices(
-                                //               services: serviceCategories[4]
-                                //                   ['services'],
-                                //               text: serviceCategories[4]
-                                //                   ['title'],
-                                //             )));
+
                               },
                               child: Row(
                                 children: [
@@ -186,144 +222,110 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Consumer<FavProvider>(
-                          builder: (context, vm, child) {
-                            return GridView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount:
-                                    serviceCategories[0]['services'].length - 2,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  childAspectRatio: 2 / 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                ),
-                                itemBuilder: (context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ServiceDetails(
-                                                    title: serviceCategories[0]
-                                                            ['services'][index]
-                                                        ['title'],
-                                                    imageUrl:
-                                                        serviceCategories[0]
-                                                                ['services']
-                                                            [index]['image'],
-                                                    price:
-                                                        'Rs. ${serviceCategories[0]['services'][index]['price']}/-',
-                                                    description:
-                                                        serviceCategories[0]
-                                                                    ['services']
-                                                                [index]
-                                                            ['description'],
-                                                    favIcon:
-                                                        serviceCategories[0]
-                                                                    ['services']
-                                                                [index]
-                                                            ['staticIcon'],
-                                                    index: serviceCategories[0]
-                                                        ['services'][index],
-                                                  )));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: kContainerColor,
-                                          border: Border.all(
-                                              color: kPrimaryColor, width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            height: heightX * 0.1,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                      topRight:
-                                                          Radius.circular(8),
-                                                      topLeft:
-                                                          Radius.circular(8)),
-                                              image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: AssetImage(
-                                                      serviceCategories[0]
-                                                              ['services']
-                                                          [index]['image'])),
-                                            ),
-                                          ),
-                                          // SizedBox(
-                                          //   height: heightX * 0.02,
-                                          // ),
-                                          Text(
-                                            serviceCategories[0]['services']
-                                                [index]['title'],
-                                            style: smallTextStyle.copyWith(
-                                                fontSize: widthX * 0.038),
-                                          ),
-                                          Container(
-                                            height: heightX * 0.027,
-                                            decoration: const BoxDecoration(
-                                                color: kSecondaryColor,
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(8),
-                                                    bottomRight:
-                                                        Radius.circular(8))),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Text(
-                                                  'Rs. ${serviceCategories[0]['services'][index]['price']}/-',
-                                                  style:
-                                                      smallTextStyle.copyWith(
-                                                          color: kPrimaryColor,
-                                                          fontSize:
-                                                              widthX * 0.033),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    favProvider.favServices
-                                                            .contains(index)
-                                                        ? favProvider
-                                                            .removeItem(index)
-                                                        : favProvider
-                                                            .addItem(index);
-                                                  },
-                                                  child: Icon(
-                                                    vm.favServices
-                                                            .contains(index)
-                                                        ? serviceCategories[0]
-                                                                    ['services']
-                                                                [index]
-                                                            ['staticIcon2']
-                                                        : serviceCategories[0]
-                                                                    ['services']
-                                                                [index]
-                                                            ['staticIcon'],
-                                                    size: heightX * 0.025,
-                                                    color: kPrimaryColor,
+                      StreamBuilder(
+                          stream: allCategoriesProvider.getSubServices( allCategoriesProvider.categoryList.length > 3 ? allCategoriesProvider.categoryList[3] : null),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              print('error');
+                            }
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return
+                                const Center(child: CircularProgressIndicator());
+
+                            }
+                            if (!snapshot.hasData || snapshot.data == null ) {
+                              return const Center(child: Text('No data available'));
+
+                            }
+                            if (snapshot.data!.docs.isEmpty) {
+                              print('Empty');
+
+                            }
+                            if (snapshot.data != null){
+                              return  Expanded(
+                                child: Consumer<FavProvider>(
+                                  builder: (context, vm, child) {
+                                    return GridView.builder(
+                                      shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                        snapshot.data!.docs.length -2,
+                                        gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 1,
+                                          childAspectRatio: 2 / 2,
+                                          mainAxisSpacing: 10,
+                                          crossAxisSpacing: 10,
+                                        ),
+                                        itemBuilder: (context, int index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: kContainerColor,
+                                                  border: Border.all(
+                                                      color: kPrimaryColor, width: 2),
+                                                  borderRadius:
+                                                  BorderRadius.circular(10)),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    height: heightX * 0.1,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: const BorderRadius.only(topRight: Radius.circular(8), topLeft: Radius.circular(8)),
+                                                      image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image:
+                                                          NetworkImage(snapshot.data!.docs[index]['image_url'])),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Text(
+                                                    snapshot.data!.docs[index]['service_name'],
+                                                    style: smallTextStyle.copyWith(
+                                                        fontSize: widthX * 0.035),
+                                                  ),
+                                                  Container(
+                                                    height: heightX * 0.027,
+                                                    decoration: const BoxDecoration(
+                                                        color: kSecondaryColor,
+                                                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Text('Rs. ${snapshot.data!.docs[index]['service_price']}/-',
+                                                          style: smallTextStyle.copyWith(
+                                                              color: kPrimaryColor,
+                                                              fontSize: widthX * 0.038),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            favProvider.favServices.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
+                                                          },
+
+                                                          child: Icon(
+                                                            vm.favServices.contains(index) ? Icons.favorite : Icons.favorite_border,
+                                                            size: heightX * 0.025,
+                                                            color: kPrimaryColor,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                });
-                          },
-                        ),
-                      ),
+                                          );
+                                        });
+                                  },
+                                ),
+                              );
+                            }
+                            return const CircularProgressIndicator();
+                          },),
                     ],
                   ),
                 ),

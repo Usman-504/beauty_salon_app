@@ -12,11 +12,12 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isNetworkImage = imageUrl.startsWith('http') || imageUrl.startsWith('https');
     return Container(
       height: height,
       decoration: BoxDecoration(
         image: DecorationImage(
-            fit: BoxFit.cover, image: NetworkImage(imageUrl)),
+            fit: BoxFit.cover, image:  isNetworkImage ? NetworkImage(imageUrl) : AssetImage(imageUrl)),
       ),
     );
   }

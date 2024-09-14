@@ -5,6 +5,7 @@ import 'package:beauty_salon/UI/components/image_container.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
+import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/core/constants/const_text.dart';
@@ -32,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
 final loginProvider = Provider.of<LoginProvider>(context);
+final signUpProvider = Provider.of<SignupProvider>(context);
 print('Rebuild');
     return Scaffold(
       backgroundColor: kContainerColor,
@@ -174,7 +176,9 @@ print('Rebuild');
                         SocialContainer(
                           imageUrl: Assets.googleIcon,
                           text: 'Google',
-                          onPress: () {},
+                          onPress: () {
+                           signUpProvider.signUpWithGoogle(context);
+                          },
                           height: heightX * 0.033,
                         )
                       ],

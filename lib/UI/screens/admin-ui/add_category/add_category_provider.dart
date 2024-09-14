@@ -43,7 +43,6 @@ class AddCategoryProvider with ChangeNotifier {
 
     if (_imageUrl.isNotEmpty) {
       await FirebaseFirestore.instance.collection('services').doc(categoryNameController.text.trim().toLowerCase()).set({
-      //  'Account Name': categoryNameController.text.trim(),
         'category_name': categoryNameController.text.trim(),
         'image_url': _imageUrl,
         'image_path': _imagePath,

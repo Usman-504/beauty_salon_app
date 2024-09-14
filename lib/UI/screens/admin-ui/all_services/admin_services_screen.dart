@@ -26,6 +26,7 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
   void initState() {
     super.initState();
     Provider.of<AllCategoriesProvider>(context, listen: false).getCategories();
+    Provider.of<AllCategoriesProvider>(context, listen: false).getCategoryName();
   }
 
   @override
@@ -90,8 +91,10 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
                 print('Empty');
 
               }
-
               if (snapshot.data != null) {
+
+              
+
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -99,7 +102,7 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,),
-                        child: Text(allCategoriesProvider.capitalizeFirstLetter('$catId: '), style: secondaryTextStyle.copyWith(color: kPrimaryColor),),
+                        child: Text('${allCategoriesProvider.categoryNameList[index]}:', style: secondaryTextStyle.copyWith(color: kPrimaryColor),),
                       ),
                       SizedBox(height: heightX * 0.01,),
                       GridView.builder(
