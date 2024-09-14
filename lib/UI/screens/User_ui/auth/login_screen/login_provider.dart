@@ -11,6 +11,22 @@ class LoginProvider with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+
+  void clearFields() {
+   emailController.clear();
+   passwordController.clear();
+   notifyListeners();
+  }
+
+
+  bool _obscureText = true;
+ bool get  obscureText => _obscureText;
+
+  void changeVisibility(){
+    _obscureText = !_obscureText;
+    notifyListeners();
+  }
+
   String? validation() {
     if (emailController.text.isEmpty) {
       return 'Please Enter Your Email';

@@ -11,6 +11,8 @@ import 'UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'UI/screens/User_ui/bookings/booking_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/feedback_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
+import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/update_password_provider.dart';
+import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'UI/screens/User_ui/cart_screen/cart_provider.dart';
 import 'UI/screens/User_ui/favourite/fav_provider.dart';
 import 'UI/screens/User_ui/favourite/fav_stylists_provider.dart';
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> UpdateServicesProvider()),
       ChangeNotifierProvider(create: (_)=> ProfileProvider()),
       ChangeNotifierProvider(create: (_)=> FeedbackProvider()),
+      ChangeNotifierProvider(create: (_)=> UpdatePasswordProvider()),
+      ChangeNotifierProvider(create: (_)=> UpdateProfileInfoProvider()),
     ],
     child: const  MaterialApp(
       debugShowCheckedModeBanner: false,

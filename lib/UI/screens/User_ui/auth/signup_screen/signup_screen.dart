@@ -2,6 +2,7 @@ import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_divider.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/image_container.dart';
+import 'package:beauty_salon/UI/components/password_textfield.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
@@ -42,28 +43,50 @@ final signUpProvider = Provider.of<SignupProvider>(context);
             ImageContainer(
               height: heightX * 0.6,
               imageUrl: Assets.signUpImage,
-            ),
-            Positioned(
-              top: heightX * 0.17,
-              left: widthX * 0.07,
-              child: Text(
-                'Welcome! Sign up now',
-                style: primaryTextStyle.copyWith(
-                  fontSize: heightX * 0.04,
-                  shadows: boxShadow,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Welcome! Sign up now',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: heightX * 0.04,
+                      shadows: boxShadow,
+                    ),
+                  ),
+                  Text(
+                    authDetail,
+                    style: smallTextStyle.copyWith(
+                        fontSize: heightX * 0.02,
+                        color: kWhiteColor,
+                        shadows: boxShadow),
+                  ),
+                  SizedBox(
+                    height: heightX * 0.2,
+                  ),
+                ],
               ),
             ),
-            Positioned(
-                top: heightX * 0.215,
-                left: widthX * 0.2,
-                child: Text(
-                  authDetail,
-                  style: smallTextStyle.copyWith(
-                      fontSize: heightX * 0.02,
-                      color: kWhiteColor,
-                      shadows: boxShadow),
-                )),
+            // Positioned(
+            //   top: heightX * 0.17,
+            //   left: widthX * 0.07,
+            //   child: Text(
+            //     'Welcome! Sign up now',
+            //     style: primaryTextStyle.copyWith(
+            //       fontSize: heightX * 0.04,
+            //       shadows: boxShadow,
+            //     ),
+            //   ),
+            // ),
+            // Positioned(
+            //     top: heightX * 0.215,
+            //     left: widthX * 0.2,
+            //     child: Text(
+            //       authDetail,
+            //       style: smallTextStyle.copyWith(
+            //           fontSize: heightX * 0.02,
+            //           color: kWhiteColor,
+            //           shadows: boxShadow),
+            //     )),
             Positioned(
               left: widthX * 0.05,
               top: heightX * 0.265,
@@ -97,17 +120,11 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                       controller: signUpProvider.phoneNoController,
                       suffix: const Icon(Icons.phone),
                     ),
-                    CustomTextField(
-                      hintText: 'Enter Password',
-                      maxWidth: widthX * 0.9,
-                      maxHeight: heightX * 0.08,
-                      controller: signUpProvider.passwordController,
-                      suffix: const Icon(Icons.password),
-                    ),
+                    PasswordTextField(controller: signUpProvider.passwordController),
                     Padding(
                       padding: EdgeInsets.only(
-                          left: widthX * 0.06,
-                          right: widthX * 0.06,
+                          left: widthX * 0.03,
+                          right: widthX * 0.03,
                           top: widthX * 0.02,
                           bottom: widthX * 0.03),
                       child: CustomButton(
@@ -141,7 +158,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                             debugPrint(e as String?) ;
                           }
                         },
-                        borderRadius: heightX * 0.013, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
+                        borderRadius: heightX * 0.01, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
                       ),
                     ),
                     Row(
@@ -161,15 +178,15 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SocialContainer(
-                          imageUrl: Assets.facebookIcon,
-                          text: 'Facebook',
-                          onPress: () {},
-                          height: heightX * 0.04,
-                        ),
-                        SizedBox(
-                          width: widthX * 0.03,
-                        ),
+                        // SocialContainer(
+                        //   imageUrl: Assets.facebookIcon,
+                        //   text: 'Facebook',
+                        //   onPress: () {},
+                        //   height: heightX * 0.04,
+                        // ),
+                        // SizedBox(
+                        //   width: widthX * 0.03,
+                        // ),
                         SocialContainer(
                           imageUrl: Assets.googleIcon,
                           text: 'Google',
@@ -177,7 +194,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                             signUpProvider.signUpWithGoogle(context);
 
                           },
-                          height: heightX * 0.033,
+                          height: heightX * 0.033, width: widthX * 0.8,
                         )
                       ],
                     ),

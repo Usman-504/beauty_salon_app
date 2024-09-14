@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+    <string name="app_name">Beautilly</string>
+    <string name="facebook_app_id">532597685936866</string>
+    <string name="fb_login_protocol_scheme">fb532597685936866</string>
+    <string name="facebook_client_token">c3086224ece6d182a0668ffdb83ccd29</string>
+
+
+</resources>
+
+

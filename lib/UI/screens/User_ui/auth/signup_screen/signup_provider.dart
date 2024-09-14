@@ -3,6 +3,7 @@ import 'package:beauty_salon/UI/screens/User_ui/auth/auth_check.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,45 +60,72 @@ class SignupProvider with ChangeNotifier {
   }
 
   Future<User?> signUpWithGoogle(BuildContext context) async {
-    try{
+    try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication googleAuth =
-      await googleUser!.authentication;
+          await googleUser!.authentication;
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       User? user = userCredential.user;
       if (user != null) {
         await FirebaseFirestore.instance.collection('user').doc(user.uid).set({
           'role': 'client',
           'email': user.email,
           'name': user.displayName,
-          'user_id' : user.uid,
-        }).then((value) async{
-          //       DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          //           .collection('user')
-          //           .doc(user.uid)
-          //           .get();
-          // String role = userDoc.get('role');
-          //       String name = userDoc.get('name');
-          //       String email = userDoc.get('email');
-                SharedPreferences sp = await SharedPreferences.getInstance();
-                sp.setString('role', 'client');
-                sp.setString('name', user.displayName!);
-                sp.setString('email', user.email!);
-                print(sp.getString('role'));
+          'user_id': user.uid,
+        }).then((value) async {
+          SharedPreferences sp = await SharedPreferences.getInstance();
+          sp.setString('role', 'client');
+          sp.setString('name', user.displayName!);
+          sp.setString('email', user.email!);
+          print(sp.getString('role'));
         });
-       AuthCheck().checkUserRoleAndNavigate(context);
-       Utils().showSnackBar(context, 'Account Login Successfully');
+        AuthCheck().checkUserRoleAndNavigate(context);
+        Utils().showSnackBar(context, 'Account Login Successfully');
         return user;
       }
-    } on FirebaseException catch(e){
+    } on FirebaseException catch (e) {
+      print(e.code);
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
+  Future<User?> signUpWithFacebook(BuildContext context) async {
+    try{
+      final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']);
+      final OAuthCredential facebookAuthCredential =
+      FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      User? user = userCredential.user;
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('user').doc(user.uid).set({
+          'role': 'client',
+          'email': user.email ?? '',
+          'name': user.displayName ?? '',
+          'user_id': user.uid,
+        }).then((value) async {
+          SharedPreferences sp = await SharedPreferences.getInstance();
+          sp.setString('role', 'client');
+          sp.setString('name', user.displayName! ?? 'null');
+          sp.setString('email', user.email! ?? 'null');
+          print(sp.getString('role'));
+        });
+        AuthCheck().checkUserRoleAndNavigate(context);
+        Utils().showSnackBar(context, 'Account Login Successfully');
+        return user;
+      }
+    } on FirebaseException catch (e) {
       print(e.code);
     }
-        catch (e){
+    catch(e){
       print(e);
-        }
+    }
     return null;
+
   }
 
   // void userRole() async {

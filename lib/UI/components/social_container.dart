@@ -9,11 +9,13 @@ class SocialContainer extends StatelessWidget {
     required this.imageUrl,
     required this.text,
     required this.height,
+    required this.width,
     required this.onPress,
   });
 
 
   final String text;
+  final double width;
   final String imageUrl;
   final double height;
   final VoidCallback onPress;
@@ -26,7 +28,7 @@ class SocialContainer extends StatelessWidget {
       onTap: onPress,
       child: Container(
         height:heightX * 0.06,
-        width: widthX * 0.4,
+        width: width,
         decoration: BoxDecoration(
           border: Border.all(color: kPrimaryColor, width: 2),
           borderRadius: BorderRadius.circular(5),

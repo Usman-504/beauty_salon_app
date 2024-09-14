@@ -67,6 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState(){
     super.initState();
     Provider.of<ProfileProvider>(context, listen: false).fetchUserDetails();
+    Provider.of<ProfileProvider>(context, listen: false).userDetails();
   }
 
   @override
@@ -146,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       left: widthX * 0.83,
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const EditProfileScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>  EditProfileScreen(name: profileProvider.userName, email: profileProvider.userEmail, phoneNo: profileProvider.userPhone,)));
                         },
                           child: const Icon(
                         Icons.edit,

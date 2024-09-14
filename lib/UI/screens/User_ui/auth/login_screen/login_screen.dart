@@ -2,6 +2,7 @@ import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_divider.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/image_container.dart';
+import 'package:beauty_salon/UI/components/password_textfield.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
@@ -46,27 +47,47 @@ print('Rebuild');
             ImageContainer(
               height: heightX * 0.6,
               imageUrl: Assets.loginImage,
-            ),
-            Positioned(
-              top: heightX * 0.3,
-              left: widthX * 0.13,
-              child: Text(
-                'Let\'s get you Login!',
-                style: primaryTextStyle.copyWith(
-                    fontSize: widthX * 0.085, shadows: boxShadow),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.only(top: heightX * 0.07),
+                    child: Text(
+                      'Let\'s get you Login!',
+                      style: primaryTextStyle.copyWith(
+                          fontSize: widthX * 0.085, shadows: boxShadow),
+                    ),
+                  ),
+                  Text(
+                    authDetail,
+                    style: smallTextStyle.copyWith(
+                        fontSize: widthX * 0.043,
+                        shadows: boxShadow,
+                        color: kWhiteColor),
+                  )
+                ],
               ),
             ),
-            Positioned(
-              top: heightX * 0.35,
-              left: widthX * 0.2,
-              child: Text(
-                authDetail,
-                style: smallTextStyle.copyWith(
-                    fontSize: widthX * 0.043,
-                    shadows: boxShadow,
-                    color: kWhiteColor),
-              ),
-            ),
+            // Positioned(
+            //   top: heightX * 0.3,
+            //   left: widthX * 0.13,
+            //   child: Text(
+            //     'Let\'s get you Login!',
+            //     style: primaryTextStyle.copyWith(
+            //         fontSize: widthX * 0.085, shadows: boxShadow),
+            //   ),
+            // ),
+            // Positioned(
+            //   top: heightX * 0.35,
+            //   left: widthX * 0.2,
+            //   child: Text(
+            //     authDetail,
+            //     style: smallTextStyle.copyWith(
+            //         fontSize: widthX * 0.043,
+            //         shadows: boxShadow,
+            //         color: kWhiteColor),
+            //   ),
+            // ),
             Positioned(
               left: widthX * 0.05,
               top: heightX * 0.4,
@@ -85,27 +106,26 @@ print('Rebuild');
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08,
                     ),
-                    CustomTextField(
-                      controller: loginProvider.passwordController,
-                      hintText: 'Enter Password',
-                      maxWidth: widthX * 0.9,
-                      maxHeight: heightX * 0.08,
-                      suffix: const Icon(Icons.password),
+                   PasswordTextField(
+                     controller: loginProvider.passwordController,
+                   ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: widthX * 0.05),
+                          child: Text(
+                            'Forgot Password?',
+                            style:
+                                smallTextStyle.copyWith(fontSize: widthX * 0.042),
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: widthX * 0.45,
-                      ),
-                      child: Text(
-                        'Forgot Password?',
-                        style:
-                            smallTextStyle.copyWith(fontSize: widthX * 0.042),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: widthX * 0.06,
-                          right: widthX * 0.06,
+                          left: widthX * 0.04,
+                          right: widthX * 0.04,
                           top: widthX * 0.06,
                           bottom: widthX * 0.03),
                       child: CustomButton(
@@ -141,7 +161,7 @@ print('Rebuild');
                           }
 
                         },
-                        borderRadius: heightX * 0.013,
+                        borderRadius: heightX * 0.01,
                         style:
                             mediumTextStyle.copyWith(fontSize: widthX * 0.05), btnColor: kPrimaryColor,
                       ),
@@ -164,22 +184,24 @@ print('Rebuild');
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SocialContainer(
-                          imageUrl: Assets.facebookIcon,
-                          text: 'Facebook',
-                          onPress: () {},
-                          height: heightX * 0.04,
-                        ),
-                        SizedBox(
-                          width: widthX * 0.03,
-                        ),
+                        // SocialContainer(
+                        //   imageUrl: Assets.facebookIcon,
+                        //   text: 'Facebook',
+                        //   onPress: () {
+                        //     signUpProvider.signUpWithFacebook(context);
+                        //   },
+                        //   height: heightX * 0.04,
+                        // ),
+                        // SizedBox(
+                        //   width: widthX * 0.03,
+                        // ),
                         SocialContainer(
                           imageUrl: Assets.googleIcon,
                           text: 'Google',
                           onPress: () {
                            signUpProvider.signUpWithGoogle(context);
                           },
-                          height: heightX * 0.033,
+                          height: heightX * 0.033, width: widthX * 0.8,
                         )
                       ],
                     ),
