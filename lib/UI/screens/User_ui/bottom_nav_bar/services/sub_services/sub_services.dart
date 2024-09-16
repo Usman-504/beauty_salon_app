@@ -13,7 +13,6 @@ import '../services_details/service_details.dart';
 class SubServices extends StatelessWidget {
   SubServices({ required this.text, required this.subServices, required this.catId, super.key});
 
- // List<Map<String, dynamic>> services = [];
   Stream subServices;
   String text;
   String catId;

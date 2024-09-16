@@ -4,15 +4,18 @@ import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/User_ui/auth/login_screen/login_screen.dart';
 import '../screens/User_ui/bookings/booking_screen.dart';
 import '../screens/User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/about_us_screen.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
+import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import '../screens/User_ui/bottom_nav_bar/services/services_list/services_list.dart';
 import '../screens/User_ui/bottom_nav_bar/services/sub_services/sub_services.dart';
 import '../screens/User_ui/cart_screen/cart_screen.dart';
+import '../screens/admin-ui/all_categories/all_categories_provider.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -21,6 +24,8 @@ class SideDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var widthX = MediaQuery.of(context).size.width;
     var heightX = MediaQuery.of(context).size.height;
+    final profileProvider = Provider.of<ProfileProvider>(context);
+    final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context);
     return Drawer(
       backgroundColor: kContainerColor,
       // width: widthX * 0.6,
@@ -34,12 +39,12 @@ class SideDrawer extends StatelessWidget {
               //   fit: BoxFit.cover,
               //     image: AssetImage(Assets.mahnoorStylistImage)),
             ),
-            accountName: Text('Mahnoor', style: smallTextStyle.copyWith(color: kContainerColor),),
-            accountEmail: Text('Abc123@gmail.com', style: smallTextStyle.copyWith(color: kContainerColor),),
-            currentAccountPicture: const CircleAvatar(
-              backgroundImage: AssetImage(
-                Assets.mahnoorStylistImage,
-              ),
+            accountName: Text(profileProvider.name, style: smallTextStyle.copyWith(color: kContainerColor),),
+            accountEmail: Text(profileProvider.email!, style: smallTextStyle.copyWith(color: kContainerColor),),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: profileProvider.profileUrl.isNotEmpty ?
+              NetworkImage(profileProvider.profileUrl) :
+              const AssetImage(Assets.dp)
             ),
           ),
           Expanded(
@@ -66,24 +71,49 @@ class SideDrawer extends StatelessWidget {
                     children: [
                       SizedBox(
                         height: heightX * 0.2,
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                           // physics: NeverScrollableScrollPhysics(),
-                            itemCount: serviceCategories.length,
-                            itemBuilder: (context, index){
-                              return  ListTile(
-                                contentPadding: EdgeInsets.zero,
-                                leading: Image(image: AssetImage(serviceCategories[index]['image'], ), height: 20, width: 20, color: kPrimaryColor,),
-                                title: Text(
-                                  serviceCategories[index]['title'],
-                                  style:smallTextStyle.copyWith(color: kPrimaryColor),
-                                ),
-                                onTap: (){
-                                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SubServices(services: serviceCategories[index]['services'], text: serviceCategories[index]['title'])));
-                                },
-                              );
-                            }),
+                        child: StreamBuilder(
+                          stream: allCategoriesProvider.getServices(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              print('error');
+                            }
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CircularProgressIndicator());
+                            }
+                            if (snapshot.data!.docs.isEmpty) {
+                              print('Empty');
+                            }
+                            if (snapshot != null && snapshot.data != null) {
+                              return  ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  // physics: NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (context, index){
+                                    return  ListTile(
+                                      contentPadding: EdgeInsets.zero,
+                                      leading: Image(image: NetworkImage(snapshot.data!.docs[index]['image_url'], ), height: 20, width: 20, color: kPrimaryColor,),
+                                      title: Text(
+                                        snapshot.data!.docs[index]
+                                        ['category_name'],
+                                        style:smallTextStyle.copyWith(color: kPrimaryColor),
+                                      ),
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> SubServices(text:snapshot.data!.docs[index]
+                                        ['category_name'], subServices: allCategoriesProvider
+                                            .getSubServices(
+                                            allCategoriesProvider
+                                                .categoryList[
+                                            index]), catId:  allCategoriesProvider
+                                            .categoryList[index],)));
+                                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SubServices(services: serviceCategories[index]['services'], text: serviceCategories[index]['title'])));
+                                      },
+                                    );
+                                  });
+                            }
+                           return const CircularProgressIndicator();
+                          },
+                        ),
                       ),
                   
                     ],

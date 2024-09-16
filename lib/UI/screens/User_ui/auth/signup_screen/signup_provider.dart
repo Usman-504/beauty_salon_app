@@ -43,6 +43,8 @@ class SignupProvider with ChangeNotifier {
         'email': FirebaseAuth.instance.currentUser!.email,
         'role': 'client',
         'user_id': FirebaseAuth.instance.currentUser!.uid,
+        'image_url' : '',
+        'image_path' : '',
       });
       notifyListeners();
       return null;

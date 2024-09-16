@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/password_textfield.dart';
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_password_provider.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +17,15 @@ class EditProfileScreen extends StatefulWidget {
 final String name;
 final String email;
 final String phoneNo;
+final String imageUrl;
+final String docId;
 
   const EditProfileScreen({
     required this.name,
     required this.email,
     required this.phoneNo,
+    required this.imageUrl,
+    required this.docId,
     super.key});
 
   @override
@@ -37,6 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
      nameController = TextEditingController(text: widget.name);
     emailController = TextEditingController(text: widget.email);
     phoneNoController = TextEditingController(text: widget.phoneNo);
+
   }
 
   @override
@@ -98,9 +106,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                    child: Container(
                      height: heightX * 0.16,
                      width: heightX * 0.16,
-                     decoration: const BoxDecoration(
-                         image: DecorationImage(image: AssetImage(Assets.dp)),
-                         shape: BoxShape.circle),
+                     decoration: BoxDecoration(
+                       shape: BoxShape.circle,
+                       image: DecorationImage(
+                         fit: BoxFit.cover,
+                         image: updateProfileInfoProvider.file != null
+                             ? FileImage(File(updateProfileInfoProvider.file!.path))
+                             : (widget.imageUrl.isNotEmpty
+                             ? NetworkImage(widget.imageUrl)
+                             : AssetImage(Assets.dp) as ImageProvider),
+                       ),
+                     ),
+
                    ),
                  ),
                  Positioned(
@@ -113,7 +130,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                        color: kSecondaryColor,
                        shape: BoxShape.circle,
                      ),
-                     child: const Icon(Icons.camera_alt, color: Colors.white,),
+                     child: GestureDetector(
+                         onTap: (){
+                           updateProfileInfoProvider.pickImage();
+                         },
+                         child: const Icon(Icons.camera_alt, color: Colors.white,)),
                    ),
                  ),
                ],
@@ -134,7 +155,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               PasswordTextField(controller: passwordController),
               Center(
                 child: CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){
-                  updateProfileInfoProvider.updateUserDetails(nameController.text.trim(),  emailController.text.trim(), phoneNoController.text.trim(), passwordController.text.trim(), context);
+                  updateProfileInfoProvider.updateUserDetails(nameController.text.trim(),  emailController.text.trim(), phoneNoController.text.trim(), widget.docId, passwordController.text.trim(), context);
                 }, style: mediumTextStyle, btnColor: kPrimaryColor,),
               )
             ],

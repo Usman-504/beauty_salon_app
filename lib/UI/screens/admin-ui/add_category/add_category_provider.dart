@@ -79,18 +79,18 @@ class AddCategoryProvider with ChangeNotifier {
     }
   }
 
-  void deleteImage(String docId) async {
-    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-    DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection('Passwords')
-        .doc(docId)
-        .get();
-    if (doc.exists) {
-      String path = doc['images/${uniqueFileName}'];
-
-      if(path.isNotEmpty){
-        await FirebaseStorage.instance.ref().delete();
-      }
-    }
-  }
+  // void deleteImage(String docId) async {
+  //   String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+  //   DocumentSnapshot doc = await FirebaseFirestore.instance
+  //       .collection('Passwords')
+  //       .doc(docId)
+  //       .get();
+  //   if (doc.exists) {
+  //     String path = doc['images/${uniqueFileName}'];
+  //
+  //     if(path.isNotEmpty){
+  //       await FirebaseStorage.instance.ref().delete();
+  //     }
+  //   }
+  // }
 }

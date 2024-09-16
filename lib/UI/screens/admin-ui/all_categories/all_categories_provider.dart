@@ -91,16 +91,15 @@ class AllCategoriesProvider with ChangeNotifier {
         await FirebaseStorage.instance.ref(path).delete();
       }
 
-      // Delete all documents in the subcollection
+
       Future<void> deleteSubCollection(
-          String docId, String subcollectionName) async {
-        var subcollection = FirebaseFirestore.instance
+          String docId, String subCollectionName) async {
+        var subCollection = FirebaseFirestore.instance
             .collection('services')
             .doc(docId)
-            .collection(subcollectionName);
-        var querySnapshot = await subcollection.get();
+            .collection(subCollectionName);
+        var querySnapshot = await subCollection.get();
 
-        // Iterate over all documents in the subcollection and delete them
         for (var document in querySnapshot.docs) {
           if (document.exists && document.data().containsKey('image_path')) {
             String subImagePath = document.get('image_path');
@@ -113,10 +112,8 @@ class AllCategoriesProvider with ChangeNotifier {
       }
 
       Future<void> deleteDocumentAndSubCollections(String docId) async {
-        // Delete the 'subServices' subcollection
         await deleteSubCollection(docId, 'subServices');
 
-        // After subcollection is deleted, delete the main document
         await FirebaseFirestore.instance
             .collection('services')
             .doc(docId)
@@ -133,12 +130,11 @@ class AllCategoriesProvider with ChangeNotifier {
   // }
 
   String capitalizeFirstLetter(String text) {
-    if (text.isEmpty) return text; // Return if the string is empty
+    if (text.isEmpty) return text;
 
-    // Split the string by spaces or underscores
     List<String> words = text.split(RegExp(r'[\s_]+'));
 
-    // Capitalize the first letter of each word
+
     for (int i = 0; i < words.length; i++) {
       if (words[i].isNotEmpty) {
         words[i] =
@@ -146,7 +142,7 @@ class AllCategoriesProvider with ChangeNotifier {
       }
     }
 
-    // Join the words back into a single string with spaces
+
     return words.join(' ');
   }
 }

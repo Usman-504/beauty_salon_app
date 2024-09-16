@@ -1,6 +1,8 @@
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -48,9 +50,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'staticIcon': Icons.arrow_forward_ios_rounded,
     },
     {
+      'title': 'Delete Account',
+      'description': '',
+      'icon': Icons.auto_delete_outlined,
+      'staticIcon': Icons.arrow_forward_ios_rounded,
+    },
+    {
       'title': 'Logout',
       'description': '',
-      'icon': Icons.login_outlined,
+      'icon': Icons.logout,
       'staticIcon': Icons.arrow_forward_ios_rounded,
     },
   ];
@@ -68,6 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     Provider.of<ProfileProvider>(context, listen: false).fetchUserDetails();
     Provider.of<ProfileProvider>(context, listen: false).userDetails();
+   // Provider.of<ProfileProvider>(context, listen: false).getProfileImage();
+    Future.microtask(() => context.read<UpdateProfileInfoProvider>().clearFields());
   }
 
   @override
@@ -97,63 +107,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: EdgeInsets.all(widthX * 0.03),
           child: Column(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    height: heightX * 0.15,
-                    decoration: BoxDecoration(
-                        color: kSecondaryColor,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  Positioned(
-                    top: heightX * 0.01,
-                    left: widthX * 0.02,
-                    child: Container(
-                      height: heightX * 0.13,
-                      width: heightX * 0.13,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: kPrimaryColor, width: 3),
-                          shape: BoxShape.circle),
-                    ),
-                  ),
-                  Positioned(
-                    top: heightX * 0.02,
-                    left: widthX * 0.04,
-                    child: Container(
-                      height: heightX * 0.11,
-                      width: heightX * 0.11,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage(Assets.dp)),
-                          shape: BoxShape.circle),
-                    ),
-                  ),
-                  Positioned(
-                      top: heightX * 0.04,
-                      left: widthX * 0.32,
-                      child: Text(
-                        profileProvider.name,
-                        style: mediumTextStyle.copyWith(color: kPrimaryColor),
-                      )),
-                  Positioned(
-                    top: heightX * 0.075,
-                    left: widthX * 0.32,
-                    child: Text(
-                      profileProvider.email!,
-                      style: smallTextStyle.copyWith(fontSize: 12),
-                    ),
-                  ),
-                  Positioned(
-                      top: heightX * 0.04,
-                      left: widthX * 0.83,
-                      child: GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>  EditProfileScreen(name: profileProvider.userName, email: profileProvider.userEmail, phoneNo: profileProvider.userPhone,)));
-                        },
-                          child: const Icon(
-                        Icons.edit,
-                        color: kPrimaryColor,
-                      ))),
-                ],
+              StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('user').snapshots(),
+                builder: (context, snapshot) {
+                  return Stack(
+                    children: [
+                      Container(
+                        height: heightX * 0.15,
+                        decoration: BoxDecoration(
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      Positioned(
+                        top: heightX * 0.01,
+                        left: widthX * 0.02,
+                        child: Container(
+                          height: heightX * 0.13,
+                          width: heightX * 0.13,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: kPrimaryColor, width: 3),
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      Positioned(
+                        top: heightX * 0.02,
+                        left: widthX * 0.04,
+                        child: Container(
+                          height: heightX * 0.11,
+                          width: heightX * 0.11,
+                          decoration:  BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                  image: profileProvider.profileUrl.isNotEmpty ?
+                                      NetworkImage(profileProvider.profileUrl) :
+                              const AssetImage(Assets.dp)
+                              ),
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      Positioned(
+                          top: heightX * 0.04,
+                          left: widthX * 0.32,
+                          child: Text(
+                            profileProvider.name,
+                            style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                          )),
+                      Positioned(
+                        top: heightX * 0.075,
+                        left: widthX * 0.32,
+                        child: Text(
+                          profileProvider.email!,
+                          style: smallTextStyle.copyWith(fontSize: 12),
+                        ),
+                      ),
+                      Positioned(
+                          top: heightX * 0.04,
+                          left: widthX * 0.83,
+                          child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>  EditProfileScreen(name: profileProvider.userName, email: profileProvider.userEmail, phoneNo: profileProvider.userPhone, imageUrl: profileProvider.profileUrl, docId: FirebaseAuth.instance.currentUser!.uid,)));
+                              },
+                              child: const Icon(
+                                Icons.edit,
+                                color: kPrimaryColor,
+                              ))),
+                    ],
+                  );
+                },
+
               ),
               SizedBox(
                 height: heightX * 0.03,
@@ -174,7 +195,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           child: GestureDetector(
                             onTap: (){
-                              if(index == 4)
+                              if(index ==4){
+                                profileProvider.deleteUser(context);
+                              }
+                              else if(index == 5)
                               {
                                 FirebaseAuth.instance.signOut().then((_){
                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (Route<dynamic> route) => false,);
