@@ -191,7 +191,7 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
                                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
                                     ),
                                     child: Center(
-                                      child: Text('Rs. ${ snapshot.data!.docs[index]['service_price']}/-',
+                                      child: Text('Rs. ${ snapshot.data!.docs[index]['service_price'].toString()}/-',
                                         style: smallTextStyle.copyWith(
                                             color: kPrimaryColor,
                                             fontSize: widthX * 0.038),

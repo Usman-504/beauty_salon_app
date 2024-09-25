@@ -88,8 +88,8 @@ class SubServices extends StatelessWidget {
                           itemBuilder: (context, int index) {
                             return GestureDetector(
                               onTap: () async{
-                                Map<String, dynamic>? documentData = await allServicesProvider.fetchDocumentAsMap(catId, snapshot.data!.docs[index].id);
-                                if (documentData != null){
+                               // Map<String, dynamic>? documentData = await allServicesProvider.fetchDocumentAsMap(catId, snapshot.data!.docs[index].id);
+                               // if (documentData != null){
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -97,12 +97,13 @@ class SubServices extends StatelessWidget {
                                               ServiceDetails(
                                                 title:  snapshot.data!.docs[index]['service_name'],
                                                 imageUrl: snapshot.data!.docs[index]['image_url'],
-                                                price: 'Rs. ${snapshot.data!.docs[index]['service_price']}/-',
+                                                price:snapshot.data!.docs[index]['service_price'],
                                                 description: snapshot.data!.docs[index]['service_description'],
                                                 favIcon: Icons.favorite_border,
-                                                index:  documentData,
+                                                 catId: catId, docId: snapshot.data!.docs[index].id,
                                               )));
-                                }
+
+                               // }
 
                               },
                               child: Container(

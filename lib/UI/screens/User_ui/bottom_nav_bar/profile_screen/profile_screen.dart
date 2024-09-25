@@ -24,59 +24,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final List<Map<String, dynamic>> info = [
-    {
-      'title': 'Change Password',
-      'description': '',
-      'icon': Icons.password,
-      'staticIcon': Icons.arrow_forward_ios_rounded,
-    },
-    {
-      'title': 'About Us',
-      'description': 'Learn more about our app',
-      'icon': Icons.info_outlined,
-      'staticIcon': Icons.arrow_forward_ios_rounded,
-    },
-    {
-      'title': 'Privacy',
-      'description': 'Learn more about Privacy',
-      'icon': Icons.privacy_tip,
-      'staticIcon': Icons.arrow_forward_ios_rounded,
-    },
-    {
-      'title': 'Send Feedback',
-      'description': 'Send us valuable Feedback',
-      'icon': Icons.message,
-      'staticIcon': Icons.arrow_forward_ios_rounded,
-    },
-    {
-      'title': 'Delete Account',
-      'description': '',
-      'icon': Icons.auto_delete_outlined,
-      'staticIcon': Icons.arrow_forward_ios_rounded,
-    },
-    {
-      'title': 'Logout',
-      'description': '',
-      'icon': Icons.logout,
-      'staticIcon': Icons.arrow_forward_ios_rounded,
-    },
-  ];
 
-  List<Widget> listTileScreens = [
-    const ChangePasswordScreen(),
-    const AboutUsScreen(),
-    const PrivacyScreen(),
-    const FeedbackScreen(),
-
-  ];
 
   @override
   void initState(){
     super.initState();
     Provider.of<ProfileProvider>(context, listen: false).fetchUserDetails();
     Provider.of<ProfileProvider>(context, listen: false).userDetails();
-   // Provider.of<ProfileProvider>(context, listen: false).getProfileImage();
     Future.microtask(() => context.read<UpdateProfileInfoProvider>().clearFields());
   }
 
@@ -91,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: kPrimaryColor,
           leading: GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>const BottomNavBar()));
+                profileProvider.navigateToHomeScreen(context);
               },
               child: Icon(
                 Icons.arrow_back,
@@ -181,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: info.length,
+                    itemCount: profileProvider.info.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: EdgeInsets.only(
@@ -195,34 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           child: GestureDetector(
                             onTap: (){
-                              if(index ==4){
-                                profileProvider.deleteUser(context);
-                              }
-                              else if(index == 5)
-                              {
-                                FirebaseAuth.instance.signOut().then((_){
-                                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (Route<dynamic> route) => false,);
-                                });
-                                GoogleSignIn().signOut().then((_){
-                                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (Route<dynamic> route) => false,);
-                                });
-                              }
-                              else{
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                                listTileScreens[index]));
-                              }
+                              profileProvider.navigateToScreen(context, index);
 
                             },
                             child: ListTile(
                               leading: Icon(
-                                info[index]['icon'],
+                                profileProvider.info[index]['icon'],
                                 color: kPrimaryColor,
                               ),
                               title: Text(
-                                info[index]['title'],
+                                profileProvider.info[index]['title'],
                                 style: smallTextStyle,
                               ),
-                              trailing: Icon(info[index]['staticIcon']),
+                              trailing: Icon(profileProvider.info[index]['staticIcon']),
                               // subtitle: Text(info[index]['description']),
                             ),
                           ),

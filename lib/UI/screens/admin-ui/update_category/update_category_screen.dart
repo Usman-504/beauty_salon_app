@@ -54,7 +54,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
         centerTitle: true,
-        title: Text(allCategoryProvider.capitalizeFirstLetter(widget.categoryName.toString(),),
+        title: Text( widget.categoryName.toString(),
           style:
           const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),

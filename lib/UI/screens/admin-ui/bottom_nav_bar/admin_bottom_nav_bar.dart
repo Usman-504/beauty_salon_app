@@ -20,7 +20,7 @@ class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
   List<Widget> screens = [
     AdminServicesScreen(),
      AllCategoriesScreen(),
-    const  AdminBookingsScreen(),
+    AdminBookingsScreen(),
     AdminProfileScreen(),
   ];
   List<TabItem> items = [

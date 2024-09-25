@@ -121,8 +121,7 @@ child: GridView.builder(
             SizedBox(
               height: heightX * 0.02,
             ),
-            Text(allCategoriesProvider.capitalizeFirstLetter(snapshot.data!.docs[index]['category_name'],),
-
+            Text( snapshot.data!.docs[index]['category_name'],
               style: mediumTextStyle.copyWith(
                   fontSize: widthX * 0.052, color: kPrimaryColor),
             ),

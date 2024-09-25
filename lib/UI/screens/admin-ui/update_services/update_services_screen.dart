@@ -18,7 +18,7 @@ class UpdateServicesScreen extends StatefulWidget {
   String? docId;
   String? categoryName;
   String? imageUrl;
-  String? price;
+  int? price;
   String? description;
 
   UpdateServicesScreen(
@@ -47,7 +47,7 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
 
     _categoryNameController = TextEditingController(text: widget.categoryName);
     _serviceNameController = TextEditingController(text: widget.serviceName);
-    _priceController = TextEditingController(text: widget.price);
+    _priceController = TextEditingController(text: widget.price.toString());
     _descriptionController = TextEditingController(text: widget.description);
   }
 
@@ -133,6 +133,7 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08),
                   CustomTextField(
+                    keyBoardType: TextInputType.number,
                       controller: _priceController,
                       // vm.accountNameController..text = '${widget.accountName.toString()}',
                       hintText: 'Price',

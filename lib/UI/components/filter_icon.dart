@@ -14,7 +14,8 @@ class ShoppingCart extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-    final cart = Provider.of<CartProvider>(context);
+   // Provider.of<CartProvider>(context).getLength();
+   final cart = Provider.of<CartProvider>(context);
     return Positioned(
       top: heightX * 0.15,
       left: widthX * 0.82,
@@ -33,7 +34,7 @@ class ShoppingCart extends StatelessWidget {
               child: Center(
                 child: Badge(
                   backgroundColor: kSecondaryColor,
-                  label: Text(cart.itemsList.length.toString()),
+                  label: Text(cart.cartLength.toString()),
                   child: const Icon(
                               Icons.shopping_cart_rounded,
                               color: kWhiteColor,

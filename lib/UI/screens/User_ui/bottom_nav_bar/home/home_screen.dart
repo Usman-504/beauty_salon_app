@@ -8,6 +8,7 @@ import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../admin-ui/all_services/admin_services_provider.dart';
+import '../../cart_screen/cart_provider.dart';
 import '../../favourite/fav_provider.dart';
 import '../services/all_services/all_services.dart';
 import '../services/sub_services/sub_services.dart';
@@ -25,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    Future.microtask(() {
+      Provider.of<CartProvider>(context, listen: false).fetchAndDeleteExpiredItems();});
     Provider.of<AllCategoriesProvider>(context, listen: false).getCategories();
     Provider.of<AllCategoriesProvider>(context, listen: false)
         .getCategoryName();
@@ -306,14 +309,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           imageUrl: snapshot.data!
                                                               .docs[index]
                                                           ['image_url'],
-                                                          price: 'Rs. ${snapshot.data!.docs[index]['service_price']}/-',
+                                                          price: snapshot.data!.docs[index]['service_price'],
                                                           description: snapshot
                                                               .data!
                                                               .docs[index]
                                                           ['service_description'],
                                                           favIcon: Icons
                                                               .favorite_border,
-                                                          index: documentData)));
+                                                           catId: allCategoriesProvider.categoryList[3], docId:snapshot
+                                                          .data!
+                                                          .docs[index].id,)));
                                             }
                                           },
                                           child: Container(

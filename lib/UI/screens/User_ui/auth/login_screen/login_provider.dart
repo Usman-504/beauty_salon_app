@@ -66,6 +66,8 @@ class LoginProvider with ChangeNotifier {
         return 'The Email Format Is Invalid.';
       } else if (e.code == 'invalid-credential') {
         return 'Email Or Password Is Incorrect.';
+      }else if (e.code == 'network-request-failed') {
+        return 'Check Your Internet Connection.';
       } else {
         return 'An error occurred';
       }

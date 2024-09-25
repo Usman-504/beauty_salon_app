@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List<Widget> screens = [
     const HomeScreen(),
     const AllServices(),
-      BookingScreen(bookingDetails:  {},),
+      BookingScreen(),
      ProfileScreen(),
   ];
   List<TabItem> items = [

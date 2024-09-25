@@ -135,7 +135,7 @@ class SideDrawer extends StatelessWidget {
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen(bookingDetails: {})));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen()));
                     },
                   ),
                   ListTile(

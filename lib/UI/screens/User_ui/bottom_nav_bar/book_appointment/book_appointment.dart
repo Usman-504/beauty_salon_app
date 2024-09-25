@@ -1,34 +1,42 @@
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
-import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../components/custom_button.dart';
-import '../../checkout/checkout_screen.dart';
-import '../../stylists/stylists_list/stylists_list.dart';
+import '../../AppointmentSummary/appointment_summary.dart';
+import 'book_appointment_provider.dart';
 
 class BookAppointment extends StatefulWidget {
-  const BookAppointment({required this.serviceIndex, super.key});
-
-  final Map serviceIndex;
+  const BookAppointment({required this.serviceName, required this.servicePrice, required this.serviceImageUrl, super.key});
+  final String serviceName;
+  final int servicePrice;
+  final String serviceImageUrl;
 
   @override
   State<BookAppointment> createState() => _BookAppointmentState();
 }
 
 class _BookAppointmentState extends State<BookAppointment> {
-  var selectedDate = DateTime.now();
-  String? selectedTimeSlot;
-  String? serviceType;
+  // var selectedDate = DateTime.now();
+  // String? selectedTimeSlot;
+  // String? serviceType;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => context.read<BookAppointmentProvider>().clearFields());
+  }
 
   @override
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-print(widget.serviceIndex);
+    final bookAppointmentProvider = Provider.of<BookAppointmentProvider>(context);
+
     return Scaffold(
       backgroundColor: kScaffoldColor,
       appBar: AppBar(
@@ -66,12 +74,7 @@ print(widget.serviceIndex);
                       initialSelectedDate: DateTime.now(),
                       selectionColor: kPrimaryColor,
                       selectedTextColor: kWhiteColor,
-                      onDateChange: (date) {
-                        setState(() {
-                          selectedDate = date;
-                        });
-                        debugPrint(selectedDate.toString());
-                      },
+                      onDateChange: bookAppointmentProvider.onDateChange,
                     ),
                   ),
                 ],
@@ -98,8 +101,8 @@ print(widget.serviceIndex);
                 //width: widthX * 0.9,
                 child: GridView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: availableTime.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: bookAppointmentProvider.availableTime.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
@@ -107,17 +110,41 @@ print(widget.serviceIndex);
                             mainAxisSpacing: 5,
                             childAspectRatio: 3 / 2),
                     itemBuilder: (context, int index) {
-                      String timeSlot = availableTime[index];
-                      bool isSelected = timeSlot == selectedTimeSlot;
+                      TimeOfDay time = bookAppointmentProvider.availableTime[index];
+                      String formattedTime = time.format(context);
+                      DateTime now = DateTime.now();
+                      TimeOfDay nowTime = TimeOfDay.now();
+                      DateTime selectedDate = bookAppointmentProvider.selectedDate;
+                      bool isPast = selectedDate.isAtSameMomentAs(DateTime(now.year, now.month, now.day))
+                          && (time.hour < nowTime.hour || (time.hour == nowTime.hour && time.minute < nowTime.minute));
+
+                      // TimeOfDay now = TimeOfDay.now();
+                      // DateTime nowDateTime = DateTime(
+                      //     DateTime.now().year,
+                      //     DateTime.now().month,
+                      //     DateTime.now().day,
+                      //     now.hour,
+                      //     now.minute);
+                      // DateTime timeDateTime = DateTime(
+                      //     DateTime.now().year,
+                      //     DateTime.now().month,
+                      //     DateTime.now().day,
+                      //     time.hour,
+                      //     time.minute);
+                     // bool isPast = timeDateTime.isBefore(nowDateTime);
+                    //  String timeSlot = bookAppointmentProvider.availableTime[index];
+                      bool isSelected = formattedTime == bookAppointmentProvider.selectedTimeSlot;
                       return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedTimeSlot = timeSlot;
-                          });
+                        onTap: isPast ? null : () {
+                          bookAppointmentProvider.onTimeChange(formattedTime);
+                          // setState(() {
+                          //   selectedTimeSlot = timeSlot;
+                          // });
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              color: isSelected
+                              color: isPast ? Colors.grey :
+                              isSelected
                                   ? kSecondaryColor
                                   : kContainerColor,
                               borderRadius: BorderRadius.circular(5),
@@ -125,7 +152,7 @@ print(widget.serviceIndex);
                                   Border.all(width: 2, color: kPrimaryColor)),
                           child: Center(
                               child: Text(
-                            timeSlot,
+                                formattedTime,
                             style: smallTextStyle,
                           )),
                         ),
@@ -143,19 +170,23 @@ print(widget.serviceIndex);
                       color: kPrimaryColor, fontSize: widthX * 0.05)),
             ),
             CustomTextField(
+              controller: bookAppointmentProvider.nameController,
                 hintText: 'Enter Name',
                 maxWidth: widthX * 0.92,
                 maxHeight: heightX * 0.07),
             CustomTextField(
+              controller: bookAppointmentProvider.phoneController,
+                keyBoardType: TextInputType.number,
                 hintText: 'Enter Phone',
                 maxWidth: widthX * 0.92,
                 maxHeight: heightX * 0.07),
             CustomTextField(
+              controller: bookAppointmentProvider.addressController,
                 hintText: 'Enter Address',
                 maxWidth: widthX * 0.92,
                 maxHeight: heightX * 0.07),
             CustomTextField(
-                hintText: 'Enter Message',
+                hintText: 'Enter Message(Optional)',
                 maxWidth: widthX * 0.92,
                 maxHeight: heightX * 0.07),
             Padding(
@@ -169,18 +200,15 @@ print(widget.serviceIndex);
                     width: widthX * 0.44,
                     text: 'Salon',
                     onPress: () {
-                      setState(() {
-                        serviceType = 'Salon';
-                        print(serviceType);
-                      });
+                      bookAppointmentProvider.Salon();
                     },
                     borderRadius: heightX * 0.013,
                     style: mediumTextStyle.copyWith(
                         fontSize: widthX * 0.048,
-                        color: serviceType == 'Salon'
+                        color: bookAppointmentProvider.serviceType == 'Salon'
                             ? kPrimaryColor
                             : kWhiteColor),
-                    btnColor: serviceType == 'Salon'
+                    btnColor: bookAppointmentProvider.serviceType == 'Salon'
                         ? kSecondaryColor
                         : kPrimaryColor,
                   ),
@@ -192,17 +220,14 @@ print(widget.serviceIndex);
                     width: widthX * 0.44,
                     text: 'Home',
                     onPress: () {
-                      setState(() {
-                        serviceType = 'Home';
-                        print(serviceType);
-                      });
+                      bookAppointmentProvider.Home();
                     },
                     borderRadius: heightX * 0.013,
                     style: mediumTextStyle.copyWith(
                         fontSize: widthX * 0.048,
                         color:
-                            serviceType == 'Home' ? kPrimaryColor : kWhiteColor),
-                    btnColor: serviceType == 'Home'
+                            bookAppointmentProvider.serviceType == 'Home' ? kPrimaryColor : kWhiteColor),
+                    btnColor: bookAppointmentProvider.serviceType == 'Home'
                         ? kSecondaryColor
                         : kPrimaryColor,
                   ),
@@ -214,7 +239,7 @@ print(widget.serviceIndex);
                   EdgeInsets.only(left: widthX * 0.05, right: widthX * 0.05, top: widthX * 0.03),
               child: Text(
                 textAlign: TextAlign.justify,
-                  serviceType == 'Home'
+                  bookAppointmentProvider.serviceType == 'Home'
                       ? 'We only serve houses in 45km wide of area. Please check if your house meets this requirement before booking. Thank you for your understanding.'
                       : '',
                   style:
@@ -229,31 +254,26 @@ print(widget.serviceIndex);
               width: widthX * 0.9,
               text: 'Proceed',
               onPress: () {
-                if(selectedDate ==null ){
-                  Utils().showSnackBar(context, 'Please Select Date');
-                }
-                else if(selectedTimeSlot ==null ){
-                  Utils().showSnackBar(context, 'Please Select Time');
-                }
-                else if (serviceType ==null){
-                  Utils().showSnackBar(context, 'Please Select Service Type');
-                }
-                else {
+                if(bookAppointmentProvider.validation(context)){
                   String formattedDate =
-                  DateFormat('dd/MM/yyyy').format(selectedDate);
-                  var StringPrice = widget.serviceIndex['service_price'];
-                  var price = int.tryParse(StringPrice);
+                  DateFormat('dd/MM/yyyy').format(bookAppointmentProvider.selectedDate);
+                  bookAppointmentProvider.calculateTotalPrice(widget.servicePrice);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CheckoutScreen(
-                            serviceName: widget.serviceIndex['service_name'],
-                            servicePrice: price!,
-                            time: selectedTimeSlot!,
+                          builder: (context) => AppointmentSummary(
+                            serviceName: widget.serviceName,
+                            servicePrice: widget.servicePrice,
+                            time: bookAppointmentProvider.selectedTimeSlot!,
                             date: formattedDate,
-                            serviceType: serviceType!, imageUrl: widget.serviceIndex['image_url'],
+                            serviceType: bookAppointmentProvider.serviceType!, imageUrl: widget.serviceImageUrl, customerName: bookAppointmentProvider.nameController.text.trim(), customerAddress: bookAppointmentProvider.addressController.text.trim(), customerNumber: bookAppointmentProvider.phoneController.text.trim(), totalPrice: bookAppointmentProvider.totalPrice,
                           )));
                 }
+
+
+
+
+
 
               },
               borderRadius: heightX * 0.013,

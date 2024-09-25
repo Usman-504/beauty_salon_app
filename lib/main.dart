@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'UI/screens/User_ui/auth/login_screen/login_provider.dart';
 import 'UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'UI/screens/User_ui/bookings/booking_provider.dart';
+import 'UI/screens/User_ui/bottom_nav_bar/book_appointment/book_appointment_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/feedback_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/update_password_provider.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> FeedbackProvider()),
       ChangeNotifierProvider(create: (_)=> UpdatePasswordProvider()),
       ChangeNotifierProvider(create: (_)=> UpdateProfileInfoProvider()),
+      ChangeNotifierProvider(create: (_)=> BookAppointmentProvider()),
     ],
     child: const  MaterialApp(
       debugShowCheckedModeBanner: false,

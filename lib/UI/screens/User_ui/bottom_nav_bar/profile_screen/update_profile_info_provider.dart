@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -77,18 +78,36 @@ class UpdateProfileInfoProvider with ChangeNotifier {
         } else if (phoneNo != userPhone) {
           Utils().showSnackBar(context, 'Phone Number Updated.');
         }
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
-        return;
+
+          String? role = sp.getString('role');
+          if(role == 'client'){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
+            return;
+          }
+          else {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminBottomNavBar()));
+            return;
+          }
+
+
       }
 
       await updateProfilePhoto(docId);
-
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
       if(_file != null){
         Utils().showSnackBar(context, 'Profile Photo Updated');
       }
       else {
         Utils().showSnackBar(context, 'Profile Updated');
+      }
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      String? role = sp.getString('role');
+      if(role == 'client'){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
+        return;
+      }
+      else {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminBottomNavBar()));
+        return;
       }
 
 

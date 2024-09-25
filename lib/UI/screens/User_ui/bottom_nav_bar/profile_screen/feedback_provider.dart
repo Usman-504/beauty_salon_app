@@ -1,6 +1,8 @@
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FeedbackProvider with ChangeNotifier {
 
@@ -10,11 +12,13 @@ class FeedbackProvider with ChangeNotifier {
 
 
   void feedBack (BuildContext context) async{
+    final profileProvider = Provider.of<ProfileProvider>(context);
     User? currentUser = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance.collection('Feedback').doc(currentUser!.uid).set({
       'name' : nameController.text.trim(),
       'email' : emailController.text.trim(),
       'message' : messageController.text.trim(),
+      'image_url' : profileProvider.profileUrl,
     })
         .then((value){
           Navigator.pop(context);

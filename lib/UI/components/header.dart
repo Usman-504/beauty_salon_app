@@ -1,3 +1,4 @@
+import 'package:beauty_salon/UI/screens/User_ui/cart_screen/cart_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';

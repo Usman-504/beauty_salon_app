@@ -27,7 +27,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-
+@override
+  void initState() {
+  Future.microtask(() => context.read<LoginProvider>().clearFields());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

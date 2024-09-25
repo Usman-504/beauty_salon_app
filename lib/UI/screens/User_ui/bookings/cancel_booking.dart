@@ -12,14 +12,18 @@ class CancelBooking extends StatelessWidget {
 
   final String imageUrl;
   final String title;
-  final String price;
+  final String docId;
+  final int price;
   final String date;
+  final String time;
   const CancelBooking(
       {
         required this.imageUrl,
         required this.title,
         required this.price,
         required this.date,
+        required this.time,
+        required this.docId,
         super.key});
 
 
@@ -80,18 +84,20 @@ class CancelBooking extends StatelessWidget {
                           color: kPrimaryColor, fontSize: widthX * 0.062),
                     ),
                     Text(
-                      price,
+                      'Rs. $price/-',
                       style: smallTextStyle.copyWith(color: kSecondaryColor),
                     ),
                     SizedBox(
                       height: heightX * 0.03,
                     ),
                     Text(date,style: primaryTextStyle.copyWith(color: kPrimaryColor),),
+                    Text(time,style: smallTextStyle.copyWith(color: kPrimaryColor),),
                     SizedBox(
                       height: heightX * 0.03,
                     ),
                     CustomButton(height: heightX * 0.07, width: widthX * 0.9, text: 'Cancel Booking', borderRadius: 10, onPress: (){
-                      bookingProvider.deleteItem(title);
+                      bookingProvider.cancelBooking(docId);
+                     //bookingProvider.deleteItem(title);
                       Navigator.pop(context);
 
 
