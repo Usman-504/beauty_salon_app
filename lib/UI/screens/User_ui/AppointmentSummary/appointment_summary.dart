@@ -22,6 +22,9 @@ class AppointmentSummary extends StatefulWidget {
         required this.customerName,
         required this.customerAddress,
         required this.customerNumber,
+        required this.customerMessage,
+        required this.appointmentStatus,
+        required this.docId,
 
       super.key});
 
@@ -29,10 +32,13 @@ class AppointmentSummary extends StatefulWidget {
   String customerName;
   String customerNumber;
   String customerAddress;
+  String customerMessage;
+  String docId;
   int servicePrice;
   int totalPrice;
   String date;
   String time;
+  String appointmentStatus;
   String serviceType;
   String imageUrl;
 
@@ -42,20 +48,12 @@ class AppointmentSummary extends StatefulWidget {
 
 class _AppointmentSummaryState extends State<AppointmentSummary> {
 
-
-  int gstPrice = 49;
-
-  int get totalPrice => widget.servicePrice + gstPrice;
-
-  Map<String, dynamic> checkoutDetailsMap = {};
-
-
-
-
-
-
-
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(()=>(context).read<BookAppointmentProvider>().getRole());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +75,10 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
               color: kWhiteColor,
             )),
         centerTitle: true,
-        title: Text('Summary',
+        title: Text(
+            bookAppointmentProvider.role == 'admin' ? 'Booking Details' :
+            widget.appointmentStatus.isEmpty ?
+            'Summary' : 'Booking Details',
             style: secondaryTextStyle.copyWith(
                 color: kWhiteColor, fontSize: widthX * 0.063)),
       ),
@@ -87,33 +88,36 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Padding(
+                //   padding: EdgeInsets.only(
+                //       top: heightX * 0.02,
+                //       bottom: heightX * 0.01,
+                //       left: widthX * 0.04,
+                //       right: widthX * 0.04,
+                //   ),
+                //   child: Text(
+                //     'Customer Details:',
+                //     style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: heightX * 0.02,
-                      bottom: heightX * 0.01,
-                      left: widthX * 0.04,
-                      right: widthX * 0.04,
-                  ),
-                  child: Text(
-                    'Customer Details:',
-                    style: mediumTextStyle.copyWith(color: kPrimaryColor),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
+                    top: heightX * 0.02,
                       bottom: heightX * 0.01,
                       left: widthX * 0.04,
                       right: widthX * 0.04),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Customer Name',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Customer Name:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         widget.customerName,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        overflow: TextOverflow.ellipsis,
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -123,16 +127,17 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                       bottom: heightX * 0.01,
                       left: widthX * 0.04,
                       right: widthX * 0.04),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Customer Number',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Customer Number:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         widget.customerNumber,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -142,30 +147,68 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                       bottom: heightX * 0.01,
                       left: widthX * 0.04,
                       right: widthX * 0.04),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Customer Address',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                      SizedBox(
+                        width: widthX * 0.05,
                       ),
                       Text(
+                        'Customer Address:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                      ),
+                      Text(
+                       // textAlign: TextAlign.justify,
                         widget.customerAddress,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: heightX * 0.04,
                       bottom: heightX * 0.01,
                       left: widthX * 0.04,
                       right: widthX * 0.04),
-                  child: Text(
-                    'Appointment Details:',
-                    style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: widthX * 0.05,
+                      ),
+                      Text(
+                        'Customer Message:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                      ),
+                      Text(
+                       // textAlign: TextAlign.justify,
+
+                        widget.customerMessage.isEmpty ? 'Nil' : widget.customerMessage,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
+                      ),
+                    ],
                   ),
+                ),
+                // Padding(
+                //   padding: EdgeInsets.only(
+                //       top: heightX * 0.04,
+                //       bottom: heightX * 0.01,
+                //       left: widthX * 0.04,
+                //       right: widthX * 0.04),
+                //   child: Text(
+                //     'Appointment Details:',
+                //     style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                //   ),
+                // ),
+                Padding(
+                  padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04),
+                  child: const Divider(),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -176,12 +219,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Service Name',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Service Name:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         widget.serviceName,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style:smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -195,12 +238,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Service Price',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Service Price:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         'Rs. ${widget.servicePrice }/-',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -214,12 +257,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Date',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Appointment Date:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         widget.date,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -233,12 +276,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Time',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Appointment Time:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         widget.time,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor,   fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -252,12 +295,32 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Service Type',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'Service Type:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         widget.serviceType,
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),
+                ),
+                widget.appointmentStatus.isEmpty ? SizedBox.shrink() :
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: heightX * 0.01,
+                      left: widthX * 0.04,
+                      right: widthX * 0.04),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Appointment Status:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                      ),
+                      Text(
+                       widget.appointmentStatus,
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -275,12 +338,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Sub Total',
-                        style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                        'Sub Total:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         'Rs. ${widget.servicePrice}/-',
-                        style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -294,12 +357,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'GST',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        'GST:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                         'Rs. ${bookAppointmentProvider.gstPrice}/-',
-                        style: mediumTextStyle.copyWith(color: kSecondaryColor),
+                        style:smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -317,12 +380,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Total',
-                        style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                        'Total:',
+                        style: smallTextStyle.copyWith(color: kPrimaryColor),
                       ),
                       Text(
                        'Rs. ${widget.totalPrice}/-',
-                        style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
@@ -331,13 +394,31 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
             ),
           ),
           const Spacer(),
+         bookAppointmentProvider.role == 'admin' ? Padding(
+            padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: heightX* 0.02),
+            child: CustomButton(
+              height: heightX * 0.06,
+              width: widthX * 0.9,
+              text: 'Accept Appointment',
+              onPress: () {
+                bookAppointmentProvider.acceptAppointment(widget.docId, context);
+              },
+              borderRadius: heightX * 0.013,
+              style: mediumTextStyle.copyWith(fontSize: widthX * 0.045),
+              btnColor: kPrimaryColor,
+            ),
+          ) : SizedBox.shrink(),
+          if(bookAppointmentProvider.role == 'admin' )
+          widget.appointmentStatus == 'Accepted' &&  widget.appointmentStatus == 'Rejected' && widget.appointmentStatus.isNotEmpty  ? SizedBox.shrink() :
           Padding(
             padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: heightX* 0.02),
             child: CustomButton(
               height: heightX * 0.06,
               width: widthX * 0.9,
-              text: 'Confirm Appointment',
+              text: bookAppointmentProvider.role == 'admin' ? 'Reject Appointment' :
+              'Confirm Appointment',
               onPress: () {
+                bookAppointmentProvider.role == 'admin' ?  bookAppointmentProvider.rejectAppointment(widget.docId, context) :
                  bookAppointmentProvider.appointment(widget.serviceName, widget.servicePrice, widget.date, widget.time, widget.serviceType, bookAppointmentProvider.totalPrice, widget.imageUrl);
                 // checkoutDetailsMap['serviceName'] = widget.serviceName;
                 // checkoutDetailsMap['date'] = widget.date;
@@ -350,13 +431,43 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                // }
                 // bookingProvider.bookingList.contains(checkoutDetailsMap) ? null :
                 // bookingProvider.addItem(checkoutDetailsMap);
-                Utils().orderCompleted(context);
+                bookAppointmentProvider.role == 'admin' ? null : Utils().orderCompleted(context);
               },
               borderRadius: heightX * 0.013,
               style: mediumTextStyle.copyWith(fontSize: widthX * 0.045),
               btnColor: kPrimaryColor,
             ),
           ),
+          if(bookAppointmentProvider.role == 'client' )
+            widget.appointmentStatus == 'Accepted' ||  widget.appointmentStatus == 'Rejected'   && widget.appointmentStatus.isNotEmpty  ? SizedBox.shrink() :
+            Padding(
+              padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: heightX* 0.02),
+              child: CustomButton(
+                height: heightX * 0.06,
+                width: widthX * 0.9,
+                text: bookAppointmentProvider.role == 'admin' ? 'Reject Appointment' :
+                widget.appointmentStatus == 'Pending' ? 'Cancel Appointment' :
+                'Confirm Appointment',
+                onPress: () {
+                  bookAppointmentProvider.role == 'admin' ?  bookAppointmentProvider.rejectAppointment(widget.docId, context) :
+                  widget.appointmentStatus == 'Pending' ?
+                  bookingProvider.cancelBooking(widget.docId)
+                      :
+                  bookAppointmentProvider.appointment(widget.serviceName, widget.servicePrice, widget.date, widget.time, widget.serviceType, bookAppointmentProvider.totalPrice, widget.imageUrl);
+                  bookAppointmentProvider.role == 'admin' ? null :
+                  widget.appointmentStatus == 'Pending' ?
+
+                 { Navigator.pop(context),
+                  Utils().showSnackBar(context, 'Appointment Cancelled')}
+
+                      :
+                  Utils().orderCompleted(context);
+                },
+                borderRadius: heightX * 0.013,
+                style: mediumTextStyle.copyWith(fontSize: widthX * 0.045),
+                btnColor: kPrimaryColor,
+              ),
+            ),
         ],
       ),
     );

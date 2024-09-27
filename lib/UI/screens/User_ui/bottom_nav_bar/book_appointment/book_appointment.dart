@@ -182,13 +182,16 @@ class _BookAppointmentState extends State<BookAppointment> {
                 maxHeight: heightX * 0.07),
             CustomTextField(
               controller: bookAppointmentProvider.addressController,
+                maxLines: 3,
                 hintText: 'Enter Address',
                 maxWidth: widthX * 0.92,
-                maxHeight: heightX * 0.07),
+                maxHeight: heightX * 0.14),
             CustomTextField(
+              controller: bookAppointmentProvider.messageController,
                 hintText: 'Enter Message(Optional)',
+                maxLines: 5,
                 maxWidth: widthX * 0.92,
-                maxHeight: heightX * 0.07),
+                maxHeight: heightX * 0.2),
             Padding(
               padding:
                   EdgeInsets.only(left: widthX * 0.03, right: widthX * 0.03),
@@ -266,7 +269,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                             servicePrice: widget.servicePrice,
                             time: bookAppointmentProvider.selectedTimeSlot!,
                             date: formattedDate,
-                            serviceType: bookAppointmentProvider.serviceType!, imageUrl: widget.serviceImageUrl, customerName: bookAppointmentProvider.nameController.text.trim(), customerAddress: bookAppointmentProvider.addressController.text.trim(), customerNumber: bookAppointmentProvider.phoneController.text.trim(), totalPrice: bookAppointmentProvider.totalPrice,
+                            serviceType: bookAppointmentProvider.serviceType!, imageUrl: widget.serviceImageUrl, customerName: bookAppointmentProvider.nameController.text.trim(), customerAddress: bookAppointmentProvider.addressController.text.trim(), customerNumber: bookAppointmentProvider.phoneController.text.trim(), totalPrice: bookAppointmentProvider.totalPrice, customerMessage:bookAppointmentProvider.messageController.text.trim(), appointmentStatus: '', docId: '',
                           )));
                 }
 

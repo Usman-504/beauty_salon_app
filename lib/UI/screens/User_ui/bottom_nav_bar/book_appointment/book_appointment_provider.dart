@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../components/snackbar.dart';
 
@@ -19,6 +20,10 @@ class BookAppointmentProvider with ChangeNotifier {
  int gstPrice = 49;
  int _totalPrice = 0;
  int get totalPrice => _totalPrice;
+ String _role ='';
+ String get role => _role;
+
+
  //int get totalPrice => widget.servicePrice + gstPrice;
 
   TextEditingController nameController = TextEditingController();
@@ -50,6 +55,29 @@ class BookAppointmentProvider with ChangeNotifier {
  ];
 
 
+void getRole () async{
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  _role = sp.getString('role')!;
+  notifyListeners();
+}
+
+void acceptAppointment(String docId, BuildContext context) async{
+  await FirebaseFirestore.instance.collection('appointments').doc(docId).update({
+    'appointment_status': 'Accepted',
+  });
+  notifyListeners();
+  Utils().showSnackBar(context, 'Appointment Accepted');
+  Navigator.pop(context);
+}
+
+void rejectAppointment(String docId, BuildContext context) async{
+  await FirebaseFirestore.instance.collection('appointments').doc(docId).update({
+    'appointment_status': 'Rejected',
+  });
+  notifyListeners();
+  Utils().showSnackBar(context, 'Appointment Rejected');
+  Navigator.pop(context);
+}
 
   void clearFields(){
     _selectedTimeSlot = null;
@@ -130,6 +158,7 @@ class BookAppointmentProvider with ChangeNotifier {
           'service_type': serviceType,
           'total_price': totalPrice,
           'image_url': imageUrl,
+          'appointment_status': 'Pending',
           'user_id': user!.uid,
         });
       }
@@ -146,6 +175,26 @@ void calculateTotalPrice(int servicePrice){
 Stream<QuerySnapshot> getAppointments()  {
     User? user = FirebaseAuth.instance.currentUser;
   return FirebaseFirestore.instance.collection('appointments').where('user_id', isEqualTo: user!.uid).snapshots();
+}
+Stream<QuerySnapshot> getPendingAppointments()  {
+    User? user = FirebaseAuth.instance.currentUser;
+  return FirebaseFirestore.instance.collection('appointments').where('user_id', isEqualTo: user!.uid).where('appointment_status', isEqualTo: 'Pending').snapshots();
+}
+Stream<QuerySnapshot> getUpComingAppointments()  {
+    User? user = FirebaseAuth.instance.currentUser;
+  return FirebaseFirestore.instance.collection('appointments').where('user_id', isEqualTo: user!.uid).where('appointment_status', isEqualTo: 'Accepted').where('appointment_date', isGreaterThan: DateFormat('dd/MM/yyyy').format(DateTime.now())).snapshots();
+}
+Stream<QuerySnapshot> getPastAppointments()  {
+    User? user = FirebaseAuth.instance.currentUser;
+  return FirebaseFirestore.instance.collection('appointments').where('user_id', isEqualTo: user!.uid).where('appointment_status', isEqualTo: 'Accepted').where('appointment_date', isLessThan: DateFormat('dd/MM/yyyy').format(DateTime.now())).snapshots();
+}
+ Stream<QuerySnapshot> getRejectedAppointments()  {
+   User? user = FirebaseAuth.instance.currentUser;
+   return FirebaseFirestore.instance.collection('appointments').where('user_id', isEqualTo: user!.uid).where('appointment_status', isEqualTo: 'Rejected').snapshots();
+ }
+
+void getStream (Stream<dynamic> stream, builder) {
+
 }
 
 Stream<QuerySnapshot> getAllAppointments()  {
