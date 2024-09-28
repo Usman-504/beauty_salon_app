@@ -26,6 +26,16 @@ class AllCategoriesProvider with ChangeNotifier {
   late List<String> _categoryNameList = [];
   List<String> get categoryNameList => _categoryNameList;
 
+List _searchResult = [];
+List get searchResult =>_searchResult;
+
+  void searchService(String query) async{
+    final result = await FirebaseFirestore.instance.collection('services').where('category_name', isEqualTo: query).get();
+    _searchResult = result.docs.map((e) => e.data()).toList();
+    notifyListeners();
+
+  }
+
 
 
   void getCategories() async {

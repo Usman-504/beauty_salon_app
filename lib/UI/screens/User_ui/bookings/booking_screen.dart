@@ -4,25 +4,36 @@ import 'package:provider/provider.dart';
 import '../../../../core/constants/const_colors.dart';
 import '../../../../core/constants/const_styles.dart';
 import '../../../../generated/assets.dart';
-import '../../../components/custom_button.dart';
 import '../AppointmentSummary/appointment_summary.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment_provider.dart';
 import '../bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
-import '../bottom_nav_bar/services/all_services/all_services.dart';
-import 'booking_provider.dart';
 
 class BookingScreen extends StatefulWidget {
-  BookingScreen({super.key});
+  const BookingScreen({super.key});
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
 }
 
-class _BookingScreenState extends State<BookingScreen> {
+class _BookingScreenState extends State<BookingScreen> with SingleTickerProviderStateMixin{
+  late TabController _tabController;
+  int _currentIndex = 0;
   @override
   void initState() {
+    _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _currentIndex = _tabController.index;
+      });
+    });
     Future.microtask(() => context.read<BookAppointmentProvider>().getRole());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,9 +49,11 @@ class _BookingScreenState extends State<BookingScreen> {
         backgroundColor: kContainerColor,
         appBar: AppBar(
           bottom: TabBar(
+            indicatorColor: kWhiteColor,
+            controller: _tabController,
             labelColor: kContainerColor,
             unselectedLabelColor: kSecondaryColor,
-            tabs: [
+            tabs: const [
               Tab(text: 'Pending', icon: Icon(Icons.hourglass_bottom)),
               Tab(text: 'UpComing', icon: Icon(Icons.add_task)),
               Tab(text: 'Past', icon: Icon(Icons.alarm)),
@@ -54,7 +67,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AdminBottomNavBar()))
+                      builder: (context) => const AdminBottomNavBar()))
                   : Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -74,11 +87,19 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         ),
         body: TabBarView(
+          controller: _tabController,
           children: [
+           if(bookAppointmentProvider.role == 'client')...[
             _buildBookingList(context, bookAppointmentProvider.getPendingAppointments()),
             _buildBookingList(context, bookAppointmentProvider.getUpComingAppointments()),
             _buildBookingList(context, bookAppointmentProvider.getPastAppointments()),
-            _buildBookingList(context, bookAppointmentProvider.getRejectedAppointments()),
+            _buildBookingList(context, bookAppointmentProvider.getRejectedAppointments()),]
+                else ... [
+              _buildBookingList(context, bookAppointmentProvider.getAllPendingAppointments()),
+              _buildBookingList(context, bookAppointmentProvider.getAllUpComingAppointments()),
+              _buildBookingList(context, bookAppointmentProvider.getAllPastAppointments()),
+              _buildBookingList(context, bookAppointmentProvider.getAllRejectedAppointments()),
+            ]
           ],
         ),
       ),
@@ -93,13 +114,19 @@ class _BookingScreenState extends State<BookingScreen> {
     return StreamBuilder(
       stream: bookingStream,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text('Error occurred'));
-        }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
+        if (snapshot.hasError) {
+          return const Center(child: Text('Error occurred'));
+        }
+
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+
+
+
+
+
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -111,15 +138,19 @@ class _BookingScreenState extends State<BookingScreen> {
                     Assets.emptyBooking,
                     height: heightX * 0.35,
                   ),
+
+                  // Image.asset(
+                  //   Assets.emptyBooking,
+                  //   height: heightX * 0.35,
+                  // ),
                   Text(
-                    'No booking yet',
+                   'No Booking Found',
                     style: primaryTextStyle.copyWith(
                         color: kPrimaryColor, fontSize: widthX * 0.085),
                   ),
                   Text(
-                    bookAppointmentProvider.role == 'admin'
-                        ? 'When a user books a service, you can find their booking details here.'
-                        : 'When you book a service, you can find your booking details here.',
+                    bookAppointmentProvider.role == 'admin' ? 'You haven\'t added any booking in this category' :
+                    'You have no booking in this category',
                     textAlign: TextAlign.center,
                     style: smallTextStyle.copyWith(
                         color: kPrimaryColor,
@@ -129,22 +160,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   SizedBox(
                     height: heightX * 0.03,
                   ),
-                  bookAppointmentProvider.role == 'admin'
-                      ? SizedBox.shrink()
-                      : CustomButton(
-                    height: heightX * 0.06,
-                    width: widthX * 0.7,
-                    text: 'Add Service',
-                    borderRadius: 10,
-                    onPress: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AllServices()));
-                    },
-                    style: mediumTextStyle,
-                    btnColor: kPrimaryColor,
-                  ),
+                 // button
                 ],
               ),
             ),

@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final TextInputType? keyBoardType;
   final TextEditingController? controller;
+  final void Function(String)? onChanged;
 
   const CustomTextField({
     required this.hintText,
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines,
     this.keyBoardType,
      this.controller,
+    this.onChanged,
    this.prefix,
    this.suffix,
     super.key,
@@ -38,6 +40,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: widthX * 0.04),
       child: TextField(
+        onChanged: onChanged,
         maxLines: maxLines,
         keyboardType: keyBoardType,
         controller: controller,

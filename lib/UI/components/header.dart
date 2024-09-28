@@ -1,7 +1,9 @@
 import 'package:beauty_salon/UI/screens/User_ui/cart_screen/cart_provider.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
@@ -22,6 +24,8 @@ required this.scaffoldKey,
 }
 
 class _HeaderState extends State<Header> {
+  
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -33,6 +37,9 @@ class _HeaderState extends State<Header> {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     final profileProvider = Provider.of<ProfileProvider>(context);
+    final allCategoryProvider = Provider.of<AllCategoriesProvider>(context);
+
+
     return Stack(
       children: [
         Container(
@@ -114,8 +121,11 @@ class _HeaderState extends State<Header> {
         Positioned(
           top: heightX * 0.15,
           child: CustomTextField(
-            hintText: 'Find Services',
-
+            // onChanged: (query){
+            //   allCategoryProvider.searchService(query);
+            // },
+            // controller: searchController,
+            hintText: 'Find Services By Name',
             maxWidth: widthX * 0.75,
             maxHeight: heightX * 0.065,
             prefix: const Icon(Icons.search),
@@ -125,5 +135,6 @@ class _HeaderState extends State<Header> {
       ],
     );
   }
+
 }
 

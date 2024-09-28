@@ -69,9 +69,10 @@ class _BookAppointmentState extends State<BookAppointment> {
                   SizedBox(
                     height: heightX * 0.15,
                     child: DatePicker(
+                     // bookAppointmentProvider.selectedDate ?? DateTime.now(),
                       DateTime.now(),
                       width: heightX * 0.11,
-                      initialSelectedDate: DateTime.now(),
+                      initialSelectedDate: bookAppointmentProvider.selectedDate,
                       selectionColor: kPrimaryColor,
                       selectedTextColor: kWhiteColor,
                       onDateChange: bookAppointmentProvider.onDateChange,
@@ -114,7 +115,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                       String formattedTime = time.format(context);
                       DateTime now = DateTime.now();
                       TimeOfDay nowTime = TimeOfDay.now();
-                      DateTime selectedDate = bookAppointmentProvider.selectedDate;
+                      DateTime selectedDate = bookAppointmentProvider.selectedDate ?? DateTime.now();
                       bool isPast = selectedDate.isAtSameMomentAs(DateTime(now.year, now.month, now.day))
                           && (time.hour < nowTime.hour || (time.hour == nowTime.hour && time.minute < nowTime.minute));
 
@@ -259,7 +260,7 @@ class _BookAppointmentState extends State<BookAppointment> {
               onPress: () {
                 if(bookAppointmentProvider.validation(context)){
                   String formattedDate =
-                  DateFormat('dd/MM/yyyy').format(bookAppointmentProvider.selectedDate);
+                  DateFormat('dd/MM/yyyy').format(bookAppointmentProvider.selectedDate!);
                   bookAppointmentProvider.calculateTotalPrice(widget.servicePrice);
                   Navigator.push(
                       context,
