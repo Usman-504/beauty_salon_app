@@ -4,6 +4,7 @@ import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/User_ui/auth/login_screen/login_screen.dart';
@@ -16,6 +17,7 @@ import '../screens/User_ui/bottom_nav_bar/services/services_list/services_list.d
 import '../screens/User_ui/bottom_nav_bar/services/sub_services/sub_services.dart';
 import '../screens/User_ui/cart_screen/cart_screen.dart';
 import '../screens/admin-ui/all_categories/all_categories_provider.dart';
+import 'alert_dialog.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -165,9 +167,20 @@ class SideDrawer extends StatelessWidget {
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      FirebaseAuth.instance.signOut().then((_){
-                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (Route<dynamic> route) => false,);
-                      });
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
+                              FirebaseAuth.instance.signOut().then((_){
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
+                                  // (Route<dynamic> route) => false,
+                                );
+                              });
+                              GoogleSignIn().signOut().then((_){
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
+                              });
+                            },);
+                          });
                     },
                   ),
                 ],

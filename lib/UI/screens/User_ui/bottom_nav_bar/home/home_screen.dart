@@ -314,8 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .data!
                                                               .docs[index]
                                                           ['service_description'],
-                                                          favIcon: Icons
-                                                              .favorite_border,
+
                                                            catId: allCategoriesProvider.categoryList[3], docId:snapshot
                                                           .data!
                                                           .docs[index].id,)));
@@ -388,30 +387,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     widthX *
                                                                         0.038),
                                                       ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          favProvider
-                                                                  .favServices
-                                                                  .contains(
-                                                                      index)
-                                                              ? favProvider
-                                                                  .removeItem(
-                                                                      index)
-                                                              : favProvider
-                                                                  .addItem(
-                                                                      index);
-                                                        },
-                                                        child: Icon(
-                                                          vm.favServices
-                                                                  .contains(
-                                                                      index)
-                                                              ? Icons.favorite
-                                                              : Icons
-                                                                  .favorite_border,
-                                                          size: heightX * 0.025,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      ),
+                                                      // GestureDetector(
+                                                      //   onTap: () {
+                                                      //     favProvider
+                                                      //             .favServices
+                                                      //             .contains(
+                                                      //                 index)
+                                                      //         ? favProvider
+                                                      //             .removeItem(
+                                                      //                 index)
+                                                      //         : favProvider
+                                                      //             .addItem(
+                                                      //                 index);
+                                                      //   },
+                                                      //   child: Icon(
+                                                      //     vm.favServices
+                                                      //             .contains(
+                                                      //                 index)
+                                                      //         ? Icons.favorite
+                                                      //         : Icons
+                                                      //             .favorite_border,
+                                                      //     size: heightX * 0.025,
+                                                      //     color: kPrimaryColor,
+                                                      //   ),
+                                                      // ),
                                                     ],
                                                   ),
                                                 ),

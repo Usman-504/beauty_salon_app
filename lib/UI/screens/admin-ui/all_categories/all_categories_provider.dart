@@ -26,17 +26,37 @@ class AllCategoriesProvider with ChangeNotifier {
   late List<String> _categoryNameList = [];
   List<String> get categoryNameList => _categoryNameList;
 
-List _searchResult = [];
-List get searchResult =>_searchResult;
+List<DocumentSnapshot> _searchResult = [];
+List<DocumentSnapshot> get searchResult =>_searchResult;
 
-  void searchService(String query) async{
-    final result = await FirebaseFirestore.instance.collection('services').where('category_name', isEqualTo: query).get();
-    _searchResult = result.docs.map((e) => e.data()).toList();
+  List<DocumentSnapshot> serviceCategoryList = [];
+
+  Stream<QuerySnapshot> getSpecificService() {
+    return FirebaseFirestore.instance.collection('services').snapshots();
+  }
+
+  void searchService(String query) {
+    if (query.isEmpty) {
+      _searchResult = serviceCategoryList;
+    } else {
+      _searchResult =serviceCategoryList.where((category) {
+        final categoryName = category['category_name'].toLowerCase();
+        return categoryName.contains(query.toLowerCase());
+      }).toList();
+    }
     notifyListeners();
-
   }
 
 
+  void getServiceCategories() async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('categories').get();
+      serviceCategoryList = snapshot.docs;
+      notifyListeners();
+    } catch (error) {
+      debugPrint('Error fetching categories: $error');
+    }
+  }
 
   void getCategories() async {
     await FirebaseFirestore.instance

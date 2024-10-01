@@ -1,4 +1,6 @@
 
+import 'dart:ui';
+
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +42,9 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: widthX * 0.04),
       child: TextField(
+        cursorColor: kPrimaryColor,
+        cursorErrorColor: kPrimaryColor,
+
         onChanged: onChanged,
         maxLines: maxLines,
         keyboardType: keyBoardType,

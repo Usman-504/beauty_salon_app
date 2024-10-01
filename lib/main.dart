@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'UI/screens/User_ui/auth/forget_password_screen/forget_password_provider.dart';
 import 'UI/screens/User_ui/auth/login_screen/login_provider.dart';
 import 'UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'UI/screens/User_ui/bookings/booking_provider.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> UpdatePasswordProvider()),
       ChangeNotifierProvider(create: (_)=> UpdateProfileInfoProvider()),
       ChangeNotifierProvider(create: (_)=> BookAppointmentProvider()),
+      ChangeNotifierProvider(create: (_)=> ForgetPasswordProvider()),
     ],
     child: const  MaterialApp(
       debugShowCheckedModeBanner: false,

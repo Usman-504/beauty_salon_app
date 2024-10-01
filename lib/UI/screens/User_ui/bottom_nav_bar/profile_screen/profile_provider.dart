@@ -1,3 +1,4 @@
+import 'package:beauty_salon/UI/components/alert_dialog.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
@@ -140,18 +141,30 @@ void navigateToScreen(BuildContext context, int index) async{
   String? role = sp.getString('role');
   if(role == 'client'){
     if(index ==4){
-      deleteUser(context);
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to delete your account?', onPress: () {  deleteUser(context); },);
+          });
+
+    //  deleteUser(context);
     }
     else if(index == 5)
     {
-      FirebaseAuth.instance.signOut().then((_){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
-          // (Route<dynamic> route) => false,
-        );
-      });
-      GoogleSignIn().signOut().then((_){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
-      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
+              FirebaseAuth.instance.signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
+                  // (Route<dynamic> route) => false,
+                );
+              });
+              GoogleSignIn().signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
+              });
+            },);
+          });
     }
     else{
       Navigator.push(context, MaterialPageRoute(builder: (context)=> listTileScreens[index]));
@@ -159,18 +172,29 @@ void navigateToScreen(BuildContext context, int index) async{
   }
   if(role == 'admin'){
     if(index ==5){
-      deleteUser(context);
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to delete your account?', onPress: () {  deleteUser(context); },);
+          });
     }
     else if(index == 6)
     {
-      FirebaseAuth.instance.signOut().then((_){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
-          // (Route<dynamic> route) => false,
-        );
-      });
-      GoogleSignIn().signOut().then((_){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
-      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
+              FirebaseAuth.instance.signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
+                  // (Route<dynamic> route) => false,
+                );
+              });
+              GoogleSignIn().signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
+              });
+            },);
+          });
+
     }
     else{
       Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminlistTileScreens[index]));

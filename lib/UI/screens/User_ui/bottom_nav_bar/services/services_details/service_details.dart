@@ -17,7 +17,7 @@ class ServiceDetails extends StatelessWidget {
       required this.description,
       required this.catId,
       required this.docId,
-      required this.favIcon,
+
 
       super.key});
 
@@ -27,7 +27,7 @@ class ServiceDetails extends StatelessWidget {
   final String description;
   final String catId;
   final String docId;
-  final IconData favIcon;
+
   //final Map index;
 
   @override
@@ -104,10 +104,7 @@ class ServiceDetails extends StatelessWidget {
                           style: mediumTextStyle.copyWith(
                               color: kPrimaryColor, fontSize: widthX * 0.063),
                         ),
-                        Icon(
-                          favIcon,
-                          color: kPrimaryColor,
-                        )
+
                       ],
                     ),
                     Text(

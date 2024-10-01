@@ -1,20 +1,16 @@
-import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
+
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../../../../../core/constants/const_colors.dart';
 import '../../../../../generated/assets.dart';
-import '../../auth/login_screen/login_screen.dart';
-import '../bottom_nav_screen/bottom_nav_bar.dart';
-import 'about_us_screen.dart';
-import 'change_password.dart';
+
 import 'edit_profile_screen.dart';
-import 'feedback_screen.dart';
+
 
 class ProfileScreen extends StatefulWidget {
  const ProfileScreen({super.key});

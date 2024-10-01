@@ -99,7 +99,7 @@ class SubServices extends StatelessWidget {
                                                 imageUrl: snapshot.data!.docs[index]['image_url'],
                                                 price:snapshot.data!.docs[index]['service_price'],
                                                 description: snapshot.data!.docs[index]['service_description'],
-                                                favIcon: Icons.favorite_border,
+
                                                  catId: catId, docId: snapshot.data!.docs[index].id,
                                               )));
 
@@ -146,17 +146,17 @@ class SubServices extends StatelessWidget {
                                                 color: kPrimaryColor,
                                                 fontSize: widthX * 0.038),
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              favProvider.favServices.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
-                                            },
-
-                                            child: Icon(
-                                              vm.favServices.contains(index) ? Icons.favorite : Icons.favorite_border,
-                                              size: heightX * 0.025,
-                                              color: kPrimaryColor,
-                                            ),
-                                          ),
+                                          // GestureDetector(
+                                          //   onTap: (){
+                                          //     favProvider.favServices.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
+                                          //   },
+                                          //
+                                          //   child: Icon(
+                                          //     vm.favServices.contains(index) ? Icons.favorite : Icons.favorite_border,
+                                          //     size: heightX * 0.025,
+                                          //     color: kPrimaryColor,
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),

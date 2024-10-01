@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../auth_check.dart';
+import '../forget_password_screen/forget_password_screen.dart';
 import '../signup_screen/signup_screen.dart';
 import 'login_provider.dart';
 
@@ -118,10 +119,15 @@ print('Rebuild');
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: widthX * 0.05),
-                          child: Text(
-                            'Forgot Password?',
-                            style:
-                                smallTextStyle.copyWith(fontSize: widthX * 0.042),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordScreen()));
+                            },
+                            child: Text(
+                              'Forgot Password?',
+                              style:
+                                  smallTextStyle.copyWith(fontSize: widthX * 0.042),
+                            ),
                           ),
                         ),
                       ],
