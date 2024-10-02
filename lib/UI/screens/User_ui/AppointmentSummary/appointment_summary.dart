@@ -1,18 +1,16 @@
 import 'package:beauty_salon/UI/components/alert_dialog.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/constants/const_colors.dart';
 import '../../../../core/constants/const_styles.dart';
-import '../../../../generated/assets.dart';
 import '../../../components/custom_button.dart';
 import '../bookings/booking_provider.dart';
 import '../bookings/booking_screen.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment_provider.dart';
 
 class AppointmentSummary extends StatefulWidget {
-  AppointmentSummary(
+ const AppointmentSummary(
       {required this.serviceName,
       required this.servicePrice,
       required this.totalPrice,
@@ -29,19 +27,19 @@ class AppointmentSummary extends StatefulWidget {
 
       super.key});
 
-  String serviceName;
-  String customerName;
-  String customerNumber;
-  String customerAddress;
-  String customerMessage;
-  String docId;
-  int servicePrice;
-  int totalPrice;
-  String date;
-  String time;
-  String appointmentStatus;
-  String serviceType;
-  String imageUrl;
+ final String serviceName;
+ final String customerName;
+ final String customerNumber;
+ final String customerAddress;
+ final String customerMessage;
+ final String docId;
+ final int servicePrice;
+ final int totalPrice;
+ final String date;
+ final String time;
+ final String appointmentStatus;
+ final String serviceType;
+ final String imageUrl;
 
   @override
   State<AppointmentSummary> createState() => _AppointmentSummaryState();
@@ -308,7 +306,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                       ],
                     ),
                   ),
-                  widget.appointmentStatus.isEmpty ? SizedBox.shrink() :
+                  widget.appointmentStatus.isEmpty ? const SizedBox.shrink() :
                   Padding(
                     padding: EdgeInsets.only(
                         bottom: heightX * 0.01,
@@ -409,9 +407,9 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                   style: mediumTextStyle.copyWith(fontSize: widthX * 0.045),
                   btnColor: kPrimaryColor,
                 ),
-              ) : SizedBox.shrink(),
+              ) : const SizedBox.shrink(),
               if(bookAppointmentProvider.role == 'admin' )
-              widget.appointmentStatus == 'Accepted' &&  widget.appointmentStatus == 'Rejected' && widget.appointmentStatus.isNotEmpty  ? SizedBox.shrink() :
+              widget.appointmentStatus == 'Accepted' &&  widget.appointmentStatus == 'Rejected' && widget.appointmentStatus.isNotEmpty  ? const SizedBox.shrink() :
               Padding(
                 padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: heightX* 0.02),
                 child: CustomButton(
@@ -441,7 +439,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                 ),
               ),
               if(bookAppointmentProvider.role == 'client' )
-                widget.appointmentStatus == 'Accepted' ||  widget.appointmentStatus == 'Rejected'   && widget.appointmentStatus.isNotEmpty  ? SizedBox.shrink() :
+                widget.appointmentStatus == 'Accepted' ||  widget.appointmentStatus == 'Rejected'   && widget.appointmentStatus.isNotEmpty  ? const SizedBox.shrink() :
                 Padding(
                   padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: heightX* 0.02),
                   child: CustomButton(
