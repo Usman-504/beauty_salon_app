@@ -1,8 +1,6 @@
 import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
 import 'package:beauty_salon/UI/screens/admin-ui/update_category/update_category_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/global_doc_id.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
