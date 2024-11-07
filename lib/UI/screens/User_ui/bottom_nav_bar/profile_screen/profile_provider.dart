@@ -1,7 +1,22 @@
+import 'package:beauty_salon/UI/components/alert_dialog.dart';
+import 'package:beauty_salon/UI/components/snackbar.dart';
+import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_screen.dart';
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
+import '../../../admin-ui/create_account/admin_signup_screen.dart';
+import '../../auth/login_screen/login_screen.dart';
+import '../bottom_nav_screen/bottom_nav_bar.dart';
+import 'about_us_screen.dart';
+import 'change_password.dart';
+import 'feedback_screen.dart';
+
 
 class ProfileProvider with ChangeNotifier{
 
@@ -20,14 +35,182 @@ String get userPhone=> _userPhone;
  late String _email = '';
   String? get email=> _email;
 
+late String _profileUrl = '';
+String get profileUrl => _profileUrl;
+
+final List<Map<String, dynamic>> info = [
+  {
+    'title': 'Change Password',
+    'description': '',
+    'icon': Icons.password,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'About Us',
+    'description': 'Learn more about our app',
+    'icon': Icons.info_outlined,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Privacy',
+    'description': 'Learn more about Privacy',
+    'icon': Icons.privacy_tip,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Send Feedback',
+    'description': 'Send us valuable Feedback',
+    'icon': Icons.message,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Delete Account',
+    'description': '',
+    'icon': Icons.auto_delete_outlined,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Logout',
+    'description': '',
+    'icon': Icons.logout,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+];
+final List<Map<String, dynamic>> adminInfo = [
+  {
+    'title': 'Change Password',
+    'description': '',
+    'icon': Icons.password,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Add About Us',
+    'description': 'Learn more about our app',
+    'icon': Icons.info_outlined,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Add Privacy Policy',
+    'description': 'Learn more about Privacy',
+    'icon': Icons.privacy_tip,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'View Feedback',
+    'description': 'Send us valuable Feedback',
+    'icon': Icons.message,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Create New Account',
+    'description': 'Send us valuable Feedback',
+    'icon': Icons.account_circle,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Delete Account',
+    'description': '',
+    'icon': Icons.auto_delete_outlined,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+  {
+    'title': 'Logout',
+    'description': '',
+    'icon': Icons.logout,
+    'staticIcon': Icons.arrow_forward_ios_rounded,
+  },
+];
+
+List<Widget> listTileScreens = [
+  const ChangePasswordScreen(),
+  const AboutUsScreen(),
+  const PrivacyScreen(),
+  const FeedbackScreen(),
+
+];
+List<Widget> AdminlistTileScreens = [
+  const ChangePasswordScreen(),
+  const AboutUsScreen(),
+  const PrivacyScreen(),
+  const FeedbackScreen(),
+  const AdminSignUpScreen(),
+];
+
+void navigateToScreen(BuildContext context, int index) async{
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  String? role = sp.getString('role');
+  if(role == 'client'){
+    if(index ==4){
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to delete your account?', onPress: () {  deleteUser(context); },);
+          });
+
+    //  deleteUser(context);
+    }
+    else if(index == 5)
+    {
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
+              FirebaseAuth.instance.signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
+                  // (Route<dynamic> route) => false,
+                );
+              });
+              GoogleSignIn().signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
+              });
+            },);
+          });
+    }
+    else{
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> listTileScreens[index]));
+    }
+  }
+  if(role == 'admin'){
+    if(index ==5){
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to delete your account?', onPress: () {  deleteUser(context); },);
+          });
+    }
+    else if(index == 6)
+    {
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
+              FirebaseAuth.instance.signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
+                  // (Route<dynamic> route) => false,
+                );
+              });
+              GoogleSignIn().signOut().then((_){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()), );
+              });
+            },);
+          });
+
+    }
+    else{
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminlistTileScreens[index]));
+    }
+  }
+
+}
+
   void fetchUserDetails ()async{
 
     SharedPreferences sp = await SharedPreferences.getInstance();
     _name = sp.getString('name') ?? '';
     _email = sp.getString('email') ?? '';
+    _profileUrl = sp.getString('profile_url') ?? '';
     notifyListeners();
   }
-
 
   void userDetails() async{
     User? user = FirebaseAuth.instance.currentUser;
@@ -42,8 +225,44 @@ String get userPhone=> _userPhone;
    print(userPhone);
   }
 
+Future<void> deleteUser (BuildContext context) async{
+    User? user = FirebaseAuth.instance.currentUser;
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('user').doc(user!.uid).get();
+    String imagePath = userDoc.get('image_path');
+    if(imagePath.isNotEmpty){
+      await FirebaseStorage.instance.ref(imagePath).delete();
+    }
+    await FirebaseFirestore.instance.collection('user').doc(user.uid).delete();
+    await user.delete();
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const SignUpScreen()), (Route<dynamic> route) => false,);
+    Utils().showSnackBar(context, 'Account Deleted Successfully');
+}
 
-
+void navigateToHomeScreen(BuildContext context) async{
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  String? role = sp.getString('role');
+  if(role == 'client'){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
+    return;
+  }
+  else {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminBottomNavBar()));
+    return;
+  }
+}
+// void getProfileImage() async{
+//   User? user = FirebaseAuth.instance.currentUser;
+//   DocumentSnapshot userDoc =  await FirebaseFirestore.instance.collection('user').doc(user!.uid).get();
+//   String imageUrl = userDoc.get('image_url') ;
+//   if(imageUrl.isNotEmpty) {
+//     // SharedPreferences sp = await SharedPreferences.getInstance();
+//     // sp.setString('profile_url', imageUrl);
+//     notifyListeners();
+//
+//   }
+//
+//
+// }
 
 
 

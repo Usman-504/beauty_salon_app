@@ -147,6 +147,91 @@ class _AllServicesState extends State<AllServices> {
                   }),
             ),
           ),
+          // Expanded(
+          //   child: Padding(
+          //     padding: EdgeInsets.all(heightX * 0.02),
+          //     child: StreamBuilder(
+          //         stream: allCategoriesProvider.getServices(),
+          //         builder: (context, AsyncSnapshot snapshot) {
+          //           if (snapshot.hasError) {
+          //             print('error');
+          //           }
+          //           if (snapshot.connectionState == ConnectionState.waiting) {
+          //             return const Center(child: CircularProgressIndicator());
+          //           }
+          //           if (snapshot.data.docs.isEmpty) {
+          //             print('Empty');
+          //           }
+          //           if (snapshot != null && snapshot.data != null) {
+          //             return Padding(
+          //               padding: const EdgeInsets.all(8.0),
+          //               child: GridView.builder(
+          //                   itemCount: allCategoriesProvider.searchResult.length,
+          //                   gridDelegate:
+          //                   const SliverGridDelegateWithFixedCrossAxisCount(
+          //                     crossAxisCount: 2,
+          //                     childAspectRatio: 2 / 2,
+          //                     mainAxisSpacing: 10,
+          //                     crossAxisSpacing: 10,
+          //                   ),
+          //                   itemBuilder: (context, int index) {
+          //                     return GestureDetector(
+          //                       onTap: () {
+          //                         Navigator.push(
+          //                             context,
+          //                             MaterialPageRoute(
+          //                                 builder: (context) => SubServices(
+          //                                   text: snapshot.data!.docs[index]
+          //                                   ['category_name'],
+          //                                   subServices: allCategoriesProvider
+          //                                       .getSubServices(
+          //                                       allCategoriesProvider
+          //                                           .categoryList[
+          //                                       index]),
+          //                                   catId: allCategoriesProvider
+          //                                       .categoryList[index],
+          //                                 )));
+          //                       },
+          //                       child: Container(
+          //                         decoration: BoxDecoration(
+          //                             color: kContainerColor,
+          //                             border: Border.all(
+          //                                 color: kPrimaryColor, width: 2),
+          //                             borderRadius: BorderRadius.circular(10)),
+          //                         child: Column(
+          //                           mainAxisAlignment: MainAxisAlignment.center,
+          //                           children: [
+          //                             ColorFiltered(
+          //                                 colorFilter: const ColorFilter.mode(
+          //                                     kPrimaryColor, BlendMode.srcATop),
+          //                                 child: Image.network(
+          //                                   allCategoriesProvider.searchResult[index]['image_url'],
+          //                                   // snapshot.data!.docs[index]
+          //                                   // ['image_url'],
+          //                                   height: heightX * 0.11,
+          //                                 )),
+          //                             SizedBox(
+          //                               height: heightX * 0.02,
+          //                             ),
+          //                             Text(
+          //                              // snapshot.data!.docs[index]
+          //                               allCategoriesProvider.searchResult[index]
+          //                                ['category_name'],
+          //                               style: mediumTextStyle.copyWith(
+          //                                   fontSize: widthX * 0.052,
+          //                                   color: kPrimaryColor),
+          //                             ),
+          //                           ],
+          //                         ),
+          //                       ),
+          //                     );
+          //                   }),
+          //             );
+          //           }
+          //           return const CircularProgressIndicator();
+          //         }),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
+import 'package:beauty_salon/UI/screens/User_ui/bookings/booking_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
   List<Widget> screens = [
     AdminServicesScreen(),
      AllCategoriesScreen(),
-    const  AdminBookingsScreen(),
+    BookingScreen(),
+  //  AdminBookingsScreen(),
     AdminProfileScreen(),
   ];
   List<TabItem> items = [

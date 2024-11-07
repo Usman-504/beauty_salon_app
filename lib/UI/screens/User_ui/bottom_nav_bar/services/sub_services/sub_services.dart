@@ -13,7 +13,6 @@ import '../services_details/service_details.dart';
 class SubServices extends StatelessWidget {
   SubServices({ required this.text, required this.subServices, required this.catId, super.key});
 
- // List<Map<String, dynamic>> services = [];
   Stream subServices;
   String text;
   String catId;
@@ -89,8 +88,8 @@ class SubServices extends StatelessWidget {
                           itemBuilder: (context, int index) {
                             return GestureDetector(
                               onTap: () async{
-                                Map<String, dynamic>? documentData = await allServicesProvider.fetchDocumentAsMap(catId, snapshot.data!.docs[index].id);
-                                if (documentData != null){
+                               // Map<String, dynamic>? documentData = await allServicesProvider.fetchDocumentAsMap(catId, snapshot.data!.docs[index].id);
+                               // if (documentData != null){
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -98,12 +97,13 @@ class SubServices extends StatelessWidget {
                                               ServiceDetails(
                                                 title:  snapshot.data!.docs[index]['service_name'],
                                                 imageUrl: snapshot.data!.docs[index]['image_url'],
-                                                price: 'Rs. ${snapshot.data!.docs[index]['service_price']}/-',
+                                                price:snapshot.data!.docs[index]['service_price'],
                                                 description: snapshot.data!.docs[index]['service_description'],
-                                                favIcon: Icons.favorite_border,
-                                                index:  documentData,
+
+                                                 catId: catId, docId: snapshot.data!.docs[index].id,
                                               )));
-                                }
+
+                               // }
 
                               },
                               child: Container(
@@ -146,17 +146,17 @@ class SubServices extends StatelessWidget {
                                                 color: kPrimaryColor,
                                                 fontSize: widthX * 0.038),
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              favProvider.favServices.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
-                                            },
-
-                                            child: Icon(
-                                              vm.favServices.contains(index) ? Icons.favorite : Icons.favorite_border,
-                                              size: heightX * 0.025,
-                                              color: kPrimaryColor,
-                                            ),
-                                          ),
+                                          // GestureDetector(
+                                          //   onTap: (){
+                                          //     favProvider.favServices.contains(index) ? favProvider.removeItem(index) : favProvider.addItem(index);
+                                          //   },
+                                          //
+                                          //   child: Icon(
+                                          //     vm.favServices.contains(index) ? Icons.favorite : Icons.favorite_border,
+                                          //     size: heightX * 0.025,
+                                          //     color: kPrimaryColor,
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),

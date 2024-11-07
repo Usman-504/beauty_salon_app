@@ -1,10 +1,9 @@
+import 'package:beauty_salon/UI/components/app_dropdown.dart';
 import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/custom_divider.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/image_container.dart';
 import 'package:beauty_salon/UI/components/password_textfield.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
-import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
@@ -15,16 +14,16 @@ import 'package:beauty_salon/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../login_screen/login_screen.dart';
+import '../../User_ui/auth/login_screen/login_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class AdminSignUpScreen extends StatefulWidget {
+  const AdminSignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<AdminSignUpScreen> createState() => _AdminSignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
 
   @override
   void initState() {
@@ -36,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-final signUpProvider = Provider.of<SignupProvider>(context);
+    final signUpProvider = Provider.of<SignupProvider>(context);
     return Scaffold(
       backgroundColor: kContainerColor,
       body: SingleChildScrollView(
@@ -65,9 +64,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                         color: kWhiteColor,
                         shadows: boxShadow),
                   ),
-                  SizedBox(
-                    height: heightX * 0.2,
-                  ),
+
                 ],
               ),
             ),
@@ -94,9 +91,9 @@ final signUpProvider = Provider.of<SignupProvider>(context);
             //     )),
             Positioned(
               left: widthX * 0.05,
-              top: heightX * 0.265,
+              top: heightX * 0.365,
               child: WhiteContainer(
-                height: heightX * 0.68,
+                height: heightX * 0.58,
                 width: widthX * 0.9,
                 child: Column(
                   children: [
@@ -127,6 +124,11 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                     ),
                     PasswordTextField(controller: signUpProvider.passwordController),
                     Padding(
+                      padding:   EdgeInsets.only(left: widthX * 0.04,
+                        right: widthX * 0.04,),
+                      child: AppDropDown(labelText: 'Select Role', items: const ['Admin', 'Client'], onChanged: signUpProvider.onChangeRole, fillColor: Colors.white,),
+                    ),
+                    Padding(
                       padding: EdgeInsets.only(
                           left: widthX * 0.03,
                           right: widthX * 0.03,
@@ -142,16 +144,11 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                             if(validation != null){
                               Utils().showSnackBar(context, validation );
                             }
-
                             else {
-                              String? error = await signUpProvider.signUp();
+                              String? error = await signUpProvider.adminSignUp();
                               if (error == null) {
                                 Utils().showSnackBar(context, 'Account Created Successfully');
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                           const  LoginScreen()));
+                                Navigator.pop(context);
                               }
                               else {
                                 Utils().showSnackBar(context, error,);
@@ -166,76 +163,76 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                         borderRadius: heightX * 0.01, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
                       ),
                     ),
-                    Row(
-                      children: [
-                        const CustomDivider(),
-                        Text(
-                          'Or Sign Up with',
-                          style:
-                              smallTextStyle.copyWith(fontSize: heightX * 0.02),
-                        ),
-                        const CustomDivider(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: heightX * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // SocialContainer(
-                        //   imageUrl: Assets.facebookIcon,
-                        //   text: 'Facebook',
-                        //   onPress: () {},
-                        //   height: heightX * 0.04,
-                        // ),
-                        // SizedBox(
-                        //   width: widthX * 0.03,
-                        // ),
-                        SocialContainer(
-                          imageUrl: Assets.googleIcon,
-                          text: 'Google',
-                          onPress: () {
-                            signUpProvider.signUpWithGoogle(context);
-
-                          },
-                          height: heightX * 0.033, width: widthX * 0.8,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: heightX * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Already have an account?',
-                          style: smallTextStyle.copyWith(
-                              fontSize: heightX * 0.02,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        SizedBox(
-                          width: widthX * 0.01,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
-                          },
-                          child: Text(
-                            'Login Now',
-                            style: smallTextStyle.copyWith(
-                                fontSize: heightX * 0.02),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: heightX * 0.02,
-                    ),
+                    // Row(
+                    //   children: [
+                    //     const CustomDivider(),
+                    //     Text(
+                    //       'Or Sign Up with',
+                    //       style:
+                    //       smallTextStyle.copyWith(fontSize: heightX * 0.02),
+                    //     ),
+                    //     const CustomDivider(),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: heightX * 0.02,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     // SocialContainer(
+                    //     //   imageUrl: Assets.facebookIcon,
+                    //     //   text: 'Facebook',
+                    //     //   onPress: () {},
+                    //     //   height: heightX * 0.04,
+                    //     // ),
+                    //     // SizedBox(
+                    //     //   width: widthX * 0.03,
+                    //     // ),
+                    //     SocialContainer(
+                    //       imageUrl: Assets.googleIcon,
+                    //       text: 'Google',
+                    //       onPress: () {
+                    //         signUpProvider.signUpWithGoogle(context);
+                    //
+                    //       },
+                    //       height: heightX * 0.033, width: widthX * 0.8,
+                    //     )
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: heightX * 0.02,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       'Already have an account?',
+                    //       style: smallTextStyle.copyWith(
+                    //           fontSize: heightX * 0.02,
+                    //           fontWeight: FontWeight.normal),
+                    //     ),
+                    //     SizedBox(
+                    //       width: widthX * 0.01,
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute(
+                    //                 builder: (context) => const LoginScreen()));
+                    //       },
+                    //       child: Text(
+                    //         'Login Now',
+                    //         style: smallTextStyle.copyWith(
+                    //             fontSize: heightX * 0.02),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: heightX * 0.02,
+                    // ),
                   ],
                 ),
               ),

@@ -15,16 +15,20 @@ class ServiceDetails extends StatelessWidget {
       required this.imageUrl,
       required this.price,
       required this.description,
-      required this.favIcon,
-        required this.index,
+      required this.catId,
+      required this.docId,
+
+
       super.key});
 
   final String imageUrl;
   final String title;
-  final String price;
+  final int price;
   final String description;
-  final IconData favIcon;
-  final Map index;
+  final String catId;
+  final String docId;
+
+  //final Map index;
 
   @override
   Widget build(BuildContext context) {
@@ -100,14 +104,12 @@ class ServiceDetails extends StatelessWidget {
                           style: mediumTextStyle.copyWith(
                               color: kPrimaryColor, fontSize: widthX * 0.063),
                         ),
-                        Icon(
-                          favIcon,
-                          color: kPrimaryColor,
-                        )
+
                       ],
                     ),
                     Text(
-                      price,
+                      'Rs. ${price.toString()}/-',
+                     // price.toString(),
                       style: smallTextStyle.copyWith(color: kSecondaryColor),
                     ),
                     SizedBox(
@@ -134,7 +136,7 @@ class ServiceDetails extends StatelessWidget {
                               width: widthX * 0.38,
                               text: 'Book Now',
                               onPress: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  BookAppointment(serviceIndex: index,)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  BookAppointment(serviceName: title, servicePrice: price, serviceImageUrl: imageUrl,)));
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
@@ -143,28 +145,32 @@ class ServiceDetails extends StatelessWidget {
                             CustomButton(
                               height: heightX * 0.06,
                               width: widthX * 0.38,
-                              text: cartProvider.itemsList.contains(index)
-                                  ? 'Added To Cart'
-                                  : 'Add To Cart',
+                              text:
+
+                              // cartProvider.itemsList.contains(index)
+                              //     ? 'Added To Cart':
+                                   'Add To Cart',
                               onPress: () {
-                                if (cartProvider.itemsList.contains(index)) {
-                                  showSnackBar('Service already in Cart', () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CartScreen()));
-                                  }, 'View Cart');
-                                } else {
-                                  cartProvider.addItem(index);
-                                  showSnackBar('Service added to Cart', () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CartScreen()));
-                                  }, 'View Cart');
-                                }
+                                 vm.addToCart( title, price.toString(), imageUrl, context );
+                                // if (cartProvider.itemsList.contains(index)) {
+                                //   showSnackBar('Service already in Cart', () {
+                                //     Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //             builder: (context) =>
+                                //                 const CartScreen()));
+                                //   }, 'View Cart');
+                                // }
+                                // else {
+                                //   cartProvider.addItem(index);
+                                //   showSnackBar('Service added to Cart', () {
+                                //     Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //             builder: (context) =>
+                                //                 const CartScreen()));
+                                //   }, 'View Cart');
+                                // }
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(

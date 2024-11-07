@@ -69,8 +69,8 @@ class _AddServiceState extends State<AddService> {
                   Center(
                     child: AppDropDown(
                         labelText: 'Select Category',
-                        items: allCategoriesProvider.categoryList.isNotEmpty ? allCategoriesProvider.categoryList : ['No categories found'],
-                        onChanged: addServiceProvider.dropDownCategory
+                        items: allCategoriesProvider.categoryNameList.isNotEmpty ? allCategoriesProvider.categoryNameList : ['No categories found'],
+                        onChanged: addServiceProvider.dropDownCategory, fillColor: kContainerColor,
                     ),
                   ),
                   Center(
@@ -116,6 +116,7 @@ class _AddServiceState extends State<AddService> {
                       maxWidth: widthX * 0.9,
                       maxHeight: heightX * 0.08),
                   CustomTextField(
+                    keyBoardType: TextInputType.number,
                       controller: vm.servicePriceController,
                       hintText: 'Service Price',
                       maxWidth: widthX * 0.9,
@@ -138,7 +139,9 @@ class _AddServiceState extends State<AddService> {
                           if (validation != null) {
                             Utils().showSnackBar(context, validation);
                           } else {
-                            vm.addData(addServiceProvider.selectedCategory!);
+                            vm.selectedDocument();
+                          //  addServiceProvider.selectedCategory!
+                            vm.addData(addServiceProvider.selectedDoc!);
                             Utils().showSnackBar(context, 'Service Adding...');
                             Navigator.push(
                                 context,

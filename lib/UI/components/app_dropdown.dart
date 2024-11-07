@@ -11,11 +11,13 @@ class AppDropDown extends StatefulWidget {
     required this.items,
     required this.onChanged,
     this.selectedItem,
+   required this.fillColor,
   });
 
   final List<String> items;
   final String labelText;
   final String? selectedItem;
+  final Color fillColor;
   final void Function(String?)? onChanged;
 
   @override
@@ -39,7 +41,7 @@ class _AppDropDownState extends State<AppDropDown> {
           ),
           itemBuilder: (context, item, isSelected) {
             return Container(
-              color: kContainerColor,
+              color: widget.fillColor,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               child: Text(
                 item,
@@ -53,7 +55,7 @@ class _AppDropDownState extends State<AppDropDown> {
           dropdownSearchDecoration: InputDecoration(
             hintText: widget.labelText,
             filled: true,
-            fillColor:  kContainerColor,
+            fillColor:  widget.fillColor,
             contentPadding: const EdgeInsets.only(left: 10, top: 15),
             hintStyle: mediumTextStyle.copyWith(color: kPrimaryColor),
             // floatingLabelStyle: const TextStyle(color: Colors.black),

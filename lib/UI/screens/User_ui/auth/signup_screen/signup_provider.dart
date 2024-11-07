@@ -13,6 +13,9 @@ class SignupProvider with ChangeNotifier {
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  String _selectedRole = '';
+  String get selectedRole => _selectedRole;
+
   String? validation() {
     if (nameController.text.isEmpty) {
       return 'Please Enter Your Name';
@@ -31,9 +34,6 @@ class SignupProvider with ChangeNotifier {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      // String userRole;
-      // if(emailController.text.trim().toLowerCase() == 'usmankhan14307@gmail.com'){}
-      // else{}
       await FirebaseFirestore.instance
           .collection('user')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -43,6 +43,8 @@ class SignupProvider with ChangeNotifier {
         'email': FirebaseAuth.instance.currentUser!.email,
         'role': 'client',
         'user_id': FirebaseAuth.instance.currentUser!.uid,
+        'image_url' : '',
+        'image_path' : '',
       });
       notifyListeners();
       return null;
@@ -53,7 +55,44 @@ class SignupProvider with ChangeNotifier {
         return 'This Email Is Already Registered.';
       } else if (e.code == 'weak-password') {
         return 'Password Must Be At Least 6 Characters';
-      } else {
+      }else if (e.code == 'network-request-failed') {
+        return 'Check Your Internet Connection.';
+      }
+      else {
+        return 'An error occurred';
+      }
+    }
+  }
+  Future<String?> adminSignUp() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+      await FirebaseFirestore.instance
+          .collection('user')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        'name': nameController.text.trim(),
+        'phone_no': phoneNoController.text.trim(),
+        'email': FirebaseAuth.instance.currentUser!.email,
+        'role': _selectedRole.toLowerCase(),
+        'user_id': FirebaseAuth.instance.currentUser!.uid,
+        'image_url' : '',
+        'image_path' : '',
+      });
+      notifyListeners();
+      return null;
+    } on FirebaseException catch (e) {
+      if (e.code == 'invalid-email') {
+        return 'The Email Format is Invalid.';
+      } else if (e.code == 'email-already-in-use') {
+        return 'This Email Is Already Registered.';
+      } else if (e.code == 'weak-password') {
+        return 'Password Must Be At Least 6 Characters';
+      }else if (e.code == 'network-request-failed') {
+        return 'Check Your Internet Connection.';
+      }
+      else {
         return 'An error occurred';
       }
     }
@@ -126,6 +165,19 @@ class SignupProvider with ChangeNotifier {
     }
     return null;
 
+  }
+
+  void onChangeRole(value){
+    _selectedRole = value;
+    notifyListeners();
+  }
+
+  void clearFields() {
+    nameController.clear();
+    emailController.clear();
+    phoneNoController.clear();
+    passwordController.clear();
+    notifyListeners();
   }
 
   // void userRole() async {

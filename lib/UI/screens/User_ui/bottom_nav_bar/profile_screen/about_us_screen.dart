@@ -16,7 +16,7 @@ class AboutUsScreen extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const BottomNavBar()));
+              Navigator.pop(context);
             },
             child: Icon(
               Icons.arrow_back,

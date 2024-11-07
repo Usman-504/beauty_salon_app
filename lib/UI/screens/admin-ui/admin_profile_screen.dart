@@ -1,21 +1,173 @@
-import 'package:beauty_salon/UI/screens/User_ui/auth/login_screen/login_screen.dart';
+
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
+import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
+import 'package:beauty_salon/UI/screens/admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
+import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import '../../../../../core/constants/const_colors.dart';
+import '../../../../../generated/assets.dart';
+import '../User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
+import '../User_ui/bottom_nav_bar/profile_screen/edit_profile_screen.dart';
 
-class AdminProfileScreen extends StatelessWidget {
+
+class AdminProfileScreen extends StatefulWidget {
   const AdminProfileScreen({super.key});
 
   @override
+  State<AdminProfileScreen> createState() => _AdminProfileScreenState();
+}
+
+class _AdminProfileScreenState extends State<AdminProfileScreen> {
+
+
+  @override
+  void initState(){
+    super.initState();
+    Provider.of<ProfileProvider>(context, listen: false).fetchUserDetails();
+    Provider.of<ProfileProvider>(context, listen: false).userDetails();
+    Future.microtask(() => context.read<UpdateProfileInfoProvider>().clearFields());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var heightX = MediaQuery.of(context).size.height;
+    var widthX = MediaQuery.of(context).size.width;
+    final profileProvider = Provider.of<ProfileProvider>(context);
     return Scaffold(
-      body: Center(child: GestureDetector(
-          onTap: () async{
-            await FirebaseAuth.instance.signOut();
-            await GoogleSignIn().signOut();
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-          },
-          child: Text('Profile'))),
-    );
+        backgroundColor: kScaffoldColor,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>const AdminBottomNavBar()));
+              },
+              child: Icon(
+                Icons.arrow_back,
+                size: heightX * 0.04,
+                color: kWhiteColor,
+              )),
+          centerTitle: true,
+          title: Text('Profile',
+              style: secondaryTextStyle.copyWith(
+                  color: kWhiteColor, fontSize: widthX * 0.063)),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(widthX * 0.03),
+          child: Column(
+            children: [
+              StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('user').snapshots(),
+                builder: (context, snapshot) {
+                  return Stack(
+                    children: [
+                      Container(
+                        height: heightX * 0.15,
+                        decoration: BoxDecoration(
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      Positioned(
+                        top: heightX * 0.01,
+                        left: widthX * 0.02,
+                        child: Container(
+                          height: heightX * 0.13,
+                          width: heightX * 0.13,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: kPrimaryColor, width: 3),
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      Positioned(
+                        top: heightX * 0.02,
+                        left: widthX * 0.04,
+                        child: Container(
+                          height: heightX * 0.11,
+                          width: heightX * 0.11,
+                          decoration:  BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: profileProvider.profileUrl.isNotEmpty ?
+                                  NetworkImage(profileProvider.profileUrl) :
+                                  const AssetImage(Assets.dp)
+                              ),
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      Positioned(
+                          top: heightX * 0.04,
+                          left: widthX * 0.32,
+                          child: Text(
+                            profileProvider.name,
+                            style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                          )),
+                      Positioned(
+                        top: heightX * 0.075,
+                        left: widthX * 0.32,
+                        child: Text(
+                          profileProvider.email!,
+                          style: smallTextStyle.copyWith(fontSize: 12),
+                        ),
+                      ),
+                      Positioned(
+                          top: heightX * 0.04,
+                          left: widthX * 0.83,
+                          child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>  EditProfileScreen(name: profileProvider.userName, email: profileProvider.userEmail, phoneNo: profileProvider.userPhone, imageUrl: profileProvider.profileUrl, docId: FirebaseAuth.instance.currentUser!.uid,)));
+                              },
+                              child: const Icon(
+                                Icons.edit,
+                                color: kPrimaryColor,
+                              ))),
+                    ],
+                  );
+                },
+
+              ),
+              SizedBox(
+                height: heightX * 0.03,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: profileProvider.adminInfo.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: heightX * 0.02,
+                        ),
+                        child: Container(
+                          height: heightX * 0.09,
+                          decoration: BoxDecoration(
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: GestureDetector(
+                            onTap: (){
+                              profileProvider.navigateToScreen(context, index);
+
+                            },
+                            child: ListTile(
+                              leading: Icon(
+                                profileProvider.adminInfo[index]['icon'],
+                                color: kPrimaryColor,
+                              ),
+                              title: Text(
+                                profileProvider.adminInfo[index]['title'],
+                                style: smallTextStyle,
+                              ),
+                              trailing: Icon(profileProvider.adminInfo[index]['staticIcon']),
+                              // subtitle: Text(info[index]['description']),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ],
+          ),
+        ));
   }
 }

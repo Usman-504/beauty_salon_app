@@ -26,10 +26,21 @@ class AddServiceProvider with ChangeNotifier {
 
   String? _selectedCategory;
   String? get selectedCategory => _selectedCategory;
-  set selectedCategory(String? selectedItem) {
-    _selectedCategory = selectedItem;
-    notifyListeners();  // Notify listeners whenever the category is changed
-  }
+
+  String? _selectedDoc;
+  String? get selectedDoc => _selectedDoc;
+
+ // set selectedCategory(String? selectedItem) {
+   // _selectedCategory = selectedItem;
+  //  notifyListeners();
+  //}
+
+void selectedDocument () async{
+    var catDoc = await FirebaseFirestore.instance.collection('services').where('category_name', isEqualTo: _selectedCategory).get();
+var doc = catDoc.docs.first;
+_selectedDoc = doc.id;
+notifyListeners();
+}
 
   void clearFields() {
     serviceNameController.clear();
@@ -56,10 +67,12 @@ class AddServiceProvider with ChangeNotifier {
     }
 
     if (_imageUrl.isNotEmpty) {
+      var stringPrice = servicePriceController.text.trim();
+      var price = int.tryParse(stringPrice);
       await FirebaseFirestore.instance.collection('services').doc(docId).collection('subServices').doc(serviceNameController.text.trim().toLowerCase()).
       set({
         'service_name' : serviceNameController.text.trim(),
-        'service_price' : servicePriceController.text.trim(),
+        'service_price' : price,
         'service_description' : serviceDescriptionController.text.trim(),
         'image_url': _imageUrl,
         'image_path': _imagePath,

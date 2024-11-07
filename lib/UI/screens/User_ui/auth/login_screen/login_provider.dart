@@ -51,10 +51,12 @@ class LoginProvider with ChangeNotifier {
       String role = userDoc.get('role');
       String name = userDoc.get('name');
       String email = userDoc.get('email');
+     String photo = userDoc.get('image_url');
       SharedPreferences sp = await SharedPreferences.getInstance();
       sp.setString('role', role);
       sp.setString('name', name);
       sp.setString('email', email);
+      sp.setString('profile_url', photo);
       print(sp.getString('role'));
 
       notifyListeners();
@@ -64,6 +66,8 @@ class LoginProvider with ChangeNotifier {
         return 'The Email Format Is Invalid.';
       } else if (e.code == 'invalid-credential') {
         return 'Email Or Password Is Incorrect.';
+      }else if (e.code == 'network-request-failed') {
+        return 'Check Your Internet Connection.';
       } else {
         return 'An error occurred';
       }
