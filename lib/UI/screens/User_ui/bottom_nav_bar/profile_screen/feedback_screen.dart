@@ -14,7 +14,7 @@ class FeedbackScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-    final feedbackProvider = Provider.of<FeedbackProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,

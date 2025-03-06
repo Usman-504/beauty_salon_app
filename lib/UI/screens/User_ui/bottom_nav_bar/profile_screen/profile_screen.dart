@@ -111,6 +111,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       Positioned(
+                        top: heightX * 0.1,
+                        left: widthX * 0.32,
+                        child: Text(
+                          'Role: ${profileProvider.role != null && profileProvider.role!.isNotEmpty
+                              ? profileProvider.role!.split(' ').map((word) => word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '').join(' ')
+                              : 'Loading...'}',
+                          style: smallTextStyle.copyWith(fontSize: 12),
+                        ),
+                      ),
+                      Positioned(
                           top: heightX * 0.04,
                           left: widthX * 0.83,
                           child: GestureDetector(

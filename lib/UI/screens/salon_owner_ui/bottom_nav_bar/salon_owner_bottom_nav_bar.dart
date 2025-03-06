@@ -4,26 +4,25 @@ import 'package:beauty_salon/UI/screens/User_ui/bookings/booking_screen.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
-import '../admin_bookings_screen.dart';
 import '../all_categories/all_categories_screen.dart';
-import '../admin_profile_screen.dart';
-import '../all_services/admin_services_screen.dart';
+import '../salon_owner_profile_screen.dart';
+import '../all_services/salon_owner_services_screen.dart';
 
-class AdminBottomNavBar extends StatefulWidget {
-  const AdminBottomNavBar({super.key});
+class SalonOwnerBottomNavBar extends StatefulWidget {
+  const SalonOwnerBottomNavBar({super.key});
 
   @override
-  State<AdminBottomNavBar> createState() => _AdminBottomNavBarState();
+  State<SalonOwnerBottomNavBar> createState() => _SalonOwnerBottomNavBarState();
 }
 
-class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
+class _SalonOwnerBottomNavBarState extends State<SalonOwnerBottomNavBar> {
 
   List<Widget> screens = [
-    AdminServicesScreen(),
+    SalonOwnerServicesScreen(),
      AllCategoriesScreen(),
-    BookingScreen(),
+    const BookingScreen(),
   //  AdminBookingsScreen(),
-    AdminProfileScreen(),
+    const SalonOwnerProfileScreen(),
   ];
   List<TabItem> items = [
 

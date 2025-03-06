@@ -1,7 +1,7 @@
 
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
+import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,18 +9,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../core/constants/const_colors.dart';
 import '../../../../../generated/assets.dart';
-import '../User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import '../User_ui/bottom_nav_bar/profile_screen/edit_profile_screen.dart';
 
 
-class AdminProfileScreen extends StatefulWidget {
-  const AdminProfileScreen({super.key});
+class SalonOwnerProfileScreen extends StatefulWidget {
+  const SalonOwnerProfileScreen({super.key});
 
   @override
-  State<AdminProfileScreen> createState() => _AdminProfileScreenState();
+  State<SalonOwnerProfileScreen> createState() => _SalonOwnerProfileScreenState();
 }
 
-class _AdminProfileScreenState extends State<AdminProfileScreen> {
+class _SalonOwnerProfileScreenState extends State<SalonOwnerProfileScreen> {
 
 
   @override
@@ -42,7 +41,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
           backgroundColor: kPrimaryColor,
           leading: GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>const AdminBottomNavBar()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>const SalonOwnerBottomNavBar()));
               },
               child: Icon(
                 Icons.arrow_back,
@@ -108,6 +107,16 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                         left: widthX * 0.32,
                         child: Text(
                           profileProvider.email!,
+                          style: smallTextStyle.copyWith(fontSize: 12),
+                        ),
+                      ),
+                      Positioned(
+                        top: heightX * 0.1,
+                        left: widthX * 0.32,
+                        child: Text(
+                          'Role: ${profileProvider.role != null && profileProvider.role!.isNotEmpty
+                              ? profileProvider.role!.split(' ').map((word) => word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '').join(' ')
+                              : 'Loading...'}',
                           style: smallTextStyle.copyWith(fontSize: 12),
                         ),
                       ),

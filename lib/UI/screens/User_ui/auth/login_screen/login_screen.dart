@@ -141,6 +141,7 @@ print('Rebuild');
                       child: CustomButton(
                         height: heightX * 0.06,
                         width: widthX * 0.8,
+                        loading: loginProvider.loading,
                         text: 'Login',
                         onPress: () async{
                           try {

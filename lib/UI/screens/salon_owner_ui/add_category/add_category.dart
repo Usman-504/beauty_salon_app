@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:beauty_salon/UI/screens/admin-ui/add_category/add_category_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
+import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 import '../../../components/snackbar.dart';
-import '../all_categories/all_categories_screen.dart';
+import 'add_category_provider.dart';
 
 
 class AddCategory extends StatefulWidget {
@@ -108,7 +107,7 @@ class _AddCategoryState extends State<AddCategory> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      AdminBottomNavBar()));
+                                      const SalonOwnerBottomNavBar()));
                         }
                       } catch (e) {
                         print(e);

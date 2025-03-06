@@ -1,13 +1,14 @@
-import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/update_category/update_category_screen.dart';
+
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/const_styles.dart';
+import '../../../components/alert_dialog.dart';
 import '../add_category/add_category.dart';
-import '../add_category/add_category_provider.dart';
+import '../update_category/update_category_screen.dart';
+import 'all_categories_provider.dart';
 
 
 class AllCategoriesScreen extends StatelessWidget {
@@ -20,7 +21,6 @@ class AllCategoriesScreen extends StatelessWidget {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context);
-    final addCategoriesProvider = Provider.of<AddCategoryProvider>(context);
     return Scaffold(
       backgroundColor: kScaffoldColor,
       appBar: AppBar(
@@ -103,7 +103,15 @@ child: GridView.builder(
                   ),
                   GestureDetector(
                     onTap: () {
-                      allCategoriesProvider.deleteCategory(snapshot.data.docs[index].id);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return  ShowAlertDialog(message: 'Are you sure you want to delete this Category?', onPress: () {
+                              allCategoriesProvider.deleteCategory(snapshot.data.docs[index].id);
+                              Navigator.pop(context);
+                            },);
+                          });
+
                     },
                     child: const Icon(
                       Icons.delete,

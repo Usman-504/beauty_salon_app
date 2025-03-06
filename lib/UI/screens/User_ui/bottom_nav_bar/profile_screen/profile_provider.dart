@@ -2,15 +2,15 @@ import 'package:beauty_salon/UI/components/alert_dialog.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
+import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
-import '../../../admin-ui/create_account/admin_signup_screen.dart';
+import '../../../salon_owner_ui/create_account/admin_signup_screen.dart';
+import '../../../salon_owner_ui/feedback_view.dart';
 import '../../auth/login_screen/login_screen.dart';
 import '../bottom_nav_screen/bottom_nav_bar.dart';
 import 'about_us_screen.dart';
@@ -34,6 +34,9 @@ String get userPhone=> _userPhone;
 
  late String _email = '';
   String? get email=> _email;
+
+late String _role = '';
+String? get role=> _role;
 
 late String _profileUrl = '';
 String get profileUrl => _profileUrl;
@@ -84,13 +87,13 @@ final List<Map<String, dynamic>> adminInfo = [
     'staticIcon': Icons.arrow_forward_ios_rounded,
   },
   {
-    'title': 'Add About Us',
+    'title': 'About Us',
     'description': 'Learn more about our app',
     'icon': Icons.info_outlined,
     'staticIcon': Icons.arrow_forward_ios_rounded,
   },
   {
-    'title': 'Add Privacy Policy',
+    'title': 'Privacy Policy',
     'description': 'Learn more about Privacy',
     'icon': Icons.privacy_tip,
     'staticIcon': Icons.arrow_forward_ios_rounded,
@@ -132,7 +135,7 @@ List<Widget> AdminlistTileScreens = [
   const ChangePasswordScreen(),
   const AboutUsScreen(),
   const PrivacyScreen(),
-  const FeedbackScreen(),
+  const FeedbackView(),
   const AdminSignUpScreen(),
 ];
 
@@ -144,7 +147,7 @@ void navigateToScreen(BuildContext context, int index) async{
       showDialog(
           context: context,
           builder: (BuildContext context){
-            return  ShowAlertDialog(message: 'Are you sure you want to delete your account?', onPress: () {  deleteUser(context); },);
+            return  ShowAlertDialog(message: 'Are you sure you want to delete your account?', onPress: () {  deleteUser(context,); },);
           });
 
     //  deleteUser(context);
@@ -155,7 +158,8 @@ void navigateToScreen(BuildContext context, int index) async{
           context: context,
           builder: (BuildContext context){
             return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
-              FirebaseAuth.instance.signOut().then((_){
+              FirebaseAuth.instance.signOut().then((_) async{
+                await sp.remove('role');
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
                   // (Route<dynamic> route) => false,
                 );
@@ -170,7 +174,7 @@ void navigateToScreen(BuildContext context, int index) async{
       Navigator.push(context, MaterialPageRoute(builder: (context)=> listTileScreens[index]));
     }
   }
-  if(role == 'admin'){
+  if(role == 'salon owner'){
     if(index ==5){
       showDialog(
           context: context,
@@ -184,7 +188,8 @@ void navigateToScreen(BuildContext context, int index) async{
           context: context,
           builder: (BuildContext context){
             return  ShowAlertDialog(message: 'Are you sure you want to logout your account?', onPress: () {
-              FirebaseAuth.instance.signOut().then((_){
+              FirebaseAuth.instance.signOut().then((_) async{
+                await sp.remove('role');
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const LoginScreen()),
                   // (Route<dynamic> route) => false,
                 );
@@ -209,6 +214,7 @@ void navigateToScreen(BuildContext context, int index) async{
     _name = sp.getString('name') ?? '';
     _email = sp.getString('email') ?? '';
     _profileUrl = sp.getString('profile_url') ?? '';
+    _role = sp.getString('role') ?? '';
     notifyListeners();
   }
 
@@ -233,6 +239,7 @@ Future<void> deleteUser (BuildContext context) async{
       await FirebaseStorage.instance.ref(imagePath).delete();
     }
     await FirebaseFirestore.instance.collection('user').doc(user.uid).delete();
+    // User userToDelete = (await FirebaseAuth.instance.fetchSignInMethodsForEmail(userDoc.get('email'))).first as User;
     await user.delete();
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const SignUpScreen()), (Route<dynamic> route) => false,);
     Utils().showSnackBar(context, 'Account Deleted Successfully');
@@ -242,11 +249,11 @@ void navigateToHomeScreen(BuildContext context) async{
   SharedPreferences sp = await SharedPreferences.getInstance();
   String? role = sp.getString('role');
   if(role == 'client'){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavBar()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>  const BottomNavBar()));
     return;
   }
   else {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminBottomNavBar()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SalonOwnerBottomNavBar()));
     return;
   }
 }

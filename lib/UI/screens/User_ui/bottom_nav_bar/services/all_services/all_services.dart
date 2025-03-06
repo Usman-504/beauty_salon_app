@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../components/header.dart';
 import '../../../../../components/side_drawer.dart';
-import '../../../../admin-ui/all_categories/all_categories_provider.dart';
+import '../../../../salon_owner_ui/all_categories/all_categories_provider.dart';
 import '../../bottom_nav_screen/bottom_nav_bar.dart';
 import '../sub_services/sub_services.dart';
 

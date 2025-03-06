@@ -59,15 +59,16 @@ class CartProvider with ChangeNotifier {
   Future<void> addToCart(String serviceName, String servicePrice,
        String serviceImageUrl, BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
-    final cartItem = await FirebaseFirestore.instance.collection('cart')
+    var price = int.tryParse(servicePrice);
+    final cartItem = await FirebaseFirestore.instance.collection('cart').where('user_id', isEqualTo: user!.uid)
         .where('service_name', isEqualTo: serviceName).get();
     if (cartItem.docs.isEmpty) {
       await FirebaseFirestore.instance.collection('cart').doc().set({
         'service_name': serviceName,
-        'service_price': servicePrice,
+        'service_price': price,
         'service_image_url': serviceImageUrl,
         'service_added_at': DateTime.now(),
-        'user_id': user!.uid,
+        'user_id': user.uid,
       }).then((value) {
         getLength();
         _isPresent = true;

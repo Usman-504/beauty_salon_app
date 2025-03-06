@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:beauty_salon/UI/components/app_dropdown.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/add_category/add_category.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/add_category/add_category_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
+import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +9,8 @@ import 'package:provider/provider.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 import '../../../components/snackbar.dart';
+import '../add_category/add_category.dart';
 import '../all_categories/all_categories_provider.dart';
-import '../all_categories/all_categories_screen.dart';
 import 'add_service_provider.dart';
 
 class AddService extends StatefulWidget {
@@ -62,7 +60,7 @@ class _AddServiceState extends State<AddService> {
                     padding: const EdgeInsets.only(top: 8.0, right: 20, bottom: 8),
                     child: GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCategory()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCategory()));
                         },
                         child: Text('Add Category', style: mediumTextStyle.copyWith(color: kPrimaryColor, decoration: TextDecoration.underline, decorationThickness: 2),)),
                   ),
@@ -146,7 +144,7 @@ class _AddServiceState extends State<AddService> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AdminBottomNavBar()));
+                                    builder: (context) => const SalonOwnerBottomNavBar()));
                           }
                         } catch (e) {
                           print(e);

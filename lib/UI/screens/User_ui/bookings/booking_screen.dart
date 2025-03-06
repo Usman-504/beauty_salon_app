@@ -1,4 +1,4 @@
-import 'package:beauty_salon/UI/screens/admin-ui/bottom_nav_bar/admin_bottom_nav_bar.dart';
+import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/constants/const_colors.dart';
@@ -63,11 +63,11 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
           backgroundColor: kPrimaryColor,
           leading: GestureDetector(
             onTap: () {
-              bookAppointmentProvider.role == 'admin'
+              bookAppointmentProvider.role == 'salon owner'
                   ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const AdminBottomNavBar()))
+                      builder: (context) => const SalonOwnerBottomNavBar()))
                   : Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -192,15 +192,14 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(booking['image_url'])),
+                              image: NetworkImage(booking['image_url'] ?? booking['image_urls'][0])),
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            booking['service_name'],
+                          Text(booking['service_name'] ?? 'Multi Services',
                             style: mediumTextStyle.copyWith(
                                 color: kPrimaryColor),
                           ),
@@ -226,12 +225,17 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => AppointmentSummary(
+                                    appointment: true,
                                     serviceName: booking['service_name'],
+                                    serviceNames: booking['service_names'],
                                     servicePrice: booking['service_price'],
+                                    servicePrices: booking['service_prices'],
                                     totalPrice: booking['total_price'],
                                     time: booking['appointment_time'],
+                                    timeSlots: booking['appointment_times'],
                                     date: booking['appointment_date'],
                                     serviceType: booking['service_type'],
+                                    imageUrls: booking['image_urls'],
                                     imageUrl: booking['image_url'],
                                     customerName: booking['customer_name'],
                                     customerAddress: booking['customer_address'],
@@ -239,6 +243,7 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                                     customerMessage: booking['customer_message'],
                                     appointmentStatus: booking['appointment_status'],
                                     docId: booking.id,
+                                    cart: booking['service_names'] != null ?true : false,
                                   ),
                                 ),
                               );
@@ -246,7 +251,7 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                             child: const Icon(Icons.more_vert),
                           ),
                           Text(
-                            'Rs. ${booking['service_price']}/-',
+                            'Rs. ${booking['total_price']}/-',
                             style: smallTextStyle.copyWith(
                                 color: kPrimaryColor),
                           ),

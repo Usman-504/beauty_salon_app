@@ -16,6 +16,14 @@ class SignupProvider with ChangeNotifier {
   String _selectedRole = '';
   String get selectedRole => _selectedRole;
 
+  bool _loading = false;
+  bool get loading => _loading;
+
+  void setLoading(bool value){
+    _loading = value;
+    notifyListeners();
+  }
+
   String? validation() {
     if (nameController.text.isEmpty) {
       return 'Please Enter Your Name';
@@ -31,6 +39,7 @@ class SignupProvider with ChangeNotifier {
 
   Future<String?> signUp() async {
     try {
+      setLoading(true);
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
@@ -46,9 +55,11 @@ class SignupProvider with ChangeNotifier {
         'image_url' : '',
         'image_path' : '',
       });
-      notifyListeners();
+      setLoading(false);
+      // notifyListeners();
       return null;
     } on FirebaseException catch (e) {
+      setLoading(false);
       if (e.code == 'invalid-email') {
         return 'The Email Format is Invalid.';
       } else if (e.code == 'email-already-in-use') {
@@ -61,10 +72,12 @@ class SignupProvider with ChangeNotifier {
       else {
         return 'An error occurred';
       }
+
     }
   }
   Future<String?> adminSignUp() async {
     try {
+      setLoading(true);
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
@@ -80,9 +93,11 @@ class SignupProvider with ChangeNotifier {
         'image_url' : '',
         'image_path' : '',
       });
-      notifyListeners();
+      setLoading(false);
+      // notifyListeners();
       return null;
     } on FirebaseException catch (e) {
+      setLoading(false);
       if (e.code == 'invalid-email') {
         return 'The Email Format is Invalid.';
       } else if (e.code == 'email-already-in-use') {
@@ -100,32 +115,50 @@ class SignupProvider with ChangeNotifier {
 
   Future<User?> signUpWithGoogle(BuildContext context) async {
     try {
+      setLoading(true);
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
+      print('Access Token: ${googleAuth.accessToken}');
+      print('Id Token: ${googleAuth.idToken}');
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
+
       User? user = userCredential.user;
       if (user != null) {
-        await FirebaseFirestore.instance.collection('user').doc(user.uid).set({
-          'role': 'client',
-          'email': user.email,
-          'name': user.displayName,
-          'user_id': user.uid,
-        }).then((value) async {
-          SharedPreferences sp = await SharedPreferences.getInstance();
+        DocumentReference userDoc = FirebaseFirestore.instance.collection('user').doc(user.uid);
+
+        DocumentSnapshot docSnapshot = await userDoc.get();
+        if (docSnapshot.exists) {
+          await userDoc.update({
+            'name': user.displayName,
+          });
+        }
+        else {
+          await userDoc.set({
+            'name': user.displayName,
+            'phone_no': '',
+            'email': user.email,
+            'role': 'client',
+            'user_id': user.uid,
+            'image_url': '',
+            'image_path': '',
+          });
+        }
+        SharedPreferences sp = await SharedPreferences.getInstance();
           sp.setString('role', 'client');
           sp.setString('name', user.displayName!);
           sp.setString('email', user.email!);
           print(sp.getString('role'));
-        });
         AuthCheck().checkUserRoleAndNavigate(context);
         Utils().showSnackBar(context, 'Account Login Successfully');
+        setLoading(false);
         return user;
       }
     } on FirebaseException catch (e) {
+      setLoading(false);
       print(e.code);
     } catch (e) {
       print(e);

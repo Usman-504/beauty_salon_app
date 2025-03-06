@@ -1,10 +1,14 @@
+import 'dart:convert';
+
+import 'package:beauty_salon/generated/assets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../../components/snackbar.dart';
 
 class BookAppointmentProvider with ChangeNotifier {
@@ -12,6 +16,8 @@ class BookAppointmentProvider with ChangeNotifier {
   DateTime? get selectedDate => _selectedDate;
   String? _selectedTimeSlot;
   String? get selectedTimeSlot => _selectedTimeSlot;
+  List<String> _selectedTimeSlots = [];
+  List<String> get selectedTimeSlots => _selectedTimeSlots;
   String? _serviceType;
   String? get serviceType => _serviceType;
   String? _formattedDate;
@@ -36,6 +42,16 @@ class BookAppointmentProvider with ChangeNotifier {
   //   '06:15 PM',
   // ];
 
+  bool isPaymentSuccessful = false;
+
+  bool _paymentLoading = false;
+  bool get paymentLoading => _paymentLoading;
+
+  void setPaymentLoading(bool value) {
+    _paymentLoading = value;
+    notifyListeners();
+  }
+
   List<TimeOfDay> availableTime = [
     TimeOfDay(hour: 9, minute: 45),
     TimeOfDay(hour: 10, minute: 30),
@@ -58,6 +74,7 @@ class BookAppointmentProvider with ChangeNotifier {
   }
 
   void acceptAppointment(String docId, BuildContext context) async {
+
     await FirebaseFirestore.instance
         .collection('appointments')
         .doc(docId)
@@ -83,6 +100,7 @@ class BookAppointmentProvider with ChangeNotifier {
 
   void clearFields() {
     _selectedTimeSlot = null;
+    _selectedTimeSlots.clear();
     _serviceType = null;
     nameController.clear();
     phoneController.clear();
@@ -92,6 +110,7 @@ class BookAppointmentProvider with ChangeNotifier {
 
   void onDateChange(date) {
     _selectedDate = date;
+    clearFields();
     notifyListeners();
   }
 
@@ -99,6 +118,23 @@ class BookAppointmentProvider with ChangeNotifier {
     _selectedTimeSlot = time;
     notifyListeners();
   }
+
+  void selectTimeSlot(String time, int maxSlots) {
+
+
+    if (_selectedTimeSlots.contains(time)) {
+      _selectedTimeSlots.remove(time);
+    } else {
+      if (_selectedTimeSlots.length < maxSlots) {
+        _selectedTimeSlots.add(time);
+      } else {
+        return;
+      }
+    }
+    print(_selectedTimeSlots);
+    notifyListeners();
+  }
+
 
   void Salon() {
     _serviceType = 'Salon';
@@ -110,13 +146,21 @@ class BookAppointmentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool validation(BuildContext context) {
+  bool validation(BuildContext context, bool cart, int cartLength, ) {
     if (_selectedDate == null) {
       Utils().showSnackBar(context, 'Please Select Date');
       return false;
     }
-    else if (_selectedTimeSlot == null) {
+    else if (_selectedTimeSlot == null && !cart) {
       Utils().showSnackBar(context, 'Please Select Time');
+      return false;
+    }
+    else if (_selectedTimeSlots.isEmpty && cart) {
+      Utils().showSnackBar(context, 'Please Select Time Slots');
+      return false;
+    }
+    else if (cart && _selectedTimeSlots.length < cartLength) {
+      Utils().showSnackBar(context, 'Please Select $cartLength Time Slots');
       return false;
     }
     else if (nameController.text.isEmpty) {
@@ -136,35 +180,66 @@ class BookAppointmentProvider with ChangeNotifier {
   }
 
   Future<void> appointment(
-      String serviceName,
-      int servicePrice,
       String appointmentDate,
-      String appointmentTime,
       String serviceType,
       int totalPrice,
-      String imageUrl) async {
+      String name,
+      String phone,
+      String address,
+      String message,
+      BuildContext context,
+  {
+    String? imageUrl,
+    List? imageUrls,
+    String? serviceName,
+    List? serviceNames,
+    int? servicePrice,
+    List? servicePrices,
+    String? appointmentTime,
+    List? appointmentTimes,
+  }) async {
+    print(isPaymentSuccessful);
+    if (!isPaymentSuccessful) {
+      Utils().showSnackBar( context, 'Please complete the payment first',);
+      return;
+    }
     User? user = FirebaseAuth.instance.currentUser;
     final appointment = await FirebaseFirestore.instance
         .collection('appointments')
         .where('appointment_time', isEqualTo: appointmentTime)
         .where('appointment_date', isEqualTo: appointmentDate)
         .get();
-    if (appointment.docs.isEmpty) {
+    final multiAppointment = await FirebaseFirestore.instance
+        .collection('appointments')
+        .where('appointment_times', isEqualTo: appointmentTimes)
+        .where('appointment_date', isEqualTo: appointmentDate)
+        .get();
+    if (appointment.docs.isEmpty || multiAppointment.docs.isEmpty) {
       await FirebaseFirestore.instance.collection('appointments').doc().set({
-        'customer_name': nameController.text.trim(),
-        'customer_number': phoneController.text.trim(),
-        'customer_address': addressController.text.trim(),
-        'customer_message': messageController.text.trim(),
+        'customer_name': name,
+        'customer_number': phone,
+        'customer_address': address,
+        'customer_message': message,
         'service_name': serviceName,
+        'service_names': serviceNames,
         'service_price': servicePrice,
+        'service_prices': servicePrices,
         'appointment_date': appointmentDate,
         'appointment_time': appointmentTime,
+        'appointment_times': appointmentTimes,
         'service_type': serviceType,
         'total_price': totalPrice,
         'image_url': imageUrl,
+        'image_urls': imageUrls,
         'appointment_status': 'Pending',
         'user_id': user!.uid,
       });
+      isPaymentSuccessful = false;
+      notifyListeners();
+      Utils().orderCompleted(context);
+    }
+    else{
+      Utils().showSnackBar(context, 'Appointment Already Present');
     }
   }
 
@@ -172,6 +247,13 @@ class BookAppointmentProvider with ChangeNotifier {
     _totalPrice = servicePrice + gstPrice;
     notifyListeners();
   }
+
+  void calculatePrice(List<int> servicePrice) {
+    _totalPrice = servicePrice.fold(0, (add, price) => add + price) + gstPrice;
+    notifyListeners();
+  }
+
+
 
 // Stream<QuerySnapshot> getAppointments()  {
 //     User? user = FirebaseAuth.instance.currentUser;
@@ -254,5 +336,92 @@ class BookAppointmentProvider with ChangeNotifier {
   Stream<QuerySnapshot> getAllAppointments() {
     User? user = FirebaseAuth.instance.currentUser;
     return FirebaseFirestore.instance.collection('appointments').snapshots();
+  }
+
+  Map<String, dynamic>? intentPaymentData;
+
+  showPaymentSheet(BuildContext context) async{
+    try{
+      await Stripe.instance.presentPaymentSheet().then((val){
+        isPaymentSuccessful = true;
+        intentPaymentData = null;
+        notifyListeners();
+      }).onError((errorMsg, sTrace){
+        print(errorMsg);
+        print(sTrace);
+      });
+    }
+    on StripeException catch (error){
+      print(error);
+
+      showDialog(context: context, builder: (context) {
+        return const AlertDialog(
+          content: Text('Cancelled'),
+        );
+      },);
+    }
+    catch(e)
+    {
+      print(e);
+    }
+  }
+
+  makeIntentForPayment(amount, currency, BuildContext context) async{
+    try{
+      Map<String, dynamic>? paymentInfo = {
+        'amount' : (amount * 100 ).toString(),
+        'currency': currency,
+        'payment_method_types[]' : 'card',
+      };
+
+      var responseFromStripeApi = await http.post(Uri.parse('https://api.stripe.com/v1/payment_intents'),
+          body: paymentInfo,
+          headers: {
+            'Authorization' : 'Bearer ${Assets.stripeSecretKey}',
+            'Content-Type' : 'application/x-www-form-urlencoded',
+          }
+      );
+      print('Response: ${responseFromStripeApi.body.toString()}');
+      return jsonDecode(responseFromStripeApi.body);
+
+    }
+    catch(e){
+      print(e);
+    }
+  }
+
+  paymentSheet(amount, currency, BuildContext context) async{
+    try{
+      if (isPaymentSuccessful) {
+        Utils().showSnackBar( context, 'Payment Already Completed',);
+        return;
+      }
+      setPaymentLoading(true);
+      intentPaymentData =  await makeIntentForPayment(amount, currency, context);
+      await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
+          allowsDelayedPaymentMethods: true,
+          paymentIntentClientSecret: intentPaymentData!['client_secret'],
+          style: ThemeMode.dark,
+          merchantDisplayName: 'Beautilly'
+      )).then((value){
+        setPaymentLoading(false);
+        print(value);
+      });
+
+      showPaymentSheet(context);
+    }
+    catch(e){
+      setPaymentLoading(false);
+      print(e);
+    }
+  }
+
+  @override
+  void dispose() {
+   _selectedTimeSlots.clear();
+   _selectedTimeSlots = [];
+   _selectedTimeSlot = null;
+   _selectedDate = null;
+    super.dispose();
   }
 }

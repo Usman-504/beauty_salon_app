@@ -126,7 +126,7 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                     Padding(
                       padding:   EdgeInsets.only(left: widthX * 0.04,
                         right: widthX * 0.04,),
-                      child: AppDropDown(labelText: 'Select Role', items: const ['Admin', 'Client'], onChanged: signUpProvider.onChangeRole, fillColor: Colors.white,),
+                      child: AppDropDown(labelText: 'Select Role', items: const ['Salon Owner', 'Client'], onChanged: signUpProvider.onChangeRole, fillColor: Colors.white,),
                     ),
                     Padding(
                       padding: EdgeInsets.only(

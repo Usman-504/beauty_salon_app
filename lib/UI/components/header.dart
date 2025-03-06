@@ -1,18 +1,11 @@
-import 'dart:async';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:beauty_salon/UI/screens/User_ui/cart_screen/cart_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_screen.dart';
-
-import 'custom_textfield.dart';
 import 'filter_icon.dart';
 
 class Header extends StatefulWidget {
@@ -42,7 +35,6 @@ class _HeaderState extends State<Header> {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     final profileProvider = Provider.of<ProfileProvider>(context);
-    final allCategoryProvider = Provider.of<AllCategoriesProvider>(context);
 
     return Stack(
       children: [
@@ -89,10 +81,7 @@ class _HeaderState extends State<Header> {
                 border: Border.all(color: kPrimaryColor, width: 3),
                 shape: BoxShape.circle),
           ),
-          // CircleAvatar(
-          //   radius: heightX * 0.03,
-          //   backgroundColor: kSecondaryColor,
-          // ),
+
         ),
         Positioned(
           left: widthX * 0.82,
@@ -100,7 +89,7 @@ class _HeaderState extends State<Header> {
           child: GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen()));
+                    MaterialPageRoute(builder: (context) => const ProfileScreen()));
               },
               child: Container(
                 height: heightX * 0.06,

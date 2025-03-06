@@ -136,6 +136,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                         height: heightX * 0.06,
                         width: widthX * 0.8,
                         text: 'Sign Up',
+                        loading: signUpProvider.loading,
                         onPress: () async{
                           try {
                             String? validation = signUpProvider.validation();

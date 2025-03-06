@@ -4,7 +4,10 @@ import '../../../../../core/constants/const_styles.dart';
 import '../bottom_nav_screen/bottom_nav_bar.dart';
 
 class PrivacyScreen extends StatelessWidget {
-  const PrivacyScreen({super.key});
+  final bool drawer;
+  const PrivacyScreen({
+    this.drawer = false,
+    super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class PrivacyScreen extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
+              !drawer ?  Navigator.pop(context):
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const BottomNavBar()));
             },
             child: Icon(

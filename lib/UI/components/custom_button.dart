@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
     required this.onPress,
     required this.style,
     required this.btnColor,
+    this.loading = false,
   });
 
   final double height;
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final VoidCallback onPress;
   final Color btnColor;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child:  Center(
-      child:  Text(text, style: style),
+      child: loading ? const Center(child: CircularProgressIndicator(color: kWhiteColor,)) :  Text(text, style: style),
             //child: H2(text: text, color: kWhiteColor)),
       )),
     );

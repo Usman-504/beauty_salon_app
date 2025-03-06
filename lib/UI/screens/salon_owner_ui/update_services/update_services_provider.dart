@@ -27,35 +27,16 @@ class UpdateServicesProvider with ChangeNotifier {
     String oldImagePath = document.get('image_path');
     print('Old Image Path: $oldImagePath');
 
-
+    var stringPrice = price.text.trim();
+    var intPrice = int.tryParse(stringPrice);
     await FirebaseFirestore.instance
         .collection('services')
         .doc(catId).collection('subServices').doc(docId)
         .update({
       'service_name' : serviceNameController.text.trim(),
-      'service_price': price.text.trim(),
+      'service_price': intPrice,
       'service_description': description.text.trim(),
     });
-
-
-    // String serviceName = serviceNameController.text.trim().toLowerCase();
-    //
-    // bool isNameChanged = serviceName.isNotEmpty && serviceName != docId;
-    //
-    // if (isNameChanged) {
-    //   await FirebaseFirestore.instance
-    //       .collection('services')
-    //       .doc(catId).collection('subServices').doc(serviceName)
-    //       .set(Map<String, dynamic>.from(document.data() as Map));
-    //
-    //   await FirebaseFirestore.instance
-    //       .collection('services')
-    //       .doc(catId).collection('subServices').doc(docId)
-    //       .delete();
-    //
-    // }
-
-
 
     if (_file != null) {
       if (oldImagePath.isNotEmpty) {

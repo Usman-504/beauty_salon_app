@@ -1,10 +1,6 @@
-import 'package:beauty_salon/UI/components/snackbar.dart';
-import 'package:beauty_salon/UI/screens/User_ui/auth/auth_check.dart';
-import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider with ChangeNotifier {
@@ -18,6 +14,13 @@ class LoginProvider with ChangeNotifier {
    notifyListeners();
   }
 
+  bool _loading = false;
+  bool get loading => _loading;
+
+  void setLoading(bool value){
+    _loading = value;
+    notifyListeners();
+  }
 
   bool _obscureText = true;
  bool get  obscureText => _obscureText;
@@ -38,6 +41,7 @@ class LoginProvider with ChangeNotifier {
 
   Future<String?> login() async {
     try {
+      setLoading(true);
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
@@ -58,10 +62,10 @@ class LoginProvider with ChangeNotifier {
       sp.setString('email', email);
       sp.setString('profile_url', photo);
       print(sp.getString('role'));
-
-      notifyListeners();
+      setLoading(false);
       return null;
     } on FirebaseException catch (e) {
+      setLoading(false);
       if (e.code == 'invalid-email') {
         return 'The Email Format Is Invalid.';
       } else if (e.code == 'invalid-credential') {

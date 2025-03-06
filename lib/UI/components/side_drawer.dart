@@ -1,4 +1,3 @@
-
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:beauty_salon/generated/assets.dart';
@@ -6,17 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-
 import '../screens/User_ui/auth/login_screen/login_screen.dart';
 import '../screens/User_ui/bookings/booking_screen.dart';
 import '../screens/User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/about_us_screen.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
-import '../screens/User_ui/bottom_nav_bar/services/services_list/services_list.dart';
 import '../screens/User_ui/bottom_nav_bar/services/sub_services/sub_services.dart';
 import '../screens/User_ui/cart_screen/cart_screen.dart';
-import '../screens/admin-ui/all_categories/all_categories_provider.dart';
+import '../screens/salon_owner_ui/all_categories/all_categories_provider.dart';
 import 'alert_dialog.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -127,7 +124,7 @@ class SideDrawer extends StatelessWidget {
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CartScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CartScreen()));
                     },
                   ),
                   ListTile(
@@ -137,7 +134,7 @@ class SideDrawer extends StatelessWidget {
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookingScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen()));
                     },
                   ),
                   ListTile(
@@ -147,7 +144,7 @@ class SideDrawer extends StatelessWidget {
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AboutUsScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutUsScreen(drawer: true,)));
                     },
                   ),
                   ListTile(
@@ -157,7 +154,7 @@ class SideDrawer extends StatelessWidget {
                       style: mediumTextStyle.copyWith(color: kPrimaryColor),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PrivacyScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivacyScreen(drawer: true,)));
                     },
                   ),
                   ListTile(

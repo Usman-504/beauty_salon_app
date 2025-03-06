@@ -12,7 +12,7 @@ class FeedbackProvider with ChangeNotifier {
 
 
   void feedBack (BuildContext context) async{
-    final profileProvider = Provider.of<ProfileProvider>(context);
+    final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
     User? currentUser = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance.collection('Feedback').doc(currentUser!.uid).set({
       'name' : nameController.text.trim(),
@@ -24,6 +24,13 @@ class FeedbackProvider with ChangeNotifier {
           Navigator.pop(context);
     });
     notifyListeners();
+  }
+
+  Stream<QuerySnapshot> getFeedBacks() {
+
+    return FirebaseFirestore.instance
+        .collection('Feedback')
+        .snapshots();
   }
 
 

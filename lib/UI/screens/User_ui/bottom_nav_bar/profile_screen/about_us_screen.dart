@@ -5,7 +5,10 @@ import '../../../../../core/constants/const_styles.dart';
 import '../bottom_nav_screen/bottom_nav_bar.dart';
 
 class AboutUsScreen extends StatelessWidget {
-  const AboutUsScreen({super.key});
+  final bool drawer;
+  const AboutUsScreen({
+    this.drawer = false,
+    super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,8 @@ class AboutUsScreen extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              !drawer ?  Navigator.pop(context):
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const BottomNavBar()));
             },
             child: Icon(
               Icons.arrow_back,

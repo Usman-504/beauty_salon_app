@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../core/constants/const_colors.dart';
 import '../../../../../components/image_container.dart';
-import '../../../cart_screen/cart_screen.dart';
 import '../../book_appointment/book_appointment.dart';
 import '../../../cart_screen/cart_provider.dart';
 

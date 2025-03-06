@@ -1,4 +1,3 @@
-import 'package:beauty_salon/UI/screens/admin-ui/add_service/add_service.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,20 +5,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-
-import '../../User_ui/favourite/fav_provider.dart';
+import '../../../components/alert_dialog.dart';
+import '../add_service/add_service.dart';
 import '../all_categories/all_categories_provider.dart';
 import '../update_services/update_services_screen.dart';
-import 'admin_services_provider.dart';
+import 'salon_owner_services_provider.dart';
 
-class AdminServicesScreen extends StatefulWidget {
-  AdminServicesScreen({super.key});
+class SalonOwnerServicesScreen extends StatefulWidget {
+  SalonOwnerServicesScreen({super.key});
 
   @override
-  State<AdminServicesScreen> createState() => _AdminServicesScreenState();
+  State<SalonOwnerServicesScreen> createState() => _SalonOwnerServicesScreenState();
 }
 
-class _AdminServicesScreenState extends State<AdminServicesScreen> {
+class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   @override
@@ -33,7 +32,7 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-    final adminServicesProvider = Provider.of<AdminServicesProvider>(context);
+    final adminServicesProvider = Provider.of<SalonOwnerServicesProvider>(context);
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context,);
     // Provider.of<AllCategoriesProvider>(context, ).getCategories();
    // var category = allCategoriesProvider.categoryList[index];
@@ -164,7 +163,15 @@ class _AdminServicesScreenState extends State<AdminServicesScreen> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              adminServicesProvider.deleteService(catId, snapshot.data!.docs[index].id);
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context){
+                                                    return  ShowAlertDialog(message: 'Are you sure you want to delete this Service?', onPress: () {
+                                                      adminServicesProvider.deleteService(catId, snapshot.data!.docs[index].id);
+                                                      Navigator.pop(context);
+                                                    },);
+                                                  });
+
                                             },
                                             child: const Icon(
                                               Icons.delete,

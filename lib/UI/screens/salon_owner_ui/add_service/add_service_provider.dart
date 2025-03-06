@@ -52,9 +52,14 @@ notifyListeners();
   }
 
   String? validation() {
+
+    if (_selectedCategory == null || _selectedCategory!.isEmpty) {
+      return 'Please Select Category First';
+    }
     if (_file == null) {
       return 'Please Upload Image/Icon';
-    } else if (serviceNameController.text.isEmpty) {
+    }
+    else if (serviceNameController.text.isEmpty) {
       return 'Please Enter Category Name';
     }
     return null;

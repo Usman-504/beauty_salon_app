@@ -1,10 +1,9 @@
-import 'package:beauty_salon/UI/screens/admin-ui/add_category/add_category_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/update_category/update_category_provider.dart';
 import 'package:beauty_salon/UI/screens/splash_screen/splash_screen.dart';
+import 'package:beauty_salon/generated/assets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'UI/screens/User_ui/auth/forget_password_screen/forget_password_provider.dart';
 import 'UI/screens/User_ui/auth/login_screen/login_provider.dart';
@@ -16,12 +15,13 @@ import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/update_password_provider.dart';
 import 'UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'UI/screens/User_ui/cart_screen/cart_provider.dart';
-import 'UI/screens/User_ui/favourite/fav_provider.dart';
-import 'UI/screens/User_ui/favourite/fav_stylists_provider.dart';
-import 'UI/screens/admin-ui/add_service/add_service_provider.dart';
-import 'UI/screens/admin-ui/all_services/admin_services_provider.dart';
-import 'UI/screens/admin-ui/update_services/update_services_provider.dart';
 import 'UI/screens/onboarding_screen/onboarding_provider.dart';
+import 'UI/screens/salon_owner_ui/add_category/add_category_provider.dart';
+import 'UI/screens/salon_owner_ui/add_service/add_service_provider.dart';
+import 'UI/screens/salon_owner_ui/all_categories/all_categories_provider.dart';
+import 'UI/screens/salon_owner_ui/all_services/salon_owner_services_provider.dart';
+import 'UI/screens/salon_owner_ui/update_category/update_category_provider.dart';
+import 'UI/screens/salon_owner_ui/update_services/update_services_provider.dart';
 import 'firebase_options.dart';
 
 
@@ -31,6 +31,8 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Stripe.publishableKey = Assets.stripePublishableKey;
+  await Stripe.instance.applySettings();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -49,14 +51,12 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=> OnboardingProvider()),
       ChangeNotifierProvider(create: (_)=> SignupProvider()),
       ChangeNotifierProvider(create: (_)=> LoginProvider()),
-      ChangeNotifierProvider(create: (_)=> FavProvider()),
-      ChangeNotifierProvider(create: (_)=> FavStylistsProvider()),
       ChangeNotifierProvider(create: (_)=> CartProvider()),
       ChangeNotifierProvider(create: (_)=> BookingProvider()),
       ChangeNotifierProvider(create: (_)=> AllCategoriesProvider()),
       ChangeNotifierProvider(create: (_)=> AddCategoryProvider()),
       ChangeNotifierProvider(create: (_)=> UpdateCategoryProvider()),
-      ChangeNotifierProvider(create: (_)=> AdminServicesProvider()),
+      ChangeNotifierProvider(create: (_)=> SalonOwnerServicesProvider()),
       ChangeNotifierProvider(create: (_)=> AddServiceProvider()),
       ChangeNotifierProvider(create: (_)=> UpdateServicesProvider()),
       ChangeNotifierProvider(create: (_)=> ProfileProvider()),

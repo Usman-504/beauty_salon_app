@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../generated/assets.dart';
 import '../User_ui/auth/auth_check.dart';
@@ -15,13 +14,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   AuthCheck authCheck = AuthCheck();
 
-  User? user = FirebaseAuth.instance.currentUser ;
+
   @override
   void initState(){
     super.initState();
     Timer(const Duration(seconds: 3), (){
-      user != null ?
-      authCheck.checkUserRole(context) : authCheck.signInUser(context) ;
+
+      authCheck.checkUserRole(context);
     });
   }
 

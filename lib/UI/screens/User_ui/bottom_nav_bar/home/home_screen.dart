@@ -2,14 +2,13 @@ import 'package:beauty_salon/UI/components/custom_banner.dart';
 import 'package:beauty_salon/UI/components/header.dart';
 import 'package:beauty_salon/UI/components/side_drawer.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/services/services_details/service_details.dart';
-import 'package:beauty_salon/UI/screens/admin-ui/all_categories/all_categories_provider.dart';
 import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:beauty_salon/core/constants/const_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../admin-ui/all_services/admin_services_provider.dart';
+import '../../../salon_owner_ui/all_categories/all_categories_provider.dart';
+import '../../../salon_owner_ui/all_services/salon_owner_services_provider.dart';
 import '../../cart_screen/cart_provider.dart';
-import '../../favourite/fav_provider.dart';
 import '../services/all_services/all_services.dart';
 import '../services/sub_services/sub_services.dart';
 
@@ -37,11 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
-    final favProvider = Provider.of<FavProvider>(context, listen: false);
+
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(
       context,
     );
-    final allServicesProvider = Provider.of<AdminServicesProvider>(context);
+    final allServicesProvider = Provider.of<SalonOwnerServicesProvider>(context);
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
@@ -274,153 +273,149 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                           if (snapshot.data != null) {
                             return Expanded(
-                              child: Consumer<FavProvider>(
-                                builder: (context, vm, child) {
-                                  return GridView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: snapshot.data!.docs.length - 2,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 1,
-                                        childAspectRatio: 2 / 2,
-                                        mainAxisSpacing: 10,
-                                        crossAxisSpacing: 10,
-                                      ),
-                                      itemBuilder: (context, int index) {
-                                        return GestureDetector(
-                                          onTap: () async {
-                                            Map<String, dynamic>? documentData =
-                                                await allServicesProvider
-                                                    .fetchDocumentAsMap(
-                                                        allCategoriesProvider
-                                                                .categoryList[
-                                                            3],
-                                                        snapshot.data!
-                                                            .docs[index].id);
-                                            if(documentData != null){
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) => ServiceDetails(
-                                                          title: snapshot.data!
-                                                              .docs[index]
-                                                          ['service_name'],
-                                                          imageUrl: snapshot.data!
-                                                              .docs[index]
-                                                          ['image_url'],
-                                                          price: snapshot.data!.docs[index]['service_price'],
-                                                          description: snapshot
-                                                              .data!
-                                                              .docs[index]
-                                                          ['service_description'],
-
-                                                           catId: allCategoriesProvider.categoryList[3], docId:snapshot
-                                                          .data!
-                                                          .docs[index].id,)));
-                                            }
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: kContainerColor,
-                                                border: Border.all(
-                                                    color: kPrimaryColor,
-                                                    width: 2),
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  height: heightX * 0.1,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        const BorderRadius.only(
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    8),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    8)),
-                                                    image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: NetworkImage(
-                                                            snapshot.data!
-                                                                    .docs[index]
-                                                                ['image_url'])),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  snapshot.data!.docs[index]
+                              child: GridView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data!.docs.length - 2,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1,
+                                    childAspectRatio: 2 / 2,
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10,
+                                  ),
+                                  itemBuilder: (context, int index) {
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        Map<String, dynamic>? documentData =
+                                            await allServicesProvider
+                                                .fetchDocumentAsMap(
+                                                    allCategoriesProvider
+                                                            .categoryList[
+                                                        3],
+                                                    snapshot.data!
+                                                        .docs[index].id);
+                                        if(documentData != null){
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => ServiceDetails(
+                                                      title: snapshot.data!
+                                                          .docs[index]
                                                       ['service_name'],
-                                                  style:
-                                                      smallTextStyle.copyWith(
-                                                          fontSize:
-                                                              widthX * 0.035),
-                                                ),
-                                                Container(
-                                                  height: heightX * 0.027,
-                                                  decoration: const BoxDecoration(
-                                                      color: kSecondaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              bottomLeft: Radius
-                                                                  .circular(8),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          8))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Text(
-                                                        'Rs. ${snapshot.data!.docs[index]['service_price']}/-',
-                                                        style: smallTextStyle
-                                                            .copyWith(
-                                                                color:
-                                                                    kPrimaryColor,
-                                                                fontSize:
-                                                                    widthX *
-                                                                        0.038),
-                                                      ),
-                                                      // GestureDetector(
-                                                      //   onTap: () {
-                                                      //     favProvider
-                                                      //             .favServices
-                                                      //             .contains(
-                                                      //                 index)
-                                                      //         ? favProvider
-                                                      //             .removeItem(
-                                                      //                 index)
-                                                      //         : favProvider
-                                                      //             .addItem(
-                                                      //                 index);
-                                                      //   },
-                                                      //   child: Icon(
-                                                      //     vm.favServices
-                                                      //             .contains(
-                                                      //                 index)
-                                                      //         ? Icons.favorite
-                                                      //         : Icons
-                                                      //             .favorite_border,
-                                                      //     size: heightX * 0.025,
-                                                      //     color: kPrimaryColor,
-                                                      //   ),
-                                                      // ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
+                                                      imageUrl: snapshot.data!
+                                                          .docs[index]
+                                                      ['image_url'],
+                                                      price: snapshot.data!.docs[index]['service_price'],
+                                                      description: snapshot
+                                                          .data!
+                                                          .docs[index]
+                                                      ['service_description'],
+
+                                                       catId: allCategoriesProvider.categoryList[3], docId:snapshot
+                                                      .data!
+                                                      .docs[index].id,)));
+                                        }
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: kContainerColor,
+                                            border: Border.all(
+                                                color: kPrimaryColor,
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: heightX * 0.1,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                        topRight:
+                                                            Radius.circular(
+                                                                8),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                8)),
+                                                image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                        snapshot.data!
+                                                                .docs[index]
+                                                            ['image_url'])),
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      });
-                                },
-                              ),
+                                            Text(
+                                              snapshot.data!.docs[index]
+                                                  ['service_name'],
+                                              style:
+                                                  smallTextStyle.copyWith(
+                                                      fontSize:
+                                                          widthX * 0.035),
+                                            ),
+                                            Container(
+                                              height: heightX * 0.027,
+                                              decoration: const BoxDecoration(
+                                                  color: kSecondaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomLeft: Radius
+                                                              .circular(8),
+                                                          bottomRight:
+                                                              Radius
+                                                                  .circular(
+                                                                      8))),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    'Rs. ${snapshot.data!.docs[index]['service_price']}/-',
+                                                    style: smallTextStyle
+                                                        .copyWith(
+                                                            color:
+                                                                kPrimaryColor,
+                                                            fontSize:
+                                                                widthX *
+                                                                    0.038),
+                                                  ),
+                                                  // GestureDetector(
+                                                  //   onTap: () {
+                                                  //     favProvider
+                                                  //             .favServices
+                                                  //             .contains(
+                                                  //                 index)
+                                                  //         ? favProvider
+                                                  //             .removeItem(
+                                                  //                 index)
+                                                  //         : favProvider
+                                                  //             .addItem(
+                                                  //                 index);
+                                                  //   },
+                                                  //   child: Icon(
+                                                  //     vm.favServices
+                                                  //             .contains(
+                                                  //                 index)
+                                                  //         ? Icons.favorite
+                                                  //         : Icons
+                                                  //             .favorite_border,
+                                                  //     size: heightX * 0.025,
+                                                  //     color: kPrimaryColor,
+                                                  //   ),
+                                                  // ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
                             );
                           }
                           return const CircularProgressIndicator();
