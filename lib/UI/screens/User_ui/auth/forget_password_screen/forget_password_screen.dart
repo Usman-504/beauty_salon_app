@@ -1,22 +1,13 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/custom_divider.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/image_container.dart';
-import 'package:beauty_salon/UI/components/password_textfield.dart';
-import 'package:beauty_salon/UI/components/snackbar.dart';
-import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
-import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
-import 'package:beauty_salon/core/constants/const_text.dart';
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/styles.dart';
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../auth_check.dart';
-import '../login_screen/login_provider.dart';
-import '../signup_screen/signup_screen.dart';
+import '../../../../../res/colors.dart';
 import 'forget_password_provider.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -41,7 +32,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     final forgetPasswordProvider = Provider.of<ForgetPasswordProvider>(context);
     print('Rebuild');
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -71,7 +62,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     style: smallTextStyle.copyWith(
                         fontSize: widthX * 0.033,
                         shadows: boxShadow,
-                        color: kWhiteColor),
+                        color: AppColors.whiteColor),
                   )
                 ],
               ),
@@ -130,7 +121,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         },
                         borderRadius: heightX * 0.01,
                         style:
-                        mediumTextStyle.copyWith(fontSize: widthX * 0.05), btnColor: kPrimaryColor,
+                        mediumTextStyle.copyWith(fontSize: widthX * 0.05), btnColor: AppColors.primaryColor,
                       ),
                     ),
 

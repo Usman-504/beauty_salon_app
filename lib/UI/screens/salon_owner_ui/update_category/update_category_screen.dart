@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/update_category/update_category_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../res/colors.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 
@@ -48,10 +48,10 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
 
     print('Rebuild');
     return Scaffold(
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: Text( widget.categoryName.toString(),
           style:
@@ -82,7 +82,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           width: 2,
-                          color: kPrimaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       child: Center(
@@ -90,7 +90,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                             ? const Text(
                           'Upload Icon',
                           style: TextStyle(
-                              color: kPrimaryColor,
+                              color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         )
@@ -116,7 +116,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                         vm.updateData(widget.catId!, _categoryNameController.text.trim()
                             );
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const SalonOwnerBottomNavBar()));
-                      }, style: mediumTextStyle.copyWith(color: kContainerColor), btnColor: kPrimaryColor,),
+                      }, style: mediumTextStyle.copyWith(color: AppColors.containerColor), btnColor: AppColors.primaryColor,),
                 ],
               ),
             ),

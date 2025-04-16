@@ -1,5 +1,5 @@
 import 'package:beauty_salon/UI/screens/splash_screen/splash_screen.dart';
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

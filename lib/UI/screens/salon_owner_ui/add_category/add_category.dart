@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../res/colors.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 import '../../../components/snackbar.dart';
@@ -32,10 +32,10 @@ class _AddCategoryState extends State<AddCategory> {
     var widthX = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: const Text(
           ' Add Category',
@@ -65,7 +65,7 @@ class _AddCategoryState extends State<AddCategory> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           width: 2,
-                          color: kPrimaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       child: Center(
@@ -73,7 +73,7 @@ class _AddCategoryState extends State<AddCategory> {
                             ? const Text(
                                 'Upload Image/Icon',
                                 style: TextStyle(
-                                    color: kPrimaryColor,
+                                    color: AppColors.primaryColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),
                               )
@@ -114,7 +114,7 @@ class _AddCategoryState extends State<AddCategory> {
                       }
                     },
                     style: mediumTextStyle,
-                    btnColor: kPrimaryColor,
+                    btnColor: AppColors.primaryColor,
                   ),
                 ],
               ),

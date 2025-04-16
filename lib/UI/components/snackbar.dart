@@ -1,8 +1,7 @@
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:flutter/material.dart';
-
-import '../../core/constants/const_styles.dart';
-import '../../generated/assets.dart';
+import  'package:flutter/material.dart';
+import '../../res/colors.dart';
+import '../../utils/styles.dart';
+import '../../utils/assets.dart';
 import '../screens/User_ui/bookings/booking_screen.dart';
 import 'custom_button.dart';
 
@@ -16,7 +15,7 @@ class Utils {
           style:
               const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         action: SnackBarAction(
             label: text, textColor: Colors.white, onPressed: onPress),
       ),
@@ -30,9 +29,9 @@ class Utils {
         content: Text(
           message,
           style:
-          const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
+          const TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: kSecondaryColor,
+        backgroundColor: AppColors.secondaryColor,
       ),
     );
   }
@@ -45,7 +44,7 @@ class Utils {
             height: MediaQuery.of(context).size.height * 0.4,
             width: double.infinity,
             decoration: const BoxDecoration(
-                color: kContainerColor,
+                color: AppColors.containerColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25))),
@@ -53,7 +52,7 @@ class Utils {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
-                  color: kPrimaryColor,
+                  color: AppColors.primaryColor,
                   Assets.tickIcon,
                   height: MediaQuery.of(context).size.height * 0.13,
                   fit: BoxFit.cover,
@@ -62,7 +61,7 @@ class Utils {
                   children: [
                     Text(
                       'Congratulations!',
-                      style: primaryTextStyle.copyWith(color: kPrimaryColor),
+                      style: primaryTextStyle.copyWith(color: AppColors.primaryColor),
                     ),
                     Text(
                       textAlign: TextAlign.center,
@@ -84,12 +83,12 @@ class Utils {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  BookingScreen( )));
+                            builder: (context) =>  const BookingScreen( )));
                   },
                   borderRadius: MediaQuery.of(context).size.height * 0.013,
                   style: mediumTextStyle.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.052),
-                  btnColor: kPrimaryColor,
+                  btnColor: AppColors.primaryColor,
                 ),
               ],
             ),

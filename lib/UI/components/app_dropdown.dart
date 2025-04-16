@@ -1,8 +1,8 @@
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/res/colors.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/constants/const_colors.dart';
 
 class AppDropDown extends StatefulWidget {
   const AppDropDown({
@@ -45,35 +45,35 @@ class _AppDropDownState extends State<AppDropDown> {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               child: Text(
                 item,
-                style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                style: mediumTextStyle.copyWith(color: AppColors.primaryColor),
               ),
             );
           },
         ),
         dropdownDecoratorProps: DropDownDecoratorProps(
-          baseStyle: mediumTextStyle.copyWith(color: kPrimaryColor),
+          baseStyle: mediumTextStyle.copyWith(color: AppColors.primaryColor),
           dropdownSearchDecoration: InputDecoration(
             hintText: widget.labelText,
             filled: true,
             fillColor:  widget.fillColor,
             contentPadding: const EdgeInsets.only(left: 10, top: 15),
-            hintStyle: mediumTextStyle.copyWith(color: kPrimaryColor),
+            hintStyle: mediumTextStyle.copyWith(color: AppColors.primaryColor),
             // floatingLabelStyle: const TextStyle(color: Colors.black),
             border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+              borderSide: const BorderSide(color: AppColors.primaryColor, width: 2.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+              borderSide: const BorderSide(color: AppColors.primaryColor, width: 2.0),
             ),
           ),
         ),
         dropdownButtonProps: const DropdownButtonProps(
           icon: Icon(
             Icons.arrow_drop_down,
-            color: kPrimaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
         items: widget.items,

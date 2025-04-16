@@ -1,7 +1,7 @@
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../res/colors.dart';
 import '../../../../../components/header.dart';
 import '../../../../../components/side_drawer.dart';
 import '../../../../salon_owner_ui/all_categories/all_categories_provider.dart';
@@ -32,7 +32,7 @@ class _AllServicesState extends State<AllServices> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -53,14 +53,14 @@ class _AllServicesState extends State<AllServices> {
                     child: Icon(
                       Icons.arrow_back,
                       size: heightX * 0.04,
-                      color: kPrimaryColor,
+                      color: AppColors.primaryColor,
                     )),
                 SizedBox(
                   width: widthX * 0.03,
                 ),
                 Text('All Services',
                     style: secondaryTextStyle.copyWith(
-                        color: kPrimaryColor, fontSize: widthX * 0.063)),
+                        color: AppColors.primaryColor, fontSize: widthX * 0.063)),
               ],
             ),
           ),
@@ -111,16 +111,16 @@ class _AllServicesState extends State<AllServices> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: kContainerColor,
+                                      color: AppColors.containerColor,
                                       border: Border.all(
-                                          color: kPrimaryColor, width: 2),
+                                          color: AppColors.primaryColor, width: 2),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ColorFiltered(
                                           colorFilter: const ColorFilter.mode(
-                                              kPrimaryColor, BlendMode.srcATop),
+                                              AppColors.primaryColor, BlendMode.srcATop),
                                           child: Image.network(
                                             snapshot.data!.docs[index]
                                                 ['image_url'],
@@ -134,7 +134,7 @@ class _AllServicesState extends State<AllServices> {
                                             ['category_name'],
                                         style: mediumTextStyle.copyWith(
                                             fontSize: widthX * 0.052,
-                                            color: kPrimaryColor),
+                                            color: AppColors.primaryColor),
                                       ),
                                     ],
                                   ),

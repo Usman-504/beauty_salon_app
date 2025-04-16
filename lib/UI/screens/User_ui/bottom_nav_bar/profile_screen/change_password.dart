@@ -3,9 +3,8 @@ import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_password_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../core/constants/const_colors.dart';
-import '../../../../../core/constants/const_styles.dart';
+import '../../../../../res/colors.dart';
+import '../../../../../utils/styles.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -30,7 +29,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     final updatePasswordProvider = Provider.of<UpdatePasswordProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -38,12 +37,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             child: Icon(
               Icons.arrow_back,
               size: heightX * 0.04,
-              color: kWhiteColor,
+              color: AppColors.whiteColor,
             )),
         centerTitle: true,
         title: Text('Change Password',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.063)),
+                color: AppColors.whiteColor, fontSize: widthX * 0.063)),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +53,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){
             updatePasswordProvider.validation(context);
             updatePasswordProvider.changePassword(context);
-          }, style: mediumTextStyle, btnColor: kPrimaryColor,)
+          }, style: mediumTextStyle, btnColor: AppColors.primaryColor,)
         ],
       ),
     );

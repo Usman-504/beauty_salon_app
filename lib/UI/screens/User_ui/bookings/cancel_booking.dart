@@ -1,9 +1,9 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../core/constants/const_colors.dart';
+import '../../../../res/colors.dart';
 import '../../../components/image_container.dart';
 import 'booking_provider.dart';
 
@@ -36,7 +36,7 @@ class CancelBooking extends StatelessWidget {
     final bookingProvider = Provider.of<BookingProvider>(context);
 
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: Stack(
         children: [
           Container(
@@ -53,7 +53,7 @@ class CancelBooking extends StatelessWidget {
                   height: heightX * 0.047,
                   width: widthX * 0.1,
                   decoration: BoxDecoration(
-                      color: kSecondaryColor,
+                      color: AppColors.secondaryColor,
                       borderRadius: BorderRadius.circular(heightX * 0.03)),
                   child: GestureDetector(
                       onTap: () {
@@ -61,7 +61,7 @@ class CancelBooking extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.arrow_back,
-                        color: kPrimaryColor,
+                        color: AppColors.primaryColor,
                       )))),
           Positioned(
             left: widthX * 0.05,
@@ -81,17 +81,17 @@ class CancelBooking extends StatelessWidget {
                     Text(
                       title,
                       style: mediumTextStyle.copyWith(
-                          color: kPrimaryColor, fontSize: widthX * 0.062),
+                          color: AppColors.primaryColor, fontSize: widthX * 0.062),
                     ),
                     Text(
                       'Rs. $price/-',
-                      style: smallTextStyle.copyWith(color: kSecondaryColor),
+                      style: smallTextStyle.copyWith(color: AppColors.secondaryColor),
                     ),
                     SizedBox(
                       height: heightX * 0.03,
                     ),
-                    Text(date,style: primaryTextStyle.copyWith(color: kPrimaryColor),),
-                    Text(time,style: smallTextStyle.copyWith(color: kPrimaryColor),),
+                    Text(date,style: primaryTextStyle.copyWith(color: AppColors.primaryColor),),
+                    Text(time,style: smallTextStyle.copyWith(color: AppColors.primaryColor),),
                     SizedBox(
                       height: heightX * 0.03,
                     ),
@@ -101,7 +101,7 @@ class CancelBooking extends StatelessWidget {
                       Navigator.pop(context);
 
 
-                    }, style: mediumTextStyle, btnColor: kPrimaryColor,)
+                    }, style: mediumTextStyle, btnColor: AppColors.primaryColor,)
                   ],
                 ),
               ),

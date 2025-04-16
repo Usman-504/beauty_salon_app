@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/update_services/update_services_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../res/colors.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 import '../add_service/add_service_provider.dart';
@@ -63,10 +63,10 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
    final addServiceProvider = Provider.of<AddServiceProvider>(context, listen: false);
     print('Rebuild');
     return Scaffold(
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: Text(
           allCategoriesProvider.capitalizeFirstLetter(widget.serviceName.toString()),
@@ -105,7 +105,7 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           width: 2,
-                          color: kPrimaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       child: Center(
@@ -113,7 +113,7 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
                             ? const Text(
                           'Upload Image',
                           style: TextStyle(
-                              color: kPrimaryColor,
+                              color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         )
@@ -153,7 +153,7 @@ class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
                       vm.updateServiceData(widget.docId!, widget.categoryName!, _serviceNameController, _priceController, _descriptionController,
                       );
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const SalonOwnerBottomNavBar()));
-                    }, style: mediumTextStyle.copyWith(color: kContainerColor), btnColor: kPrimaryColor,),
+                    }, style: mediumTextStyle.copyWith(color: AppColors.containerColor), btnColor: AppColors.primaryColor,),
                 ],
               ),
             ),

@@ -1,10 +1,10 @@
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import '../../../../res/colors.dart';
 import '../../../components/alert_dialog.dart';
 import '../add_service/add_service.dart';
 import '../all_categories/all_categories_provider.dart';
@@ -37,10 +37,10 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
     // Provider.of<AllCategoriesProvider>(context, ).getCategories();
    // var category = allCategoriesProvider.categoryList[index];
     return Scaffold(
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: const Text(
           'All Services',
@@ -48,7 +48,7 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         onPressed: () {
 
          // allCategoriesProvider.getCategories();
@@ -101,7 +101,7 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0,),
-                        child: Text('${allCategoriesProvider.categoryNameList[index]}:', style: secondaryTextStyle.copyWith(color: kPrimaryColor),),
+                        child: Text('${allCategoriesProvider.categoryNameList[index]}:', style: secondaryTextStyle.copyWith(color: AppColors.primaryColor),),
                       ),
                       SizedBox(height: heightX * 0.01,),
                       GridView.builder(
@@ -117,8 +117,8 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
                           itemBuilder: (context, int index) {
                             return Container(
                               decoration: BoxDecoration(
-                                  color: kContainerColor,
-                                  border: Border.all(color: kPrimaryColor, width: 2),
+                                  color: AppColors.containerColor,
+                                  border: Border.all(color: AppColors.primaryColor, width: 2),
                                   borderRadius: BorderRadius.circular(10)),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,7 +155,7 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
                                             },
                                             child: const Icon(
                                               Icons.edit,
-                                              color: kPrimaryColor,
+                                              color: AppColors.primaryColor,
                                             ),
                                           ),
                                           const SizedBox(
@@ -175,7 +175,7 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
                                             },
                                             child: const Icon(
                                               Icons.delete,
-                                              color: kPrimaryColor,
+                                              color: AppColors.primaryColor,
                                             ),
                                           ),
                                         ],
@@ -194,13 +194,13 @@ class _SalonOwnerServicesScreenState extends State<SalonOwnerServicesScreen> {
                                     height: heightX * 0.045,
                                     width: double.infinity,
                                     decoration: const BoxDecoration(
-                                        color: kSecondaryColor,
+                                        color: AppColors.secondaryColor,
                                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
                                     ),
                                     child: Center(
                                       child: Text('Rs. ${ snapshot.data!.docs[index]['service_price'].toString()}/-',
                                         style: smallTextStyle.copyWith(
-                                            color: kPrimaryColor,
+                                            color: AppColors.primaryColor,
                                             fontSize: widthX * 0.038),
                                       ),
                                     ),

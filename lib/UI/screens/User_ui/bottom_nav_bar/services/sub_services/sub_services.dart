@@ -1,8 +1,8 @@
 import 'package:beauty_salon/UI/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../../core/constants/const_colors.dart';
-import '../../../../../../core/constants/const_styles.dart';
+import '../../../../../../res/colors.dart';
+import '../../../../../../utils/styles.dart';
 import '../../../../../components/side_drawer.dart';
 import '../../../../salon_owner_ui/all_categories/all_categories_provider.dart';
 import '../services_details/service_details.dart';
@@ -25,7 +25,7 @@ class SubServices extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       body: Column(
         children: [
          Header(scaffoldKey: _scaffoldKey,),
@@ -40,14 +40,14 @@ class SubServices extends StatelessWidget {
                     child:  Icon(
                       Icons.arrow_back,
                       size: heightX * 0.04,
-                      color: kPrimaryColor,
+                      color: AppColors.primaryColor,
                     )),
                 SizedBox(
                   width: widthX * 0.03,
                 ),
                 Text(allCategoriesProvider.capitalizeFirstLetter(text),
                     style: mediumTextStyle.copyWith(
-                        color: kPrimaryColor, fontSize: heightX * 0.03)),
+                        color: AppColors.primaryColor, fontSize: heightX * 0.03)),
               ],
             ),
           ),
@@ -103,8 +103,8 @@ class SubServices extends StatelessWidget {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: kContainerColor,
-                                border: Border.all(color: kPrimaryColor, width: 2),
+                                color: AppColors.containerColor,
+                                border: Border.all(color: AppColors.primaryColor, width: 2),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +130,7 @@ class SubServices extends StatelessWidget {
                                 Container(
                                   height: heightX * 0.035,
                                   decoration: const BoxDecoration(
-                                      color: kSecondaryColor,
+                                      color: AppColors.secondaryColor,
                                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
                                   ),
                                   child: Row(
@@ -138,7 +138,7 @@ class SubServices extends StatelessWidget {
                                     children: [
                                       Text('Rs. ${snapshot.data!.docs[index]['service_price']}/-',
                                         style: smallTextStyle.copyWith(
-                                            color: kPrimaryColor,
+                                            color: AppColors.primaryColor,
                                             fontSize: widthX * 0.038),
                                       ),
                                       // GestureDetector(

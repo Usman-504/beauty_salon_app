@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/styles.dart';
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../res/colors.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_screen.dart';
 import 'filter_icon.dart';
@@ -40,7 +40,7 @@ class _HeaderState extends State<Header> {
       children: [
         Container(
           height: heightX * 0.25,
-          color: kWhiteColor,
+          color: AppColors.whiteColor,
         ),
         Positioned(
           top: heightX * 0.075,
@@ -53,7 +53,7 @@ class _HeaderState extends State<Header> {
                 },
                 child: Image.asset(
                   Assets.menuIcon,
-                  color: kPrimaryColor,
+                  color: AppColors.primaryColor,
                   height: heightX * 0.04,
                 ),
               ),
@@ -63,7 +63,7 @@ class _HeaderState extends State<Header> {
               Text(
                 'Hi There',
                 style: mediumTextStyle.copyWith(
-                    fontSize: widthX * 0.058, color: kPrimaryColor),
+                    fontSize: widthX * 0.058, color: AppColors.primaryColor),
               ),
               SizedBox(
                 width: widthX * 0.4,
@@ -78,7 +78,7 @@ class _HeaderState extends State<Header> {
             height: heightX * 0.07,
             width: heightX * 0.07,
             decoration: BoxDecoration(
-                border: Border.all(color: kPrimaryColor, width: 3),
+                border: Border.all(color: AppColors.primaryColor, width: 3),
                 shape: BoxShape.circle),
           ),
 
@@ -123,7 +123,7 @@ class _HeaderState extends State<Header> {
                   isRepeatingAnimation: true,
                   animatedTexts: [
                     WavyAnimatedText(
-                      textStyle: primaryTextStyle.copyWith(color: kPrimaryColor, fontSize: 25, fontFamily: 'Canterbury'),
+                      textStyle: primaryTextStyle.copyWith(color: AppColors.primaryColor, fontSize: 25, fontFamily: 'Canterbury'),
 
                       speed: const Duration(milliseconds: 250),
                       'Welcome To Beautilly',
@@ -149,19 +149,19 @@ class _HeaderState extends State<Header> {
                   animatedTexts: [
 
                     TypewriterAnimatedText(
-                      textStyle: primaryTextStyle.copyWith(color: kSecondaryColor, fontSize: 25, fontFamily: 'Canterbury'),
+                      textStyle: primaryTextStyle.copyWith(color: AppColors.secondaryColor, fontSize: 25, fontFamily: 'Canterbury'),
                        cursor: '',
                       speed: const Duration(milliseconds: 50),
                       'Experience Elegance',
                     ),
                     TypewriterAnimatedText(
-                      textStyle: primaryTextStyle.copyWith(color: kSecondaryColor, fontSize: 25, fontFamily: 'Canterbury'),
+                      textStyle: primaryTextStyle.copyWith(color: AppColors.secondaryColor, fontSize: 25, fontFamily: 'Canterbury'),
                        cursor: '',
                       speed: const Duration(milliseconds: 50),
                       'Transform Your Look',
                     ),
                     TypewriterAnimatedText(
-                      textStyle: primaryTextStyle.copyWith(color: kSecondaryColor, fontSize: 25, fontFamily: 'Canterbury'),
+                      textStyle: primaryTextStyle.copyWith(color: AppColors.secondaryColor, fontSize: 25, fontFamily: 'Canterbury'),
                        cursor: '',
                       speed: const Duration(milliseconds: 50),
                       'Empower Your  Glow',

@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/password_textfield.dart';
-import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_password_provider.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../core/constants/const_colors.dart';
-import '../../../../../core/constants/const_styles.dart';
-import '../../../../../generated/assets.dart';
+import '../../../../../res/colors.dart';
+import '../../../../../utils/styles.dart';
+import '../../../../../utils/assets.dart';
 
 class EditProfileScreen extends StatefulWidget {
 
@@ -63,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final updateProfileInfoProvider = Provider.of<UpdateProfileInfoProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -71,12 +68,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Icon(
               Icons.arrow_back,
               size: heightX * 0.04,
-              color: kWhiteColor,
+              color: AppColors.whiteColor,
             )),
         centerTitle: true,
         title: Text('Update Profile',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.063)),
+                color: AppColors.whiteColor, fontSize: widthX * 0.063)),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -96,7 +93,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                      height: heightX * 0.18,
                      width: heightX * 0.18,
                      decoration: BoxDecoration(
-                         border: Border.all(color: kPrimaryColor, width: 3),
+                         border: Border.all(color: AppColors.primaryColor, width: 3),
                          shape: BoxShape.circle),
                    ),
                  ),
@@ -127,7 +124,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                      height: heightX * 0.05,
                      width: heightX * 0.05,
                      decoration: const BoxDecoration(
-                       color: kSecondaryColor,
+                       color: AppColors.secondaryColor,
                        shape: BoxShape.circle,
                      ),
                      child: GestureDetector(
@@ -156,7 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Center(
                 child: CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Save', borderRadius: 10, onPress: (){
                   updateProfileInfoProvider.updateUserDetails(nameController.text.trim(),  emailController.text.trim(), phoneNoController.text.trim(), widget.docId, passwordController.text.trim(), context);
-                }, style: mediumTextStyle, btnColor: kPrimaryColor,),
+                }, style: mediumTextStyle, btnColor: AppColors.primaryColor,),
               )
             ],
           ),

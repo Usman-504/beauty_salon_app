@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:beauty_salon/UI/components/app_dropdown.dart';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../res/colors.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 import '../../../components/snackbar.dart';
@@ -38,10 +38,10 @@ class _AddServiceState extends State<AddService> {
         Provider.of<AllCategoriesProvider>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: const Text(
           'Add Service',
@@ -62,13 +62,13 @@ class _AddServiceState extends State<AddService> {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddCategory()));
                         },
-                        child: Text('Add Category', style: mediumTextStyle.copyWith(color: kPrimaryColor, decoration: TextDecoration.underline, decorationThickness: 2),)),
+                        child: Text('Add Category', style: mediumTextStyle.copyWith(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationThickness: 2),)),
                   ),
                   Center(
                     child: AppDropDown(
                         labelText: 'Select Category',
                         items: allCategoriesProvider.categoryNameList.isNotEmpty ? allCategoriesProvider.categoryNameList : ['No categories found'],
-                        onChanged: addServiceProvider.dropDownCategory, fillColor: kContainerColor,
+                        onChanged: addServiceProvider.dropDownCategory, fillColor: AppColors.containerColor,
                     ),
                   ),
                   Center(
@@ -88,7 +88,7 @@ class _AddServiceState extends State<AddService> {
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             width: 2,
-                            color: kPrimaryColor,
+                            color: AppColors.primaryColor,
                           ),
                         ),
                         child: Center(
@@ -96,7 +96,7 @@ class _AddServiceState extends State<AddService> {
                               ? const Text(
                                   'Upload Image/Icon',
                                   style: TextStyle(
-                                      color: kPrimaryColor,
+                                      color: AppColors.primaryColor,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 )
@@ -151,7 +151,7 @@ class _AddServiceState extends State<AddService> {
                         }
                       },
                       style: mediumTextStyle,
-                      btnColor: kPrimaryColor,
+                      btnColor: AppColors.primaryColor,
                     ),
                   ),
                 ],

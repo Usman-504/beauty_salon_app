@@ -1,9 +1,9 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bookings/booking_screen.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
+import '../../../../res/colors.dart';
 import '../all_categories/all_categories_screen.dart';
 import '../salon_owner_profile_screen.dart';
 import '../all_services/salon_owner_services_screen.dart';
@@ -45,15 +45,15 @@ class _SalonOwnerBottomNavBarState extends State<SalonOwnerBottomNavBar> {
           });
 
         },
-        backgroundColor: kWhiteColor,
+        backgroundColor: AppColors.whiteColor,
         items: items,
-        colorSelected: kWhiteColor,
-        color: kPrimaryColor,
+        colorSelected: AppColors.whiteColor,
+        color: AppColors.primaryColor,
         indexSelected: selectedIndex,
         animated: false,
 
         itemStyle: ItemStyle.circle,
-        chipStyle: const ChipStyle(background: kPrimaryColor),
+        chipStyle: const ChipStyle(background: AppColors.primaryColor),
         titleStyle: smallTextStyle.copyWith(fontSize: heightX *0.015),
 
       ),

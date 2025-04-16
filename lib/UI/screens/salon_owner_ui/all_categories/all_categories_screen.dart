@@ -1,10 +1,9 @@
-
-import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/constants/const_styles.dart';
+import '../../../../res/colors.dart';
+import '../../../../utils/styles.dart';
 import '../../../components/alert_dialog.dart';
 import '../add_category/add_category.dart';
 import '../update_category/update_category_screen.dart';
@@ -22,10 +21,10 @@ class AllCategoriesScreen extends StatelessWidget {
     var widthX = MediaQuery.of(context).size.width;
     final allCategoriesProvider = Provider.of<AllCategoriesProvider>(context);
     return Scaffold(
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: const Text(
           'All Categories',
@@ -33,7 +32,7 @@ class AllCategoriesScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const AddCategory()));
@@ -72,8 +71,8 @@ child: GridView.builder(
     itemBuilder: (context, int index) {
       return Container(
         decoration: BoxDecoration(
-            color: kContainerColor,
-            border: Border.all(color: kPrimaryColor, width: 2),
+            color: AppColors.containerColor,
+            border: Border.all(color: AppColors.primaryColor, width: 2),
             borderRadius: BorderRadius.circular(10)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +94,7 @@ child: GridView.builder(
                     },
                     child: const Icon(
                       Icons.edit,
-                      color: kPrimaryColor,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                   const SizedBox(
@@ -115,21 +114,21 @@ child: GridView.builder(
                     },
                     child: const Icon(
                       Icons.delete,
-                      color: kPrimaryColor,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                 ],
               ),
             ),
             ColorFiltered(
-                colorFilter: const ColorFilter.mode(kPrimaryColor, BlendMode.srcATop),
+                colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcATop),
                 child: Image.network(snapshot.data!.docs[index]['image_url'], height: heightX * 0.11,)),
             SizedBox(
               height: heightX * 0.02,
             ),
             Text( snapshot.data!.docs[index]['category_name'],
               style: mediumTextStyle.copyWith(
-                  fontSize: widthX * 0.052, color: kPrimaryColor),
+                  fontSize: widthX * 0.052, color: AppColors.primaryColor),
             ),
           ],
         ),

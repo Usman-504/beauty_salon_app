@@ -1,6 +1,6 @@
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
-import '../../core/constants/const_colors.dart';
+import '../../res/colors.dart';
 
 class SocialContainer extends StatelessWidget {
   const SocialContainer({
@@ -30,7 +30,7 @@ class SocialContainer extends StatelessWidget {
         height:heightX * 0.06,
         width: width,
         decoration: BoxDecoration(
-          border: Border.all(color: kPrimaryColor, width: 2),
+          border: Border.all(color: AppColors.primaryColor, width: 2),
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
@@ -40,7 +40,7 @@ class SocialContainer extends StatelessWidget {
             SizedBox(
               width: widthX * 0.02,
             ),
-            Text(text, style: mediumTextStyle.copyWith(fontSize: widthX*0.05, color: kPrimaryColor),)
+            Text(text, style: mediumTextStyle.copyWith(fontSize: widthX*0.05, color: AppColors.primaryColor),)
             //H2(text: text, color: kButtonColor),
           ],
         ),

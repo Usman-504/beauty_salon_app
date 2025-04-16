@@ -1,10 +1,10 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/screens/onboarding_screen/onboarding_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../res/colors.dart';
 import '../User_ui/auth/login_screen/login_screen.dart';
 import '../User_ui/auth/signup_screen/signup_screen.dart';
 
@@ -52,7 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text(
                     textAlign: TextAlign.center,
                     onBoardingProvider.pageDetails[index]['description'],
-                    style: smallTextStyle.copyWith(color: kWhiteColor, fontWeight: FontWeight.normal, shadows: boxShadow),
+                    style: smallTextStyle.copyWith(color: AppColors.whiteColor, fontWeight: FontWeight.normal, shadows: boxShadow),
                   ),
                 ),
                 Positioned(
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       else{ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
                       }
 
-                  }, style: mediumTextStyle, btnColor: kPrimaryColor,),
+                  }, style: mediumTextStyle, btnColor: AppColors.primaryColor,),
                 ),
                 Positioned(
                   top:  heightX *0.85,
@@ -79,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: smallTextStyle.copyWith(
                             fontSize: heightX * 0.02,
                             fontWeight: FontWeight.normal,
-                            color: kWhiteColor),
+                            color: AppColors.whiteColor),
                       ),
                       SizedBox(
                         width: widthX * 0.01,
@@ -106,7 +106,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: TextButton(onPressed: (){
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
                     },
-                        child: Text('Skip', style: mediumTextStyle.copyWith(color: kPrimaryColor),))),
+                        child: Text('Skip', style: mediumTextStyle.copyWith(color: AppColors.primaryColor),))),
                 Positioned(
                   bottom: heightX * 0.1,
                   left: widthX * 0.5 - 20,
@@ -120,7 +120,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 8,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: onBoardingProvider.currentPage == index ? kPrimaryColor : Colors.grey,
+                          color: onBoardingProvider.currentPage == index ? AppColors.primaryColor : Colors.grey,
                         ),
                       ),
                     ),

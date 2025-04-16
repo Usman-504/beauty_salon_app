@@ -1,4 +1,4 @@
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class WhiteContainer extends StatelessWidget {

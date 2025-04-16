@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../core/constants/const_colors.dart';
+import '../../res/colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -36,7 +35,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child:  Center(
-      child: loading ? const Center(child: CircularProgressIndicator(color: kWhiteColor,)) :  Text(text, style: style),
+      child: loading ? const Center(child: CircularProgressIndicator(color: AppColors.whiteColor,)) :  Text(text, style: style),
             //child: H2(text: text, color: kWhiteColor)),
       )),
     );

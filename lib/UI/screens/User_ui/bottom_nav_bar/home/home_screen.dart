@@ -2,10 +2,10 @@ import 'package:beauty_salon/UI/components/custom_banner.dart';
 import 'package:beauty_salon/UI/components/header.dart';
 import 'package:beauty_salon/UI/components/side_drawer.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/services/services_details/service_details.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../../res/colors.dart';
 import '../../../salon_owner_ui/all_categories/all_categories_provider.dart';
 import '../../../salon_owner_ui/all_services/salon_owner_services_provider.dart';
 import '../../cart_screen/cart_provider.dart';
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: const SideDrawer(),
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       body: Column(
         children: [
           Header(
@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: Text(
                           'Exclusive Offers',
-                          style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                          style: mediumTextStyle.copyWith(color: AppColors.primaryColor),
                         ),
                       ),
                       const CustomBanner(),
@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Icon(
                                     Icons.arrow_forward,
-                                    color: kPrimaryColor,
+                                    color: AppColors.primaryColor,
                                     size: heightX * 0.025,
                                   ),
                                 ],
@@ -162,9 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            color: kContainerColor,
+                                            color: AppColors.containerColor,
                                             border: Border.all(
-                                                color: kPrimaryColor, width: 2),
+                                                color: AppColors.primaryColor, width: 2),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: Column(
@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ColorFiltered(
                                                 colorFilter:
                                                     const ColorFilter.mode(
-                                                        kPrimaryColor,
+                                                        AppColors.primaryColor,
                                                         BlendMode.srcATop),
                                                 child: Image.network(
                                                   snapshot.data!.docs[index]
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ['category_name'],
                                               style: mediumTextStyle.copyWith(
                                                   fontSize: widthX * 0.052,
-                                                  color: kPrimaryColor),
+                                                  color: AppColors.primaryColor),
                                             ),
                                           ],
                                         ),
@@ -241,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Icon(
                                     Icons.arrow_forward,
-                                    color: kPrimaryColor,
+                                    color: AppColors.primaryColor,
                                     size: heightX * 0.025,
                                   ),
                                 ],
@@ -319,9 +319,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            color: kContainerColor,
+                                            color: AppColors.containerColor,
                                             border: Border.all(
-                                                color: kPrimaryColor,
+                                                color: AppColors.primaryColor,
                                                 width: 2),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
@@ -360,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Container(
                                               height: heightX * 0.027,
                                               decoration: const BoxDecoration(
-                                                  color: kSecondaryColor,
+                                                  color: AppColors.secondaryColor,
                                                   borderRadius:
                                                       BorderRadius.only(
                                                           bottomLeft: Radius
@@ -379,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     style: smallTextStyle
                                                         .copyWith(
                                                             color:
-                                                                kPrimaryColor,
+                                                            AppColors.primaryColor,
                                                             fontSize:
                                                                 widthX *
                                                                     0.038),

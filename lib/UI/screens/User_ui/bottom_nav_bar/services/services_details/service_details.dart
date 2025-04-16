@@ -1,9 +1,9 @@
 import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../../core/constants/const_colors.dart';
+import '../../../../../../res/colors.dart';
 import '../../../../../components/image_container.dart';
 import '../../book_appointment/book_appointment.dart';
 import '../../../cart_screen/cart_provider.dart';
@@ -45,15 +45,15 @@ class ServiceDetails extends StatelessWidget {
           action: SnackBarAction(
             label: text,
             onPressed: onPress,
-            textColor: kPrimaryColor,
+            textColor: AppColors.primaryColor,
           ),
-          backgroundColor: kSecondaryColor,
+          backgroundColor: AppColors.secondaryColor,
         ),
       );
     }
 
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: Stack(
         children: [
           Container(
@@ -70,7 +70,7 @@ class ServiceDetails extends StatelessWidget {
                   height: heightX * 0.047,
                   width: widthX * 0.1,
                   decoration: BoxDecoration(
-                      color: kSecondaryColor,
+                      color: AppColors.secondaryColor,
                       borderRadius: BorderRadius.circular(heightX * 0.03)),
                   child: GestureDetector(
                       onTap: () {
@@ -78,7 +78,7 @@ class ServiceDetails extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.arrow_back,
-                        color: kPrimaryColor,
+                        color: AppColors.primaryColor,
                       )))),
           Positioned(
             left: widthX * 0.05,
@@ -101,7 +101,7 @@ class ServiceDetails extends StatelessWidget {
                         Text(
                           title,
                           style: mediumTextStyle.copyWith(
-                              color: kPrimaryColor, fontSize: widthX * 0.063),
+                              color: AppColors.primaryColor, fontSize: widthX * 0.063),
                         ),
 
                       ],
@@ -109,7 +109,7 @@ class ServiceDetails extends StatelessWidget {
                     Text(
                       'Rs. ${price.toString()}/-',
                      // price.toString(),
-                      style: smallTextStyle.copyWith(color: kSecondaryColor),
+                      style: smallTextStyle.copyWith(color: AppColors.secondaryColor),
                     ),
                     SizedBox(
                       height: heightX * 0.03,
@@ -139,7 +139,7 @@ class ServiceDetails extends StatelessWidget {
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.022), btnColor: kPrimaryColor,
+                                  fontSize: heightX * 0.022), btnColor: AppColors.primaryColor,
                             ),
                             CustomButton(
                               height: heightX * 0.06,
@@ -173,7 +173,7 @@ class ServiceDetails extends StatelessWidget {
                               },
                               borderRadius: heightX * 0.013,
                               style: mediumTextStyle.copyWith(
-                                  fontSize: heightX * 0.022), btnColor: kPrimaryColor,
+                                  fontSize: heightX * 0.022), btnColor: AppColors.primaryColor,
                             ),
                           ],
                         );

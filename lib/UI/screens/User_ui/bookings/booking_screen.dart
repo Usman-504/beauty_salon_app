@@ -1,9 +1,9 @@
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/constants/const_colors.dart';
-import '../../../../core/constants/const_styles.dart';
-import '../../../../generated/assets.dart';
+import '../../../../res/colors.dart';
+import '../../../../utils/styles.dart';
+import '../../../../utils/assets.dart';
 import '../AppointmentSummary/appointment_summary.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment_provider.dart';
 import '../bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
@@ -46,13 +46,13 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        backgroundColor: kContainerColor,
+        backgroundColor: AppColors.containerColor,
         appBar: AppBar(
           bottom: TabBar(
-            indicatorColor: kWhiteColor,
+            indicatorColor: AppColors.whiteColor,
             controller: _tabController,
-            labelColor: kContainerColor,
-            unselectedLabelColor: kSecondaryColor,
+            labelColor: AppColors.containerColor,
+            unselectedLabelColor: AppColors.secondaryColor,
             tabs: const [
               Tab(text: 'Pending', icon: Icon(Icons.hourglass_bottom)),
               Tab(text: 'UpComing', icon: Icon(Icons.add_task)),
@@ -60,7 +60,7 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
               Tab(text: 'Rejected', icon: Icon(Icons.close)),
             ],
           ),
-          backgroundColor: kPrimaryColor,
+          backgroundColor: AppColors.primaryColor,
           leading: GestureDetector(
             onTap: () {
               bookAppointmentProvider.role == 'salon owner'
@@ -76,14 +76,14 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
             child: Icon(
               Icons.arrow_back,
               size: heightX * 0.04,
-              color: kWhiteColor,
+              color: AppColors.whiteColor,
             ),
           ),
           centerTitle: true,
           title: Text(
             'All Bookings',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.062),
+                color: AppColors.whiteColor, fontSize: widthX * 0.062),
           ),
         ),
         body: TabBarView(
@@ -146,14 +146,14 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                   Text(
                    'No Booking Found',
                     style: primaryTextStyle.copyWith(
-                        color: kPrimaryColor, fontSize: widthX * 0.085),
+                        color: AppColors.primaryColor, fontSize: widthX * 0.085),
                   ),
                   Text(
                     bookAppointmentProvider.role == 'admin' ? 'You haven\'t added any booking in this category' :
                     'You have no booking in this category',
                     textAlign: TextAlign.center,
                     style: smallTextStyle.copyWith(
-                        color: kPrimaryColor,
+                        color: AppColors.primaryColor,
                         fontSize: widthX * 0.042,
                         fontWeight: FontWeight.normal),
                   ),
@@ -176,7 +176,7 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
               child: Container(
                 height: heightX * 0.12,
                 decoration: BoxDecoration(
-                  color: kSecondaryColor,
+                  color: AppColors.secondaryColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
@@ -201,17 +201,17 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                         children: [
                           Text(booking['service_name'] ?? 'Multi Services',
                             style: mediumTextStyle.copyWith(
-                                color: kPrimaryColor),
+                                color: AppColors.primaryColor),
                           ),
                           Text(
                             booking['service_type'],
                             style: smallTextStyle.copyWith(
-                                color: kPrimaryColor),
+                                color: AppColors.primaryColor),
                           ),
                           Text(
                             booking['appointment_date'],
                             style: smallTextStyle.copyWith(
-                                color: kPrimaryColor),
+                                color: AppColors.primaryColor),
                           ),
                         ],
                       ),
@@ -253,7 +253,7 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
                           Text(
                             'Rs. ${booking['total_price']}/-',
                             style: smallTextStyle.copyWith(
-                                color: kPrimaryColor),
+                                color: AppColors.primaryColor),
                           ),
                         ],
                       ),

@@ -1,6 +1,6 @@
-import 'package:beauty_salon/core/constants/const_colors.dart';
+import 'package:beauty_salon/res/colors.dart';
 import 'package:flutter/material.dart';
-import '../../core/constants/const_styles.dart';
+import '../../utils/styles.dart';
 
 class ShowAlertDialog extends StatelessWidget {
  final String message;
@@ -13,7 +13,7 @@ final VoidCallback onPress;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: kWhiteColor,
+      backgroundColor: AppColors.whiteColor,
 
       title: Text('Warning', style: mediumTextStyle.copyWith(color: Colors.red),
       ),

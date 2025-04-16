@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../core/constants/const_colors.dart';
+import '../../res/colors.dart';
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({
@@ -14,7 +13,7 @@ class CustomDivider extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(widthX * 0.04),
         child: const Divider(
-          color: kPrimaryColor,
+          color: AppColors.primaryColor,
           thickness: 2,
         ),
       ),

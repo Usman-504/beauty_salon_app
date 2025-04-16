@@ -1,9 +1,9 @@
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/styles.dart';
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../res/colors.dart';
 import '../../../components/custom_button.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment.dart';
 import '../bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
@@ -25,7 +25,7 @@ class _CartScreenState extends State<CartScreen> {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pushReplacement(
@@ -36,14 +36,14 @@ class _CartScreenState extends State<CartScreen> {
             child: Icon(
               Icons.arrow_back,
               size: heightX * 0.04,
-              color: kWhiteColor,
+              color: AppColors.whiteColor,
             )),
         centerTitle: true,
         title: Text('Cart',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.063)),
+                color: AppColors.whiteColor, fontSize: widthX * 0.063)),
       ),
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: StreamBuilder(
         stream: cart.fetchCartItems(),
         builder: (context, snapshot) {
@@ -68,13 +68,13 @@ class _CartScreenState extends State<CartScreen> {
                     Text(
                       'Your Cart is empty',
                       style: primaryTextStyle.copyWith(
-                          color: kPrimaryColor, fontSize: widthX * 0.085),
+                          color: AppColors.primaryColor, fontSize: widthX * 0.085),
                     ),
                     Text(
                       textAlign: TextAlign.center,
                       'You have no service in your shopping cart.\nLet\'s go and add a service',
                       style: smallTextStyle.copyWith(
-                          color: kPrimaryColor,
+                          color: AppColors.primaryColor,
                           fontSize: widthX * 0.042,
                           fontWeight: FontWeight.normal),
                     ),
@@ -93,7 +93,7 @@ class _CartScreenState extends State<CartScreen> {
                                 builder: (context) => const AllServices()));
                       },
                       style: mediumTextStyle,
-                      btnColor: kPrimaryColor,
+                      btnColor: AppColors.primaryColor,
                     )
                   ],
                 ),
@@ -115,7 +115,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: Container(
                           height: heightX * 0.13,
                           decoration: BoxDecoration(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
@@ -147,7 +147,7 @@ class _CartScreenState extends State<CartScreen> {
                                         snapshot.data!.docs[index]
                                             ['service_name'],
                                         style: mediumTextStyle.copyWith(
-                                            color: kPrimaryColor),
+                                            color: AppColors.primaryColor),
                                       ),
                                       Text(
                                         snapshot.data!.docs[index]
@@ -168,7 +168,7 @@ class _CartScreenState extends State<CartScreen> {
                                     },
                                     child: const Icon(
                                       Icons.delete,
-                                      color: kPrimaryColor,
+                                      color: AppColors.primaryColor,
                                     ))
                               ],
                             ),
@@ -212,7 +212,7 @@ class _CartScreenState extends State<CartScreen> {
 
                       style: mediumTextStyle.copyWith(
                           fontSize: heightX * 0.022),
-                      btnColor: kPrimaryColor),
+                      btnColor: AppColors.primaryColor),
                 ),
               ],
             );

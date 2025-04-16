@@ -21,12 +21,11 @@ import 'package:flutter/material.dart';
 // const Color kContainerColor = Color(0XFFE8E1CF);
 // const Color kWhiteColor = Color(0XFFF3F3EA);
 
-const Color kPrimaryColor = Color(0XFF4A362B);
-const Color kSecondaryColor = Color(0XFFB98762);
-//const Color kContainerColor = Color(0XFFFFD4B9);
-const Color kContainerColor = Color(0XFFf5eee9);
-const Color kWhiteColor = Color(0XFFFDE7CF);
-const Color kScaffoldColor = Color(0XFFFCEFEA);
+// const Color kPrimaryColor = Color(0XFF4A362B);
+// const Color kSecondaryColor = Color(0XFFB98762);
+// const Color kContainerColor = Color(0XFFf5eee9);
+// const Color kWhiteColor = Color(0XFFFDE7CF);
+// const Color kScaffoldColor = Color(0XFFFCEFEA);
 
 // const Color kPrimaryColor = Color(0XFFF4B38A);
 // const Color kSecondaryColor = Color(0XFFB5B184);

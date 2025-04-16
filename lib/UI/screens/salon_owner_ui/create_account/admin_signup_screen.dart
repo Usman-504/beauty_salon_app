@@ -6,15 +6,12 @@ import 'package:beauty_salon/UI/components/password_textfield.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/core/constants/const_text.dart';
-import 'package:beauty_salon/generated/assets.dart';
-
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../User_ui/auth/login_screen/login_screen.dart';
+import '../../../../res/colors.dart';
 
 class AdminSignUpScreen extends StatefulWidget {
   const AdminSignUpScreen({super.key});
@@ -37,7 +34,7 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
     var widthX = MediaQuery.of(context).size.width;
     final signUpProvider = Provider.of<SignupProvider>(context);
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -61,7 +58,7 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                     authDetail,
                     style: smallTextStyle.copyWith(
                         fontSize: heightX * 0.02,
-                        color: kWhiteColor,
+                        color: AppColors.whiteColor,
                         shadows: boxShadow),
                   ),
 
@@ -160,7 +157,7 @@ class _AdminSignUpScreenState extends State<AdminSignUpScreen> {
                             debugPrint(e as String?) ;
                           }
                         },
-                        borderRadius: heightX * 0.01, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
+                        borderRadius: heightX * 0.01, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: AppColors.primaryColor,
                       ),
                     ),
                     // Row(

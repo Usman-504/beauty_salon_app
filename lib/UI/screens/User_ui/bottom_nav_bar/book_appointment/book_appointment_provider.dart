@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

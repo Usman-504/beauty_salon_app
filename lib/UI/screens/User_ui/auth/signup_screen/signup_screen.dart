@@ -7,14 +7,14 @@ import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/core/constants/const_text.dart';
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/assets.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../res/colors.dart';
 import '../login_screen/login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var widthX = MediaQuery.of(context).size.width;
 final signUpProvider = Provider.of<SignupProvider>(context);
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -62,7 +62,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                     authDetail,
                     style: smallTextStyle.copyWith(
                         fontSize: heightX * 0.02,
-                        color: kWhiteColor,
+                        color: AppColors.whiteColor,
                         shadows: boxShadow),
                   ),
                   SizedBox(
@@ -164,7 +164,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                             debugPrint(e as String?) ;
                           }
                         },
-                        borderRadius: heightX * 0.01, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: kPrimaryColor,
+                        borderRadius: heightX * 0.01, style: mediumTextStyle.copyWith(fontSize: heightX * 0.025), btnColor: AppColors.primaryColor,
                       ),
                     ),
                     Row(

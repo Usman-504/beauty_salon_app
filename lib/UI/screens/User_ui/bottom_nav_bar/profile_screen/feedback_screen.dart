@@ -2,9 +2,8 @@ import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../core/constants/const_colors.dart';
-import '../../../../../core/constants/const_styles.dart';
+import '../../../../../res/colors.dart';
+import '../../../../../utils/styles.dart';
 import 'feedback_provider.dart';
 
 class FeedbackScreen extends StatelessWidget {
@@ -17,7 +16,7 @@ class FeedbackScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -25,12 +24,12 @@ class FeedbackScreen extends StatelessWidget {
             child: Icon(
               Icons.arrow_back,
               size: heightX * 0.04,
-              color: kWhiteColor,
+              color: AppColors.whiteColor,
             )),
         centerTitle: true,
         title: Text('Feedback',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.063)),
+                color: AppColors.whiteColor, fontSize: widthX * 0.063)),
       ),
       body: Consumer<FeedbackProvider>(
        builder: (context, vm, child) {
@@ -42,7 +41,7 @@ class FeedbackScreen extends StatelessWidget {
              CustomTextField(hintText: 'Your Message', maxWidth: widthX * 0.9, maxHeight: heightX * 0.5, maxLines: 5, controller: vm.messageController,),
              CustomButton(height: heightX * 0.06, width: widthX * 0.9, text: 'Send', borderRadius: 10, onPress: (){
                vm.feedBack(context);
-             }, style: mediumTextStyle, btnColor: kPrimaryColor,)
+             }, style: mediumTextStyle, btnColor: AppColors.primaryColor,)
            ],
          );
        },

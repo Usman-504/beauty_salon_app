@@ -1,12 +1,12 @@
 import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../res/colors.dart';
 import '../../../../components/custom_button.dart';
 import '../../AppointmentSummary/appointment_summary.dart';
 import 'book_appointment_provider.dart';
@@ -58,9 +58,9 @@ print('length ${widget.cartLength}');
       child: Consumer<BookAppointmentProvider>(
         builder: (context, vm, child) {
           return Scaffold(
-            backgroundColor: kScaffoldColor,
+            backgroundColor: AppColors.scaffoldColor,
             appBar: AppBar(
-              backgroundColor: kPrimaryColor,
+              backgroundColor: AppColors.primaryColor,
               leading: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
@@ -68,12 +68,12 @@ print('length ${widget.cartLength}');
                   child: Icon(
                     Icons.arrow_back,
                     size: heightX * 0.04,
-                    color: kWhiteColor,
+                    color: AppColors.whiteColor,
                   )),
               centerTitle: true,
               title: Text('Book Appointment',
                   style: secondaryTextStyle.copyWith(
-                      color: kWhiteColor, fontSize: widthX * 0.062)),
+                      color: AppColors.whiteColor, fontSize: widthX * 0.062)),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -82,7 +82,7 @@ print('length ${widget.cartLength}');
                 children: [
                   Container(
                     height: heightX * 0.2,
-                    color: kWhiteColor,
+                    color: AppColors.whiteColor,
                     child: Column(
                       children: [
                         SizedBox(height: heightX * 0.025),
@@ -92,8 +92,8 @@ print('length ${widget.cartLength}');
                             DateTime.now(),
                             width: heightX * 0.11,
                             initialSelectedDate: vm.selectedDate,
-                            selectionColor: kPrimaryColor,
-                            selectedTextColor: kWhiteColor,
+                            selectionColor: AppColors.primaryColor,
+                            selectedTextColor: AppColors.whiteColor,
                             onDateChange: vm.onDateChange,
                           ),
                         ),
@@ -110,7 +110,7 @@ print('length ${widget.cartLength}');
                         top: heightX * 0.01),
                     child: Text(
                       'Available Time Slots',
-                      style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                      style: mediumTextStyle.copyWith(color: AppColors.primaryColor),
                     ),
                   ),
                   Padding(
@@ -156,11 +156,11 @@ print('length ${widget.cartLength}');
                                 decoration: BoxDecoration(
                                     color: isPast ? Colors.grey :
                                     isSelected || isMultiSelected
-                                        ? kSecondaryColor
-                                        : kContainerColor,
+                                        ? AppColors.secondaryColor
+                                        : AppColors.containerColor,
                                     borderRadius: BorderRadius.circular(5),
                                     border:
-                                    Border.all(width: 2, color: kPrimaryColor)),
+                                    Border.all(width: 2, color: AppColors.primaryColor)),
                                 child: Center(
                                     child: Text(
                                       formattedTime,
@@ -178,7 +178,7 @@ print('length ${widget.cartLength}');
                         top: heightX * 0.03),
                     child: Text('Fill Out Your Details',
                         style: mediumTextStyle.copyWith(
-                            color: kPrimaryColor, fontSize: widthX * 0.05)),
+                            color: AppColors.primaryColor, fontSize: widthX * 0.05)),
                   ),
                   CustomTextField(
                       controller: vm.nameController,
@@ -220,11 +220,11 @@ print('length ${widget.cartLength}');
                           style: mediumTextStyle.copyWith(
                               fontSize: widthX * 0.048,
                               color: vm.serviceType == 'Salon'
-                                  ? kPrimaryColor
-                                  : kWhiteColor),
+                                  ? AppColors.primaryColor
+                                  : AppColors.whiteColor),
                           btnColor: vm.serviceType == 'Salon'
-                              ? kSecondaryColor
-                              : kPrimaryColor,
+                              ? AppColors.secondaryColor
+                              : AppColors.primaryColor,
                         ),
                         SizedBox(
                           width: widthX * 0.03,
@@ -240,10 +240,10 @@ print('length ${widget.cartLength}');
                           style: mediumTextStyle.copyWith(
                               fontSize: widthX * 0.048,
                               color:
-                              vm.serviceType == 'Home' ? kPrimaryColor : kWhiteColor),
+                              vm.serviceType == 'Home' ? AppColors.primaryColor : AppColors.whiteColor),
                           btnColor: vm.serviceType == 'Home'
-                              ? kSecondaryColor
-                              : kPrimaryColor,
+                              ? AppColors.secondaryColor
+                              : AppColors.primaryColor,
                         ),
                       ],
                     ),
@@ -325,7 +325,7 @@ print('length ${widget.cartLength}');
                         },
                         borderRadius: heightX * 0.013,
                         style: mediumTextStyle.copyWith(fontSize: widthX * 0.048),
-                        btnColor: kPrimaryColor,
+                        btnColor: AppColors.primaryColor,
                       )),
                 ],
               ),

@@ -1,12 +1,10 @@
-import 'package:beauty_salon/UI/components/alert_dialog.dart';
 import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/constants/const_colors.dart';
-import '../../../../core/constants/const_styles.dart';
+import '../../../../res/colors.dart';
+import '../../../../utils/styles.dart';
 import '../../../components/custom_button.dart';
 import '../bookings/booking_provider.dart';
-import '../bookings/booking_screen.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment_provider.dart';
 
 class AppointmentSummary extends StatefulWidget {
@@ -73,9 +71,9 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
     final bookAppointmentProvider =
         Provider.of<BookAppointmentProvider>(context);
     return Scaffold(
-      backgroundColor: kScaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -83,7 +81,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
             child: Icon(
               Icons.arrow_back,
               size: heightX * 0.04,
-              color: kWhiteColor,
+              color: AppColors.whiteColor,
             )),
         centerTitle: true,
         title: Text(
@@ -93,7 +91,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     ? 'Summary'
                     : 'Booking Details',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.063)),
+                color: AppColors.whiteColor, fontSize: widthX * 0.063)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -113,13 +111,13 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'Customer Name:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         widget.customerName,
                         overflow: TextOverflow.ellipsis,
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -136,12 +134,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'Customer Number:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         widget.customerNumber,
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -161,7 +159,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                       ),
                       Text(
                         'Customer Address:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         // textAlign: TextAlign.justify,
@@ -169,7 +167,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -189,7 +187,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                       ),
                       Text(
                         'Customer Message:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         // textAlign: TextAlign.justify,
@@ -200,7 +198,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -221,7 +219,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                         ),
                         Text(
                           'No Of Services:',
-                          style: smallTextStyle.copyWith(color: kPrimaryColor),
+                          style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                         ),
                         Text(
                           // textAlign: TextAlign.justify,
@@ -230,7 +228,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: smallTextStyle.copyWith(
-                              color: kSecondaryColor,
+                              color: AppColors.secondaryColor,
                               fontWeight: FontWeight.normal),
                         ),
                       ],
@@ -255,12 +253,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                             Text(
                               'Service Name:',
                               style:
-                                  smallTextStyle.copyWith(color: kPrimaryColor),
+                                  smallTextStyle.copyWith(color: AppColors.primaryColor),
                             ),
                             Text(
                               widget.serviceName!,
                               style: smallTextStyle.copyWith(
-                                  color: kSecondaryColor,
+                                  color: AppColors.secondaryColor,
                                   fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -277,12 +275,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                             Text(
                               'Service Price:',
                               style:
-                                  smallTextStyle.copyWith(color: kPrimaryColor),
+                                  smallTextStyle.copyWith(color: AppColors.primaryColor),
                             ),
                             Text(
                               'Rs. ${widget.servicePrice}/-',
                               style: smallTextStyle.copyWith(
-                                  color: kSecondaryColor,
+                                  color: AppColors.secondaryColor,
                                   fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -299,12 +297,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                             Text(
                               'Appointment Time:',
                               style:
-                                  smallTextStyle.copyWith(color: kPrimaryColor),
+                                  smallTextStyle.copyWith(color: AppColors.primaryColor),
                             ),
                             Text(
                               widget.time!,
                               style: smallTextStyle.copyWith(
-                                  color: kSecondaryColor,
+                                  color: AppColors.secondaryColor,
                                   fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -330,12 +328,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                                 Text(
                                   'Service Name:',
                                   style: smallTextStyle.copyWith(
-                                      color: kPrimaryColor),
+                                      color: AppColors.primaryColor),
                                 ),
                                 Text(
                                   widget.serviceNames![index],
                                   style: smallTextStyle.copyWith(
-                                    color: kSecondaryColor,
+                                    color: AppColors.secondaryColor,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -351,12 +349,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                                   Text(
                                     'Service Price:',
                                     style: smallTextStyle.copyWith(
-                                        color: kPrimaryColor),
+                                        color: AppColors.primaryColor),
                                   ),
                                   Text(
                                     'Rs. ${widget.servicePrices![index]}/-',
                                     style: smallTextStyle.copyWith(
-                                      color: kSecondaryColor,
+                                      color: AppColors.secondaryColor,
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),
@@ -369,12 +367,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                                 Text(
                                   'Appointment Time:',
                                   style: smallTextStyle.copyWith(
-                                      color: kPrimaryColor),
+                                      color: AppColors.primaryColor),
                                 ),
                                 Text(
                                   widget.timeSlots![index],
                                   style: smallTextStyle.copyWith(
-                                    color: kSecondaryColor,
+                                    color: AppColors.secondaryColor,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -457,12 +455,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'Appointment Date:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         widget.date,
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -479,12 +477,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'Service Type:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         widget.serviceType,
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -503,12 +501,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                             Text(
                               'Appointment Status:',
                               style:
-                                  smallTextStyle.copyWith(color: kPrimaryColor),
+                                  smallTextStyle.copyWith(color: AppColors.primaryColor),
                             ),
                             Text(
                               widget.appointmentStatus,
                               style: smallTextStyle.copyWith(
-                                  color: kSecondaryColor,
+                                  color: AppColors.secondaryColor,
                                   fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -529,12 +527,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'Sub Total:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         'Rs. ${!widget.cart ? widget.servicePrice : widget.servicePrices!.fold<int>(0, (sum, price) => sum + (price as int))}/-',
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -550,12 +548,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'GST:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         'Rs. ${bookAppointmentProvider.gstPrice}/-',
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -576,12 +574,12 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                     children: [
                       Text(
                         'Total:',
-                        style: smallTextStyle.copyWith(color: kPrimaryColor),
+                        style: smallTextStyle.copyWith(color: AppColors.primaryColor),
                       ),
                       Text(
                         'Rs. ${widget.totalPrice}/-',
                         style: smallTextStyle.copyWith(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             fontWeight: FontWeight.normal),
                       ),
                     ],
@@ -601,7 +599,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                   },
                   borderRadius: heightX * 0.013,
                   style: mediumTextStyle.copyWith(fontSize: widthX * 0.045),
-                  btnColor: kPrimaryColor,),
+                  btnColor: AppColors.primaryColor,),
               ),
             bookAppointmentProvider.role == 'salon owner'
                 ? Padding(
@@ -619,7 +617,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                       },
                       borderRadius: heightX * 0.013,
                       style: mediumTextStyle.copyWith(fontSize: widthX * 0.045),
-                      btnColor: kPrimaryColor,
+                      btnColor: AppColors.primaryColor,
                     ),
                   )
                 : const SizedBox.shrink(),
@@ -689,7 +687,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                         borderRadius: heightX * 0.013,
                         style:
                             mediumTextStyle.copyWith(fontSize: widthX * 0.045),
-                        btnColor: kPrimaryColor,
+                        btnColor: AppColors.primaryColor,
                       ),
                     ),
             if (bookAppointmentProvider.role == 'client')
@@ -793,7 +791,7 @@ class _AppointmentSummaryState extends State<AppointmentSummary> {
                         borderRadius: heightX * 0.013,
                         style:
                             mediumTextStyle.copyWith(fontSize: widthX * 0.045),
-                        btnColor: kPrimaryColor,
+                        btnColor: AppColors.primaryColor,
                       ),
                     ),
           ],

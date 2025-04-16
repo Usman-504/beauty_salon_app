@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:beauty_salon/core/constants/const_colors.dart';
 import 'package:flutter/material.dart';
-import '../../../generated/assets.dart';
+import '../../../res/colors.dart';
+import '../../../utils/assets.dart';
 import '../User_ui/auth/auth_check.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: kSecondaryColor,
+      backgroundColor: AppColors.secondaryColor,
       body: Stack(
         children: [
           Container(
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Positioned(
             left: widthX * 0.3,
               top: heightX * 0.48,
-              child: Image.asset(Assets.logo, color: kPrimaryColor,)),
+              child: Image.asset(Assets.logo, color: AppColors.primaryColor,)),
           Positioned(
               left: widthX * 0.47,
               top: heightX * 0.53,

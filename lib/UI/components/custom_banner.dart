@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../core/constants/const_colors.dart';
-import '../../core/constants/const_styles.dart';
-import '../../generated/assets.dart';
+import '../../res/colors.dart';
+import '../../utils/styles.dart';
+import '../../utils/assets.dart';
 import '../screens/User_ui/bottom_nav_bar/services/all_services/all_services.dart';
 import 'custom_button.dart';
 
@@ -27,7 +26,7 @@ class CustomBanner extends StatelessWidget {
           height: heightX * 0.15,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: kSecondaryColor,
+            color: AppColors.secondaryColor,
           ),
         ),
         Positioned(
@@ -36,7 +35,7 @@ class CustomBanner extends StatelessWidget {
           child: Text(
             'Look more beautiful and\nSave more discount.',
             style:
-            smallTextStyle.copyWith(color: kWhiteColor),
+            smallTextStyle.copyWith(color: AppColors.whiteColor),
           ),
         ),
         Positioned(
@@ -55,8 +54,8 @@ class CustomBanner extends StatelessWidget {
                       const AllServices()));
             },
             style:
-            smallTextStyle.copyWith(color: kWhiteColor),
-            btnColor: kPrimaryColor,
+            smallTextStyle.copyWith(color: AppColors.whiteColor),
+            btnColor: AppColors.primaryColor,
           ),
         ),
         Positioned(
@@ -66,7 +65,7 @@ class CustomBanner extends StatelessWidget {
             height: heightX * 0.25,
             width: widthX * 0.25,
             decoration: const BoxDecoration(
-              color: kPrimaryColor,
+              color: AppColors.primaryColor,
               shape: BoxShape.circle,
             ),
             child: Align(

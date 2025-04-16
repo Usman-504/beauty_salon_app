@@ -1,8 +1,7 @@
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../core/constants/const_colors.dart';
+import '../../res/colors.dart';
 import '../screens/User_ui/auth/login_screen/login_provider.dart';
 
 class PasswordTextField extends StatelessWidget {
@@ -41,10 +40,10 @@ class PasswordTextField extends StatelessWidget {
                 color: Colors.grey, fontSize: widthX * 0.042),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: kPrimaryColor, width: 2)),
+                borderSide: const BorderSide(color: AppColors.primaryColor, width: 2)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: kPrimaryColor, width: 2))),
+                borderSide: const BorderSide(color: AppColors.primaryColor, width: 2))),
       ),
     );
   }

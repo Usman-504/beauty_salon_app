@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../generated/assets.dart';
+import '../../../utils/assets.dart';
 
 class OnboardingProvider with ChangeNotifier{
 

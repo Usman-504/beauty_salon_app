@@ -2,7 +2,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import '../../../../core/constants/const_colors.dart';
-// import '../../../../core/constants/const_styles.dart';
+// import '../../../../core/constants/styles.dart';
 // import '../../../components/custom_button.dart';
 // import '../../User_ui/bookings/booking_provider.dart';
 // import '../../User_ui/bottom_nav_bar/book_appointment/book_appointment_provider.dart';

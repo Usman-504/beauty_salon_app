@@ -1,10 +1,7 @@
-
-import 'dart:ui';
-
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/constants/const_colors.dart';
+import '../../res/colors.dart';
 
 class CustomTextField extends StatelessWidget {
 
@@ -36,14 +33,13 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var heightX = MediaQuery.of(context).size.height;
     var widthX = MediaQuery.of(context).size.width;
 
     return Padding(
       padding: EdgeInsets.only(left: widthX * 0.04, right: widthX * 0.04, bottom: widthX * 0.04),
       child: TextField(
-        cursorColor: kPrimaryColor,
-        cursorErrorColor: kPrimaryColor,
+        cursorColor: AppColors.primaryColor,
+        cursorErrorColor: AppColors.primaryColor,
 
         onChanged: onChanged,
         maxLines: maxLines,
@@ -59,11 +55,11 @@ class CustomTextField extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                    color: kPrimaryColor, width: 2)),
+                    color: AppColors.primaryColor, width: 2)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                    color: kPrimaryColor, width: 2))),
+                    color: AppColors.primaryColor, width: 2))),
       ),
     );
   }

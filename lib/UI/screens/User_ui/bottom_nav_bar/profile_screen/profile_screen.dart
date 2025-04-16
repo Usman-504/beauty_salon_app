@@ -1,13 +1,13 @@
 
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../core/constants/const_colors.dart';
-import '../../../../../generated/assets.dart';
+import '../../../../../res/colors.dart';
+import '../../../../../utils/assets.dart';
 
 import 'edit_profile_screen.dart';
 
@@ -36,9 +36,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var widthX = MediaQuery.of(context).size.width;
     final profileProvider = Provider.of<ProfileProvider>(context);
     return Scaffold(
-        backgroundColor: kScaffoldColor,
+        backgroundColor: AppColors.scaffoldColor,
         appBar: AppBar(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: AppColors.primaryColor,
           leading: GestureDetector(
               onTap: () {
                 profileProvider.navigateToHomeScreen(context);
@@ -46,12 +46,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Icon(
                 Icons.arrow_back,
                 size: heightX * 0.04,
-                color: kWhiteColor,
+                color: AppColors.whiteColor,
               )),
           centerTitle: true,
           title: Text('Profile',
               style: secondaryTextStyle.copyWith(
-                  color: kWhiteColor, fontSize: widthX * 0.063)),
+                  color: AppColors.whiteColor, fontSize: widthX * 0.063)),
         ),
         body: Padding(
           padding: EdgeInsets.all(widthX * 0.03),
@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Container(
                         height: heightX * 0.15,
                         decoration: BoxDecoration(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             borderRadius: BorderRadius.circular(10)),
                       ),
                       Positioned(
@@ -75,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: heightX * 0.13,
                           width: heightX * 0.13,
                           decoration: BoxDecoration(
-                              border: Border.all(color: kPrimaryColor, width: 3),
+                              border: Border.all(color: AppColors.primaryColor, width: 3),
                               shape: BoxShape.circle),
                         ),
                       ),
@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           left: widthX * 0.32,
                           child: Text(
                             profileProvider.name,
-                            style: mediumTextStyle.copyWith(color: kPrimaryColor),
+                            style: mediumTextStyle.copyWith(color: AppColors.primaryColor),
                           )),
                       Positioned(
                         top: heightX * 0.075,
@@ -129,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               },
                               child: const Icon(
                                 Icons.edit,
-                                color: kPrimaryColor,
+                                color: AppColors.primaryColor,
                               ))),
                     ],
                   );
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Container(
                           height: heightX * 0.09,
                           decoration: BoxDecoration(
-                            color: kSecondaryColor,
+                            color: AppColors.secondaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: GestureDetector(
@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: ListTile(
                               leading: Icon(
                                 profileProvider.info[index]['icon'],
-                                color: kPrimaryColor,
+                                color: AppColors.primaryColor,
                               ),
                               title: Text(
                                 profileProvider.info[index]['title'],

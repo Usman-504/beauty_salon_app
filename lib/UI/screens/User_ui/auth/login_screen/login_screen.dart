@@ -7,13 +7,13 @@ import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
-import 'package:beauty_salon/core/constants/const_colors.dart';
-import 'package:beauty_salon/core/constants/const_styles.dart';
+import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/core/constants/const_text.dart';
-import 'package:beauty_salon/generated/assets.dart';
+import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../res/colors.dart';
 import '../auth_check.dart';
 import '../forget_password_screen/forget_password_screen.dart';
 import '../signup_screen/signup_screen.dart';
@@ -42,7 +42,7 @@ final loginProvider = Provider.of<LoginProvider>(context);
 final signUpProvider = Provider.of<SignupProvider>(context);
 print('Rebuild');
     return Scaffold(
-      backgroundColor: kContainerColor,
+      backgroundColor: AppColors.containerColor,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -68,7 +68,7 @@ print('Rebuild');
                     style: smallTextStyle.copyWith(
                         fontSize: widthX * 0.043,
                         shadows: boxShadow,
-                        color: kWhiteColor),
+                        color: AppColors.whiteColor),
                   )
                 ],
               ),
@@ -121,7 +121,7 @@ print('Rebuild');
                           padding: EdgeInsets.only(right: widthX * 0.05),
                           child: GestureDetector(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgetPasswordScreen()));
                             },
                             child: Text(
                               'Forgot Password?',
@@ -174,7 +174,7 @@ print('Rebuild');
                         },
                         borderRadius: heightX * 0.01,
                         style:
-                            mediumTextStyle.copyWith(fontSize: widthX * 0.05), btnColor: kPrimaryColor,
+                            mediumTextStyle.copyWith(fontSize: widthX * 0.05), btnColor: AppColors.primaryColor,
                       ),
                     ),
                     Row(

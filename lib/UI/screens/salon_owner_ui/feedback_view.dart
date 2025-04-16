@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../core/constants/const_colors.dart';
-import '../../../../../core/constants/const_styles.dart';
+import '../../../res/colors.dart';
+import '../../../utils/styles.dart';
 import '../User_ui/bottom_nav_bar/profile_screen/feedback_provider.dart';
 
 class FeedbackView extends StatelessWidget {
@@ -15,7 +15,7 @@ class FeedbackView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -23,13 +23,13 @@ class FeedbackView extends StatelessWidget {
           child: Icon(
             Icons.arrow_back,
             size: heightX * 0.04,
-            color: kWhiteColor,
+            color: AppColors.whiteColor,
           ),
         ),
         centerTitle: true,
         title: Text('View Feedback',
             style: secondaryTextStyle.copyWith(
-                color: kWhiteColor, fontSize: widthX * 0.063)),
+                color: AppColors.whiteColor, fontSize: widthX * 0.063)),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: Provider.of<FeedbackProvider>(context).getFeedBacks(),
@@ -54,7 +54,7 @@ class FeedbackView extends StatelessWidget {
 
                 return Card(
                   elevation: 4,
-                  color: kSecondaryColor,
+                  color: AppColors.secondaryColor,
                   shape: RoundedRectangleBorder(
 
                     borderRadius: BorderRadius.circular(15),
@@ -79,18 +79,18 @@ class FeedbackView extends StatelessWidget {
                          children: [
                            Text(
                              'Name: ${feedbackList['name'] }',
-                             style: smallTextStyle.copyWith(fontWeight: FontWeight.bold, color: kPrimaryColor),
+                             style: smallTextStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.primaryColor),
                            ),
                            Text(
                              overflow: TextOverflow.ellipsis,
                              'Email: ${feedbackList['email'] }',
-                             style: smallTextStyle.copyWith(fontWeight: FontWeight.bold, color: kPrimaryColor),
+                             style: smallTextStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.primaryColor),
                            ),
                            Text(
                              overflow: TextOverflow.ellipsis,
                              maxLines: 5,
                              'Message: ${feedbackList['message'] }',
-                             style: smallTextStyle.copyWith(fontWeight: FontWeight.bold, color: kPrimaryColor),
+                             style: smallTextStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.primaryColor),
                            ),
 
                          ],
