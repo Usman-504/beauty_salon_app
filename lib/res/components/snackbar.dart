@@ -1,5 +1,5 @@
 import  'package:flutter/material.dart';
-import '../../UI/screens/User_ui/bookings/booking_screen.dart';
+import '../../view/user_view/booking_screen.dart';
 import '../../res/colors.dart';
 import '../../utils/styles.dart';
 import '../../utils/assets.dart';
