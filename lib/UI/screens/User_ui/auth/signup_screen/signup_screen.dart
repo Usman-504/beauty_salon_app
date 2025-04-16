@@ -8,7 +8,6 @@ import 'package:beauty_salon/UI/components/social_container.dart';
 import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'package:beauty_salon/utils/styles.dart';
-import 'package:beauty_salon/core/constants/const_text.dart';
 import 'package:beauty_salon/utils/assets.dart';
 
 import 'package:flutter/material.dart';
@@ -59,7 +58,7 @@ final signUpProvider = Provider.of<SignupProvider>(context);
                     ),
                   ),
                   Text(
-                    authDetail,
+                    'Enter your information below',
                     style: smallTextStyle.copyWith(
                         fontSize: heightX * 0.02,
                         color: AppColors.whiteColor,
