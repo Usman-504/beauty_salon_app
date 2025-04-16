@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../view/user_view/all_services.dart';
+import '../../view/user_view/all_services_view.dart';
 import '../../res/colors.dart';
 import '../../utils/styles.dart';
 import '../../utils/assets.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../view_model/user_view_model/cart_provider.dart';
-import '../../view/user_view/cart_screen.dart';
+import '../../view_model/user_view_model/cart_view_model.dart';
+import '../../view/user_view/cart_view.dart';
 import '../../res/colors.dart';
 
 class ShoppingCart extends StatelessWidget {

@@ -3,10 +3,10 @@ import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import '../../res/colors.dart';
-import 'booking_screen.dart';
-import 'home_screen.dart';
-import 'profile_screen.dart';
-import 'all_services.dart';
+import 'booking_screen_view.dart';
+import 'home_view.dart';
+import 'profile_view.dart';
+import 'all_services_view.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

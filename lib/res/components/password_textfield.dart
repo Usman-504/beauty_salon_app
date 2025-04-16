@@ -1,7 +1,7 @@
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../view_model/user_view_model/login_provider.dart';
+import '../../view_model/user_view_model/login_view_model.dart';
 import '../../res/colors.dart';
 
 class PasswordTextField extends StatelessWidget {

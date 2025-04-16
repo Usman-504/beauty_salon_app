@@ -3,8 +3,8 @@ import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../view_model/user_view_model/profile_provider.dart';
-import '../../view/user_view/profile_screen.dart';
+import '../../view_model/user_view_model/profile_view_model.dart';
+import '../../view/user_view/profile_view.dart';
 import '../../res/colors.dart';
 import 'filter_icon.dart';
 

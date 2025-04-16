@@ -1,12 +1,12 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
-import 'package:beauty_salon/view/user_view/booking_screen.dart';
+import 'package:beauty_salon/view/user_view/booking_screen_view.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import '../../res/colors.dart';
-import 'all_categories_screen.dart';
-import 'salon_owner_profile_screen.dart';
-import 'salon_owner_services_screen.dart';
+import 'all_categories_view.dart';
+import 'salon_owner_profile_view.dart';
+import 'salon_owner_services_view.dart';
 
 class SalonOwnerBottomNavBar extends StatefulWidget {
   const SalonOwnerBottomNavBar({super.key});
