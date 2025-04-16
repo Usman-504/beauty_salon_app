@@ -3,11 +3,10 @@ import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owne
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../res/colors.dart';
-import '../../../components/custom_button.dart';
-import '../../../components/custom_textfield.dart';
-import '../../../components/snackbar.dart';
+import '../../../../res/components/custom_button.dart';
+import '../../../../res/components/custom_textfield.dart';
+import '../../../../res/components/snackbar.dart';
 import 'add_category_provider.dart';
 
 

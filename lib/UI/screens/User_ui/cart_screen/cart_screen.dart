@@ -2,9 +2,8 @@ import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../res/colors.dart';
-import '../../../components/custom_button.dart';
+import '../../../../res/components/custom_button.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment.dart';
 import '../bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import '../bottom_nav_bar/services/all_services/all_services.dart';

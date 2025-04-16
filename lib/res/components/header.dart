@@ -3,9 +3,9 @@ import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
+import '../../UI/screens/User_ui/bottom_nav_bar/profile_screen/profile_screen.dart';
 import '../../res/colors.dart';
-import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_provider.dart';
-import '../screens/User_ui/bottom_nav_bar/profile_screen/profile_screen.dart';
 import 'filter_icon.dart';
 
 class Header extends StatefulWidget {

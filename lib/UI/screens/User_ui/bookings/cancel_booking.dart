@@ -1,10 +1,10 @@
-import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../res/colors.dart';
-import '../../../components/image_container.dart';
+import '../../../../res/components/custom_button.dart';
+import '../../../../res/components/image_container.dart';
+import '../../../../res/components/white_container.dart';
 import 'booking_provider.dart';
 
 

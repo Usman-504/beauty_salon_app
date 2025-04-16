@@ -1,13 +1,13 @@
-import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/custom_textfield.dart';
-import 'package:beauty_salon/UI/components/image_container.dart';
-import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../res/colors.dart';
+import '../../../../../res/components/custom_button.dart';
+import '../../../../../res/components/custom_textfield.dart';
+import '../../../../../res/components/image_container.dart';
+import '../../../../../res/components/white_container.dart';
 import 'forget_password_provider.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {

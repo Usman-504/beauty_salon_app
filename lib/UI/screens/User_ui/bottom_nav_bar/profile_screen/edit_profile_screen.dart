@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/custom_textfield.dart';
-import 'package:beauty_salon/UI/components/password_textfield.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/update_profile_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../res/colors.dart';
+import '../../../../../res/components/custom_button.dart';
+import '../../../../../res/components/custom_textfield.dart';
+import '../../../../../res/components/password_textfield.dart';
 import '../../../../../utils/styles.dart';
 import '../../../../../utils/assets.dart';
 
@@ -111,7 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                              ? FileImage(File(updateProfileInfoProvider.file!.path))
                              : (widget.imageUrl.isNotEmpty
                              ? NetworkImage(widget.imageUrl)
-                             : AssetImage(Assets.dp) as ImageProvider),
+                             : const AssetImage(Assets.dp) as ImageProvider),
                        ),
                      ),
 

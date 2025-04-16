@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import '../../../../res/colors.dart';
-import '../../../components/alert_dialog.dart';
+import '../../../../res/components/alert_dialog.dart';
 import '../add_service/add_service.dart';
 import '../all_categories/all_categories_provider.dart';
 import '../update_services/update_services_screen.dart';

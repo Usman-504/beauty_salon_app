@@ -1,8 +1,8 @@
-import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../res/colors.dart';
+import '../../../../../res/components/custom_button.dart';
+import '../../../../../res/components/custom_textfield.dart';
 import '../../../../../utils/styles.dart';
 import 'feedback_provider.dart';
 

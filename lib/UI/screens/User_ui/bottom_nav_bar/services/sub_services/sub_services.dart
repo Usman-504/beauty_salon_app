@@ -1,9 +1,9 @@
-import 'package:beauty_salon/UI/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../res/colors.dart';
+import '../../../../../../res/components/header.dart';
+import '../../../../../../res/components/side_drawer.dart';
 import '../../../../../../utils/styles.dart';
-import '../../../../../components/side_drawer.dart';
 import '../../../../salon_owner_ui/all_categories/all_categories_provider.dart';
 import '../services_details/service_details.dart';
 

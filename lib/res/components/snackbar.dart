@@ -1,8 +1,8 @@
 import  'package:flutter/material.dart';
+import '../../UI/screens/User_ui/bookings/booking_screen.dart';
 import '../../res/colors.dart';
 import '../../utils/styles.dart';
 import '../../utils/assets.dart';
-import '../screens/User_ui/bookings/booking_screen.dart';
 import 'custom_button.dart';
 
 class Utils {

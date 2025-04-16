@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/colors.dart';
+import '../../../../res/components/alert_dialog.dart';
 import '../../../../utils/styles.dart';
-import '../../../components/alert_dialog.dart';
 import '../add_category/add_category.dart';
 import '../update_category/update_category_screen.dart';
 import 'all_categories_provider.dart';

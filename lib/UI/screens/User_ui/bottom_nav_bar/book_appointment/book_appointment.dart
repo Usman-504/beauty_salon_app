@@ -1,13 +1,12 @@
-import 'package:beauty_salon/UI/components/custom_textfield.dart';
-import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../res/colors.dart';
-import '../../../../components/custom_button.dart';
+import '../../../../../res/components/custom_button.dart';
+import '../../../../../res/components/custom_textfield.dart';
+import '../../../../../res/components/snackbar.dart';
 import '../../AppointmentSummary/appointment_summary.dart';
 import 'book_appointment_provider.dart';
 

@@ -5,8 +5,8 @@ import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../res/colors.dart';
-import '../../../components/custom_button.dart';
-import '../../../components/custom_textfield.dart';
+import '../../../../res/components/custom_button.dart';
+import '../../../../res/components/custom_textfield.dart';
 import '../add_service/add_service_provider.dart';
 import '../all_categories/all_categories_provider.dart';
 

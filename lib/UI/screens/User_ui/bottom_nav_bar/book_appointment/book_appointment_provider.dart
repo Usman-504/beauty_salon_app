@@ -9,7 +9,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../../../../components/snackbar.dart';
+
+import '../../../../../res/components/snackbar.dart';
+
 
 class BookAppointmentProvider with ChangeNotifier {
   DateTime? _selectedDate  ;

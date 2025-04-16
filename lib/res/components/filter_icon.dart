@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../UI/screens/User_ui/cart_screen/cart_provider.dart';
+import '../../UI/screens/User_ui/cart_screen/cart_screen.dart';
 import '../../res/colors.dart';
-import '../screens/User_ui/cart_screen/cart_provider.dart';
-import '../screens/User_ui/cart_screen/cart_screen.dart';
 
 class ShoppingCart extends StatelessWidget {
   const ShoppingCart({

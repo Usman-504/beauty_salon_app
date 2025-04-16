@@ -1,9 +1,9 @@
-import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../res/colors.dart';
+import '../../../../res/components/custom_button.dart';
+import '../../../../res/components/snackbar.dart';
 import '../../../../utils/styles.dart';
-import '../../../components/custom_button.dart';
 import '../bookings/booking_provider.dart';
 import '../bottom_nav_bar/book_appointment/book_appointment_provider.dart';
 

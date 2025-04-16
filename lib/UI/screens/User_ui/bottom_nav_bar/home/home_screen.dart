@@ -1,11 +1,11 @@
-import 'package:beauty_salon/UI/components/custom_banner.dart';
-import 'package:beauty_salon/UI/components/header.dart';
-import 'package:beauty_salon/UI/components/side_drawer.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/services/services_details/service_details.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../res/colors.dart';
+import '../../../../../res/components/custom_banner.dart';
+import '../../../../../res/components/header.dart';
+import '../../../../../res/components/side_drawer.dart';
 import '../../../salon_owner_ui/all_categories/all_categories_provider.dart';
 import '../../../salon_owner_ui/all_services/salon_owner_services_provider.dart';
 import '../../cart_screen/cart_provider.dart';

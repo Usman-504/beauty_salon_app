@@ -1,5 +1,3 @@
-import 'package:beauty_salon/UI/components/alert_dialog.dart';
-import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_screen.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/profile_screen/privacy_screen.dart';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
@@ -9,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../res/components/alert_dialog.dart';
+import '../../../../../res/components/snackbar.dart';
 import '../../../salon_owner_ui/create_account/admin_signup_screen.dart';
 import '../../../salon_owner_ui/feedback_view.dart';
 import '../../auth/login_screen/login_screen.dart';

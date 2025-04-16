@@ -1,8 +1,8 @@
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../UI/screens/User_ui/auth/login_screen/login_provider.dart';
 import '../../res/colors.dart';
-import '../screens/User_ui/auth/login_screen/login_provider.dart';
 
 class PasswordTextField extends StatelessWidget {
   final TextEditingController controller;

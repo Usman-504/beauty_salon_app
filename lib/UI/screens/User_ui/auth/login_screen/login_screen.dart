@@ -1,11 +1,3 @@
-import 'package:beauty_salon/UI/components/custom_button.dart';
-import 'package:beauty_salon/UI/components/custom_divider.dart';
-import 'package:beauty_salon/UI/components/custom_textfield.dart';
-import 'package:beauty_salon/UI/components/image_container.dart';
-import 'package:beauty_salon/UI/components/password_textfield.dart';
-import 'package:beauty_salon/UI/components/snackbar.dart';
-import 'package:beauty_salon/UI/components/social_container.dart';
-import 'package:beauty_salon/UI/components/white_container.dart';
 import 'package:beauty_salon/UI/screens/User_ui/auth/signup_screen/signup_provider.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:beauty_salon/utils/assets.dart';
@@ -13,6 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../res/colors.dart';
+import '../../../../../res/components/custom_button.dart';
+import '../../../../../res/components/custom_divider.dart';
+import '../../../../../res/components/custom_textfield.dart';
+import '../../../../../res/components/image_container.dart';
+import '../../../../../res/components/password_textfield.dart';
+import '../../../../../res/components/snackbar.dart';
+import '../../../../../res/components/social_container.dart';
+import '../../../../../res/components/white_container.dart';
 import '../auth_check.dart';
 import '../forget_password_screen/forget_password_screen.dart';
 import '../signup_screen/signup_screen.dart';

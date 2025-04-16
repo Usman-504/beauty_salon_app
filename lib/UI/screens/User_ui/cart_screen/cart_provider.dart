@@ -1,8 +1,9 @@
-import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/screens/User_ui/cart_screen/cart_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../res/components/snackbar.dart';
 
 class CartProvider with ChangeNotifier {
   // int _quantity = 01;

@@ -1,10 +1,10 @@
-import 'package:beauty_salon/UI/components/custom_button.dart';
 import 'package:beauty_salon/UI/screens/onboarding_screen/onboarding_provider.dart';
 import 'package:beauty_salon/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../res/colors.dart';
+import '../../../res/components/custom_button.dart';
 import '../User_ui/auth/login_screen/login_screen.dart';
 import '../User_ui/auth/signup_screen/signup_screen.dart';
 

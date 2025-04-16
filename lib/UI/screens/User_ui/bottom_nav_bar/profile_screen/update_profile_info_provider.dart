@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:beauty_salon/UI/components/snackbar.dart';
 import 'package:beauty_salon/UI/screens/User_ui/bottom_nav_bar/bottom_nav_screen/bottom_nav_bar.dart';
 import 'package:beauty_salon/UI/screens/salon_owner_ui/bottom_nav_bar/salon_owner_bottom_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../res/components/snackbar.dart';
 import '../../auth/login_screen/login_screen.dart';
 
 class UpdateProfileInfoProvider with ChangeNotifier {
